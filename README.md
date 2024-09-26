@@ -11,4 +11,4 @@ Your task is to develop a fully functional mobile app based on the ONZE Café ow
 <br></br>
 
 ## Reminder 
- <h3 style="font-family:Trebuchet MS, sans-serif;">We can’t wait to see the incredible work you’re about to create! 🎨☕ᝰ.ᐟ</h3>
+**We can’t wait to see the incredible work you’re about to create! 🎨☕ᝰ.ᐟ**
