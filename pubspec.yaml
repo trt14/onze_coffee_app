@@ -19,4 +19,5 @@ flutter:
   assets:
     - assets/
     - assets/logo/
+    - assets/banner/
   uses-material-design: true
