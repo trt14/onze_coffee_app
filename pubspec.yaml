@@ -20,4 +20,5 @@ flutter:
     - assets/
     - assets/logo/
     - assets/banner/
+    - assets/product/
   uses-material-design: true

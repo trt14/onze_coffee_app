@@ -5,6 +5,27 @@ class ProductDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      appBar: AppBar(),
+      body: SafeArea(
+          bottom: false,
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Image.asset("assets/product/image.png"),
+                Row(
+                  children: [
+                    Expanded(
+                      child: ListTile(
+                        title: Text("Caffe Mocha"),
+                        subtitle: Text("Hot"),
+                      ),
+                    )
+                  ],
+                )
+              ],
+            ),
+          )),
+    );
   }
 }

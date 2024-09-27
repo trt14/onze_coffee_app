@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:onze_coffee_app/helper/custom_colors.dart';
 import 'package:onze_coffee_app/helper/screen.dart';
+import 'package:onze_coffee_app/screen/shared/product_details_screen.dart';
 import 'package:onze_coffee_app/widget/comment/custom_choice_chip.dart';
 import 'package:onze_coffee_app/widget/comment/product_view.dart';
 import 'package:onze_coffee_app/widget/image_banner.dart';
@@ -63,7 +64,14 @@ class UserHomeScreen extends StatelessWidget {
                     crossAxisCount: 2, childAspectRatio: .75),
                 children: [
                   ProductView(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const ProductDetailsScreen(),
+                        ),
+                      );
+                    },
                     onPressed: () {},
                     name: "Coffee Mocha",
                     price: "10",
