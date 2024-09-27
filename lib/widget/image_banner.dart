@@ -12,7 +12,7 @@ class ImageBanner extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: context.getWidth(value: 1),
-      height: 100,
+      height: 200,
       decoration: const BoxDecoration(
         gradient: LinearGradient(
           colors: [

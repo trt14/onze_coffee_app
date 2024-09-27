@@ -27,18 +27,25 @@ class ProductView extends StatelessWidget {
         child: Card(
           color: AppColor.white,
           elevation: 4,
-          child: Padding(
-            padding: const EdgeInsets.all(5),
-            child: Column(
-              children: [
-                imageSrc != ""
-                    ? Image.network(imageSrc, height: 90)
-                    : Image.asset("assets/logo/onze_logo.png", height: 100),
-                ListTile(
-                  title: Text(name),
-                  subtitle: Text(type),
-                ),
-                Row(
+          child: Column(
+            children: [
+              imageSrc != ""
+                  ? Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: Image.network(imageSrc, height: 90),
+                    )
+                  : Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child:
+                          Image.asset("assets/logo/onze_logo.png", height: 100),
+                    ),
+              ListTile(
+                title: Text(name),
+                subtitle: Text(type),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
@@ -57,9 +64,9 @@ class ProductView extends StatelessWidget {
                       ),
                     )
                   ],
-                )
-              ],
-            ),
+                ),
+              )
+            ],
           ),
         ),
       ),
