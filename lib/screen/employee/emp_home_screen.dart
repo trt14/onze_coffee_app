@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:onze_coffee_app/helper/custom_colors.dart';
 import 'package:onze_coffee_app/helper/screen.dart';
 import 'package:onze_coffee_app/widget/custom_choice_chip.dart';
+import 'package:onze_coffee_app/widget/custom_container_order.dart';
 
 class EmpHomeScreen extends StatelessWidget {
   const EmpHomeScreen({super.key});
@@ -51,58 +52,29 @@ class EmpHomeScreen extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: Row(
                 children: [
-                  Container(
-                    padding: EdgeInsets.symmetric(horizontal: 8),
-                    width: context.getWidth(value: 0.65),
-                    height: 100,
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(8)),
-                    alignment: Alignment.centerLeft,
-                    child: const Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Center(
-                          child: Text(
-                            "Order #217",
-                            style: TextStyle(fontWeight: FontWeight.w600),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        Text(
-                          "Coffee Mocha x 1  ,  Coffee Mocha x 2  ,  Coffee Mocha x 1",
-                          maxLines: 2,
-                          style: TextStyle(
-                            fontSize: 10,
-                          ),
-                        ),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        Row(
-                          children: [
-                            Text(
-                              "Note:",
-                              style: TextStyle(
-                                  fontSize: 10, fontWeight: FontWeight.w600),
-                            ),
-                            Text(
-                              "Don't add milk to the coffee",
-                              style: TextStyle(
-                                  fontSize: 10, color: AppColor.secondary),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
+                  GestureDetector(
+                    onLongPress: () {
+                      print("here");
+                    },
+                    child: const CustomContainerOrder(
+                        isNote: true,
+                        note: "Don't add milk to the coffee",
+                        orderID: "217",
+                        height: 100,
+                        width: 0.65,
+                        productsWithQuntity:
+                            "Coffee Mocha x 1  ,  Coffee Mocha x 2  ,  Coffee Mocha x 1"),
                   ),
-                  Container(
-                    width: context.getWidth(value: 0.25),
-                    height: 100,
-                    color: AppColor.primary,
+                  InkWell(
+                    onTap: () {
+                      print("Completed");
+                    },
+                    child: Container(
+                      width: context.getWidth(value: 0.25),
+                      height: 100,
+                      color: AppColor.primary,
+                      child: Image.asset("assets/images/onzo-icon.png"),
+                    ),
                   )
                 ],
               ),
