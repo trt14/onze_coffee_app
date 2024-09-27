@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:onze_coffee_app/helper/custom_colors.dart';
 import 'package:onze_coffee_app/widget/comment/custom_choice_chip.dart';
+import 'package:onze_coffee_app/widget/comment/product_view.dart';
 
 class UserHomeScreen extends StatelessWidget {
   const UserHomeScreen({super.key});
@@ -47,54 +48,36 @@ class UserHomeScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              ProductView(
-                name: "Caffe Mocha",
-                price: "10",
-                type: "Deep Foam",
-              )
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class ProductView extends StatelessWidget {
-  const ProductView({
-    super.key,
-    this.imageSrc = "",
-    required this.name,
-    required this.type,
-    required this.price,
-  });
-  final String? imageSrc;
-  final String name;
-  final String type;
-  final String price;
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 50,
-      width: 40,
-      child: Card(
-        elevation: 4,
-        child: Padding(
-          padding: const EdgeInsets.all(5),
-          child: Column(
-            children: [
-              SizedBox(height: 40, width: 40, child: const Placeholder()),
-              ListTile(
-                title: Text(name),
-                subtitle: Text(type),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              GridView(
+                physics: const NeverScrollableScrollPhysics(),
+                primary: false,
+                shrinkWrap: true,
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2, childAspectRatio: .75),
                 children: [
-                  Text(style: TextStyle(color: AppColor.secondary), "$price SAR")
+                  ProductView(
+                    onTap: () {},
+                    onPressed: () {},
+                    name: "Coffee Mocha",
+                    price: "10",
+                    type: "Deep Foam",
+                  ),
+                  ProductView(
+                    onTap: () {},
+                    onPressed: () {},
+                    name: "Coffee Mocha",
+                    price: "10",
+                    type: "Deep Foam",
+                  ),
+                  ProductView(
+                    onTap: () {},
+                    onPressed: () {},
+                    name: "Black Coffee",
+                    price: "10",
+                    type: "Deep Foam",
+                  )
                 ],
-              )
+              ),
             ],
           ),
         ),
