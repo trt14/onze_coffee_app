@@ -7,8 +7,11 @@ environment:
   sdk: ^3.5.0
 
 dependencies:
+  device_preview: ^1.2.0
   flutter:
     sdk: flutter
+  font_awesome_flutter: ^10.7.0
+  readmore: ^3.0.0
 
 dev_dependencies:
   flutter_test:
@@ -20,5 +23,6 @@ flutter:
     - assets/
     - assets/logo/
     - assets/images/
-
+    - assets/banner/
+    - assets/product/
   uses-material-design: true

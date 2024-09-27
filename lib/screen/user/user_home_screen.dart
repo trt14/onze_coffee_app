@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:onze_coffee_app/helper/custom_colors.dart';
+import 'package:onze_coffee_app/helper/screen.dart';
+import 'package:onze_coffee_app/screen/shared/product_details_screen.dart';
 import 'package:onze_coffee_app/widget/comment/custom_choice_chip.dart';
 import 'package:onze_coffee_app/widget/comment/product_view.dart';
+import 'package:onze_coffee_app/widget/image_banner.dart';
 
 class UserHomeScreen extends StatelessWidget {
   const UserHomeScreen({super.key});
@@ -16,9 +19,14 @@ class UserHomeScreen extends StatelessWidget {
           child: Column(
             children: [
               Container(
-                width: double.infinity,
+                width: context.getWidth(value: 1),
+                height: context.getWidth(value: 1),
                 decoration: const BoxDecoration(color: AppColor.primary),
                 child: Image.asset("assets/logo/onze_logo.png"),
+              ),
+              const ImageBanner(imageSrc: "assets/banner/Banner.png"),
+              const SizedBox(
+                height: 10,
               ),
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
@@ -56,7 +64,14 @@ class UserHomeScreen extends StatelessWidget {
                     crossAxisCount: 2, childAspectRatio: .75),
                 children: [
                   ProductView(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const ProductDetailsScreen(),
+                        ),
+                      );
+                    },
                     onPressed: () {},
                     name: "Coffee Mocha",
                     price: "10",

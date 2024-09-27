@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:onze_coffee_app/helper/custom_colors.dart';
 import 'package:onze_coffee_app/helper/screen.dart';
+import 'package:onze_coffee_app/widget/custom_add_image.dart';
 import 'package:onze_coffee_app/widget/custom_choice_chip.dart';
 import 'package:onze_coffee_app/widget/custom_main_button.dart';
 import 'package:onze_coffee_app/widget/custom_text_field.dart';
@@ -26,15 +27,7 @@ class EmpAddProductScreen extends StatelessWidget {
                 const SizedBox(
                   height: 5,
                 ),
-                Center(
-                  child: Container(
-                    width: context.getWidth(value: 90 / 100),
-                    height: context.getHeight(value: 0.25),
-                    constraints: const BoxConstraints(maxWidth: 400),
-                    decoration: const BoxDecoration(color: AppColor.fivth),
-                    child: const Icon(Icons.add),
-                  ),
-                ),
+                const CustomAddImage(),
                 CustomTextField(
                   title: "Product Name",
                   hint: "Product Name",
