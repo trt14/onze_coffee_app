@@ -12,6 +12,7 @@ class UserCartScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomSheet: CustomButtonBottomSheet(
+        title: "BUY NOW!!",
         onPressed: () {},
       ),
       appBar: AppBar(

@@ -4,13 +4,12 @@ import 'package:onze_coffee_app/helper/screen.dart';
 import 'package:onze_coffee_app/widget/custom_main_button.dart';
 
 class CustomButtonBottomSheet extends StatelessWidget {
-  const CustomButtonBottomSheet({
-    super.key,
-    this.price = "",
-    this.onPressed,
-  });
+  const CustomButtonBottomSheet(
+      {super.key, this.price = "", this.onPressed, required this.title});
   final String? price;
   final void Function()? onPressed;
+  final String title;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -43,15 +42,14 @@ class CustomButtonBottomSheet extends StatelessWidget {
                 ),
                 Align(
                     alignment: Alignment.center,
-                    child: CustomMainButton(
-                        title: "Add to cart", onPressed: onPressed))
+                    child: CustomMainButton(title: title, onPressed: onPressed))
               ],
             )
           : Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 CustomMainButton(
-                  title: "Buy",
+                  title: title,
                   onPressed: onPressed,
                 ),
               ],

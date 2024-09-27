@@ -3,19 +3,20 @@ import 'package:onze_coffee_app/helper/custom_colors.dart';
 import 'package:onze_coffee_app/helper/screen.dart';
 
 class ProductView extends StatelessWidget {
-  const ProductView({
-    super.key,
-    this.imageSrc = "",
-    required this.name,
-    required this.type,
-    required this.price,
-    required this.onPressed,
-    this.onTap,
-  });
+  const ProductView(
+      {super.key,
+      this.imageSrc = "",
+      required this.name,
+      required this.type,
+      required this.price,
+      required this.onPressed,
+      this.onTap,
+      this.isEmployee = false});
   final String imageSrc;
   final String name;
   final String type;
   final String price;
+  final bool isEmployee;
   final void Function() onPressed;
   final Function()? onTap;
   @override
@@ -46,32 +47,35 @@ class ProductView extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: isEmployee == false
+                      ? MainAxisAlignment.spaceBetween
+                      : MainAxisAlignment.center,
                   children: [
                     Text(
                         style: const TextStyle(color: AppColor.secondary),
                         "$price SAR"),
-                    SizedBox(
-                      height: context.getHeight(value: .05),
-                      width: context.getWidth(value: .11),
-                      child: IconButton.filled(
-                        style: ButtonStyle(
-                            shape:
-                                WidgetStateProperty.all<RoundedRectangleBorder>(
-                              RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(
-                                    10), // Change the radius as needed
+                    isEmployee == false
+                        ? SizedBox(
+                            height: context.getHeight(value: .05),
+                            width: context.getWidth(value: .11),
+                            child: IconButton.filled(
+                              style: ButtonStyle(
+                                  shape: WidgetStateProperty.all<
+                                      RoundedRectangleBorder>(
+                                    RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                  ),
+                                  backgroundColor: WidgetStateProperty.all(
+                                      AppColor.primary)),
+                              onPressed: onPressed,
+                              icon: const Icon(
+                                Icons.add,
+                                color: AppColor.white,
                               ),
                             ),
-                            backgroundColor:
-                                WidgetStateProperty.all(AppColor.primary)),
-                        onPressed: onPressed,
-                        icon: const Icon(
-                          Icons.add,
-                          color: AppColor.white,
-                        ),
-                      ),
-                    )
+                          )
+                        : SizedBox()
                   ],
                 ),
               )

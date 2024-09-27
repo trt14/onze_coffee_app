@@ -56,6 +56,7 @@ class EmpProductsScreen extends StatelessWidget {
                 onPressed: () {},
                 name: "Coffee Mocha",
                 price: "10",
+                isEmployee: true,
                 type: "Deep Foam",
               ),
               ProductView(
@@ -63,11 +64,13 @@ class EmpProductsScreen extends StatelessWidget {
                 onPressed: () {},
                 name: "Coffee Mocha",
                 price: "10",
+                isEmployee: true,
                 type: "Deep Foam",
               ),
               ProductView(
                 onTap: () {},
                 onPressed: () {},
+                isEmployee: true,
                 name: "Black Coffee",
                 price: "10",
                 type: "Deep Foam",
