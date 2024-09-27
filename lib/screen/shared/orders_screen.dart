@@ -35,7 +35,7 @@ class OrdersScreen extends StatelessWidget {
                 productsWithQuntity:
                     "Coffee Mocha x 1  ,  Coffee Mocha x 2  ,  Coffee Mocha x 1"),
             SizedBox(
-              height: 20,
+              height: 10,
             ),
             CustomContainerOrder(
                 isNote: false,
@@ -46,6 +46,9 @@ class OrdersScreen extends StatelessWidget {
                 textStatus: "Hold",
                 productsWithQuntity:
                     "Coffee Mocha x 1  ,  Coffee Mocha x 2  ,  Coffee Mocha x 1"),
+            SizedBox(
+              height: 10,
+            ),
             CustomContainerOrder(
                 isNote: false,
                 orderID: "217",
