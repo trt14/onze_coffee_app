@@ -13,6 +13,7 @@ class ProductDetailsScreen extends StatelessWidget {
         title: const Center(child: Text("Detail")),
       ),
       bottomSheet: CustomButtonBottomSheet(
+        title: "Add to Cart",
         price: "10",
         onPressed: () {},
       ),
