@@ -29,6 +29,7 @@ class UserCartScreen extends StatelessWidget {
               ),
             ),
             ProductCard(
+              qty: "1",
               decrement: () {},
               increment: () {},
               imageSrc: "assets/product/image.png",
