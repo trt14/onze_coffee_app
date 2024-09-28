@@ -12,6 +12,7 @@ class UserCartScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomSheet: CustomButtonBottomSheet(
+        title: "BUY NOW!!",
         onPressed: () {},
       ),
       appBar: AppBar(
@@ -28,6 +29,7 @@ class UserCartScreen extends StatelessWidget {
               ),
             ),
             ProductCard(
+              qty: "1",
               decrement: () {},
               increment: () {},
               imageSrc: "assets/product/image.png",

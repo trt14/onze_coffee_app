@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:onze_coffee_app/helper/custom_colors.dart';
 
@@ -7,9 +6,11 @@ class Counter extends StatelessWidget {
     super.key,
     this.increment,
     this.decrement,
+    required this.qty,
   });
   final void Function()? increment;
   final void Function()? decrement;
+  final String qty;
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -21,7 +22,7 @@ class Counter extends StatelessWidget {
             color: AppColor.secondary,
           ),
         ),
-        const Text("1"),
+        Text(qty),
         IconButton(
           onPressed: decrement,
           icon: const Icon(
