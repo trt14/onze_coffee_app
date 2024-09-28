@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:onze_coffee_app/helper/custom_colors.dart';
 import 'package:onze_coffee_app/helper/screen.dart';
-import 'package:onze_coffee_app/screen/shared/Custom_pay_details_bottom_sheet.dart';
+import 'package:onze_coffee_app/widget/comment/custom_pay_details_bottom_sheet.dart';
 import 'package:onze_coffee_app/widget/comment/product_card.dart';
 
 class OrderDetailsScreen extends StatelessWidget {
