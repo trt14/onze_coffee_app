@@ -4,7 +4,7 @@ class ProductModel {
   ProductModel({
     required this.productId,
     required this.productName,
-    this.description,
+    required this.description,
     required this.tempreture,
     required this.variants,
     required this.productCategory,
@@ -12,11 +12,11 @@ class ProductModel {
   });
   late final int productId;
   late final String productName;
-  late final Null description;
+  late final String description;
   late final String tempreture;
   late final List<Variants> variants;
   late final String productCategory;
-  late final List<String> imageUrls;
+  late final List imageUrls;
 
   ProductModel.fromJson(Map<String, dynamic> json) {
     productId = json['id'];
@@ -26,7 +26,7 @@ class ProductModel {
     variants =
         List.from(json['variants']).map((e) => Variants.fromJson(e)).toList();
     productCategory = json['product_category'];
-    imageUrls = List.castFrom<dynamic, String>(json['image_urls']);
+    imageUrls = List.castFrom<dynamic, dynamic>(json['image_urls']);
   }
 
   Map<String, dynamic> toJson({required int categoryId}) {
