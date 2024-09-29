@@ -58,11 +58,9 @@ class EmpProductsScreen extends StatelessWidget {
             children: [
               ProductView(
                 onTap: () async {
-                  await OrderRepository().updateOrderID(
-                      userID: "e8661b98-e738-4093-80d3-4e9a9e7a90fd",
-                      amount: 100,
-                      status: "holding",
-                      orderID: 106);
+                  await OrderRepository().addNewOrderID(
+                    userID: "e1552d62-c042-4130-9d9c-7f6dceb3d966",
+                  );
                 },
                 onPressed: () {},
                 name: "Coffee Mocha",
