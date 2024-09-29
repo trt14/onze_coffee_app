@@ -6,38 +6,41 @@ class AuthRepository {
 
   /*
   *
-  * TODO need testing
   * Sign up a new user using Supabase Auth
   *
+  * If Confirm email is enabled, a user is returned but session is null.
+  * If Confirm email is disabled, both a user and a session are returned.
+  *
   * */
-  Future<bool> signUp(String email, String password) async {
+  Future<AuthResponse> signUp(String email, String password) async {
     try {
-      print("create account inside try");
-
-      await supabase.client.auth.signInWithOtp(email: email);
-      return true;
+      // Return the user and session if Confirm email is enabled
+      return await supabase.client.auth.signUp(email: email, password: password);
     } catch (e) {
       throw Exception('Error during sign-up: $e');
     }
   }
 
-  Future<String> verifyOtp({required String email, required String otp}) async {
-    try {
-      await supabase.client.auth
-          .verifyOTP(type: OtpType.signup, email: email, token: otp);
-      return "Correct otp";
-    } catch (e) {
-      print(e.toString());
-      return "Something error $e";
-    }
-  }
   /*
   *
-  * TODO need testing
+  * Sign in using email and otp
+  *
+  * */
+  Future<AuthResponse> verifyOtp({required String email, required String otp}) async {
+    try {
+      // Return the auth response if otp verification is successful
+      return await supabase.client.auth
+          .verifyOTP(type: OtpType.signup, email: email, token: otp);
+    } catch (e) {
+      throw Exception('Error during OTP verification: $e');
+    }
+  }
+
+  /*
+  *
   * Sign in an existing user
   *
   * */
-  
   // Future<User?> signIn(String email) async {
   //   try {
   //     final response = await supabase.client.auth.signInWithOtp(email: email);
