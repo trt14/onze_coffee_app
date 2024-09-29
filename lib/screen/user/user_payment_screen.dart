@@ -5,11 +5,12 @@ class UserPaymentScreen extends StatelessWidget {
   UserPaymentScreen({super.key});
 
   final paymentConfig = PaymentConfig(
+    
     publishableApiKey: 'YOUR_API_KEY',
     amount: 25758, // SAR 257.58
     description: 'order #1324',
     metadata: {'size': '250g'},
-    creditCard: CreditCardConfig(saveCard: true, manual: false),
+    creditCard: CreditCardConfig(saveCard: false, manual: false),
     applePay: ApplePayConfig(
         merchantId: 'YOUR_MERCHANT_ID',
         label: 'YOUR_STORE_NAME',

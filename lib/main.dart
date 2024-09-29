@@ -1,6 +1,9 @@
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:onze_coffee_app/data/repositories/product_repository.dart';
+import 'package:onze_coffee_app/models/product_model.dart';
+import 'package:onze_coffee_app/models/variants.dart';
 import 'package:onze_coffee_app/screen/shared/order_details_screen.dart';
 import 'package:onze_coffee_app/screen/shared/product_details_screen.dart';
 import 'package:onze_coffee_app/screen/user/user_cart_screen.dart';
@@ -24,11 +27,10 @@ void main() async {
   await dotenv.load();
 
   // Initialize Supabase
-   supabase = await Supabase.initialize(
-      url: dotenv.env['SUPABASE_URL'] ?? '',
-      anonKey: dotenv.env['SUPABASE_ANON_KEY'] ?? '',
-    );
-
+  supabase = await Supabase.initialize(
+    url: dotenv.env['SUPABASE_URL'] ?? '',
+    anonKey: dotenv.env['SUPABASE_ANON_KEY'] ?? '',
+  );
   runApp(DevicePreview(
     enabled: !kReleaseMode,
     builder: (context) => const MainApp(), // Wrap your app
