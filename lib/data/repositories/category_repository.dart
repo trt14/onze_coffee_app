@@ -1,4 +1,3 @@
-import 'package:supabase_flutter/supabase_flutter.dart';
 import '../../integrations/supabase/supabase_client.dart';
 
 class CategoryRepository {
@@ -79,6 +78,7 @@ class CategoryRepository {
             .delete()
             .eq("id", id)
             .select();
+        print(response);
       }
     } catch (e) {
       print(e.toString());

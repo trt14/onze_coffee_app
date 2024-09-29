@@ -1,4 +1,3 @@
-import 'package:supabase_flutter/supabase_flutter.dart';
 import '../../integrations/supabase/supabase_client.dart';
 
 class OrderRepository {
@@ -100,13 +99,17 @@ class OrderRepository {
       required int quantity,
       required int productID}) async {
     try {
-      final response = await supabase.client.from("order_items").update({
-        "quantity": quantity,
-        "price": price,
-        "product_id": 1,
-        "created_by": userID,
-        "order_id": orderID
-      }).eq("id", orderItemID);
+      final response = await supabase.client
+          .from("order_items")
+          .update({
+            "quantity": quantity,
+            "price": price,
+            "product_id": 1,
+            "created_by": userID,
+            "order_id": orderID
+          })
+          .eq("id", orderItemID)
+          .select();
       print(response);
     } catch (e) {
       print(e.toString());

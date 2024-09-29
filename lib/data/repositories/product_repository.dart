@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:onze_coffee_app/data/repositories/image_repository.dart';
 import 'package:onze_coffee_app/integrations/supabase/supabase_client.dart';
