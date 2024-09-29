@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:onze_coffee_app/data/repositories/order_repository.dart';
 import 'package:onze_coffee_app/widget/comment/custom_choice_chip.dart';
 import 'package:onze_coffee_app/widget/comment/product_view.dart';
 
@@ -56,8 +57,7 @@ class EmpProductsScreen extends StatelessWidget {
             children: [
               ProductView(
                 onTap: () async {
-                  await CategoryRepository()
-                      .addNewCategory(name: "somethingAAA");
+                  await OrderRepository().addNewOrderID(userID: "123");
                 },
                 onPressed: () {},
                 name: "Coffee Mocha",

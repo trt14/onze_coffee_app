@@ -11,19 +11,12 @@ class AuthRepository {
   * Sign up a new user using Supabase Auth
   *
   * */
-  Future<User?> signUp(String email, String password) async {
+  Future<bool> signUp(String email, String password) async {
     try {
-      final response = await _supabase.auth.signUp(
-        email: email,
-        password: password,
-      );
+      print("create account inside try");
 
-      if (response.user != null) {
-        // Successfully signed up, return the user object
-        return response.user;
-      } else {
-        throw Exception('Sign-up failed');
-      }
+      await supabase.client.auth.signInWithOtp(email: email);
+      return true;
     } catch (e) {
       throw Exception('Error during sign-up: $e');
     }
@@ -35,23 +28,20 @@ class AuthRepository {
   * Sign in an existing user
   *
   * */
-  Future<User?> signIn(String email, String password) async {
-    try {
-      final response = await _supabase.auth.signInWithPassword(
-        email: email,
-        password: password,
-      );
+  // Future<User?> signIn(String email) async {
+  //   try {
+  //     final response = await supabase.client.auth.signInWithOtp(email: email);
 
-      if (response.user != null) {
-        // Successfully signed in, return the user object
-        return response.user;
-      } else {
-        throw Exception('Sign-in failed');
-      }
-    } catch (e) {
-      throw Exception('Error during sign-in: $e');
-    }
-  }
+  //     if (response!= null) {
+  //       // Successfully signed in, return the user object
+  //       return response.user;
+  //     } else {
+  //       throw Exception('Sign-in failed');
+  //     }
+  //   } catch (e) {
+  //     throw Exception('Error during sign-in: $e');
+  //   }
+  // }
 
   /*
   *
@@ -61,7 +51,7 @@ class AuthRepository {
   * */
   Future<void> signOut() async {
     try {
-      await _supabase.auth.signOut();
+      await supabase.client.auth.signOut();
     } catch (e) {
       throw Exception('Error during sign-out: $e');
     }

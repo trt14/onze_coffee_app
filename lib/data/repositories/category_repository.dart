@@ -85,5 +85,13 @@ class CategoryRepository {
     }
   }
 
-
+  getAllCategories() async {
+    try {
+      final response =
+          await supabase.client.from("products").select("*").select();
+      print(response);
+    } catch (e) {
+      print(e.toString());
+    }
+  }
 }
