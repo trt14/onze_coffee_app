@@ -5,8 +5,10 @@ import 'package:onze_coffee_app/integrations/supabase/supabase_client.dart';
 import 'package:onze_coffee_app/models/product_model.dart';
 import 'package:onze_coffee_app/models/variants.dart';
 
-Future<List<Map<String, dynamic>>> getUserProducts() async {
-  return await supabase.client.rpc("get_product_details_v2");
+Future<List<ProductModel>> getUserProducts() async {
+  List<Map<String, dynamic>> data =
+      await supabase.client.rpc("get_product_details_v2");
+  return data.map((e) => ProductModel.fromJson(e)).toList();
 }
 
 createProduct(
