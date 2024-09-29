@@ -7,7 +7,7 @@ class CategoryRepository {
 
   /*
   *
-  * 
+  * Tested
   * Add new Category
   *
   * */
@@ -32,7 +32,7 @@ class CategoryRepository {
 
   /*
   *
-  * 
+  * Tested
   * Update Category
   *
   * */
@@ -58,7 +58,7 @@ class CategoryRepository {
 
   /*
   *
-  * 
+  * Tested
   * Delete Category
   *
   * */
@@ -85,6 +85,12 @@ class CategoryRepository {
     }
   }
 
+  /*
+  *
+  * Tested
+  * get all Categories
+  *
+  * */
   getAllCategories() async {
     try {
       final response =

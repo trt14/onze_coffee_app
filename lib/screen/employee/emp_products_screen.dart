@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:onze_coffee_app/data/repositories/order_repository.dart';
+import 'package:onze_coffee_app/data/repositories/payment_repository.dart';
 import 'package:onze_coffee_app/widget/comment/custom_choice_chip.dart';
 import 'package:onze_coffee_app/widget/comment/product_view.dart';
 
@@ -57,7 +58,11 @@ class EmpProductsScreen extends StatelessWidget {
             children: [
               ProductView(
                 onTap: () async {
-                  await OrderRepository().addNewOrderID(userID: "123");
+                  await OrderRepository().updateOrderID(
+                      userID: "e8661b98-e738-4093-80d3-4e9a9e7a90fd",
+                      amount: 100,
+                      status: "holding",
+                      orderID: 106);
                 },
                 onPressed: () {},
                 name: "Coffee Mocha",
@@ -66,7 +71,15 @@ class EmpProductsScreen extends StatelessWidget {
                 type: "Deep Foam",
               ),
               ProductView(
-                onTap: () {},
+                onTap: () async {
+                  await PaymentRepository().addNewPayment(
+                      userID: "e8661b98-e738-4093-80d3-4e9a9e7a90fd",
+                      paymentMethod: "Visa",
+                      paymentStatus: "paid",
+                      orderID: 103,
+                      transactionID: "123",
+                      amount: 50);
+                },
                 onPressed: () {},
                 name: "Coffee Mocha",
                 price: "10",
@@ -74,7 +87,22 @@ class EmpProductsScreen extends StatelessWidget {
                 type: "Deep Foam",
               ),
               ProductView(
-                onTap: () {},
+                onTap: () {
+                  // OrderRepository().updateOrderItem(
+                  //     orderItemID: 2,
+                  //     userID: "e8661b98-e738-4093-80d3-4e9a9e7a90fd",
+                  //     price: 1300,
+                  //     quantity: 10,
+                  //     productID: 1,
+                  //     orderID: 106);
+
+                  OrderRepository().addOrderItem(
+                      userID: "e8661b98-e738-4093-80d3-4e9a9e7a90fd",
+                      price: 120,
+                      orderID: 106,
+                      quantity: 3,
+                      productID: 1);
+                },
                 onPressed: () {},
                 isEmployee: true,
                 name: "Black Coffee",

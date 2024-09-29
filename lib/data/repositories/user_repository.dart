@@ -2,9 +2,6 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import '../../integrations/supabase/supabase_client.dart';
 
 class UserRepository {
-  final SupabaseClient _supabase = SupabaseService().client;
-
-
   /*
   *
   * TODO test this method
@@ -19,17 +16,18 @@ class UserRepository {
     String? phone,
   }) async {
     try {
-      final response = await _supabase.from('users').insert({
+      final response = await supabase.client.from('users').insert({
         'id': userId,
         'first_name': firstName,
         'last_name': lastName,
         'email': email,
         'phone': phone,
-        'role': 'user',  // default role
+        'role': 'user', // default role
       });
 
       if (response.error != null) {
-        throw Exception('Error inserting user data: ${response.error!.message}');
+        throw Exception(
+            'Error inserting user data: ${response.error!.message}');
       }
     } catch (e) {
       throw Exception('Failed to insert user data: $e');
@@ -43,10 +41,14 @@ class UserRepository {
   *
   * */
   Future<Map<String, dynamic>?> fetchUserData(String userId) async {
-    try{
-      final response = await _supabase.from('users').select().eq('id', userId).single();
+    try {
+      final response = await supabase.client
+          .from('users')
+          .select()
+          .eq('id', userId)
+          .single();
       return response;
-    }catch(e) {
+    } catch (e) {
       throw Exception('Failed to fetch user data: $e');
     }
   }

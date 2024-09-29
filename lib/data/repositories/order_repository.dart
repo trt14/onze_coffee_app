@@ -7,46 +7,79 @@ class OrderRepository {
 
   /*
   *
-  * 
+  * Tested
   * Add new Order
   *
   * */
   addNewOrderID({required String userID}) async {
     try {
-      final response =
-          await supabase.client.from("orders").insert({"user_id": userID});
+      final response = await supabase.client.from("orders").insert({
+        "user_id": userID,
+        "total_price": 0,
+        "status": "not-complete"
+      }).select();
+      print(response);
+      addOrderItem(
+          userID: userID,
+          price: 12.5,
+          quantity: 3,
+          productID: 1,
+          orderID: response.first["id"]);
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+  /*
+  *
+  * Tested
+  * update  Order
+  *
+  * */
+  updateOrderID(
+      {required String userID,
+      required double amount,
+      required String status,
+      required int orderID}) async {
+    try {
+      final response = await supabase.client
+          .from("orders")
+          .update({
+            "user_id": userID,
+            "total_price": amount,
+            "status": status,
+            "updated_by": userID
+          })
+          .eq("id", orderID)
+          .select();
       print(response);
     } catch (e) {
       print(e.toString());
     }
   }
 
-
-  addNewOrderType(){
-    
-  }
-
   /*
   *
-  * 
-  * Update Category
+  * Tested
+  * add new Order Item
   *
   * */
 
-  updateCategory({required int id, required String name}) async {
+  addOrderItem(
+      {required String userID,
+      required double price,
+      required int orderID,
+      required int quantity,
+      required int productID}) async {
     try {
-      final dataFound = await supabase.client
-          .from("categories")
-          .select("*")
-          .match({"name": name}).select();
-      if (dataFound.isNotEmpty) {
-        print("there is data");
-      } else {
-        final response = await supabase.client
-            .from("categories")
-            .update({"name": name}).eq("id", id);
-        print(response);
-      }
+      final response = await supabase.client.from("order_items").insert({
+        "quantity": quantity,
+        "price": price,
+        "product_id": 1,
+        "created_by": userID,
+        "order_id": orderID
+      }).select();
+      print(response);
     } catch (e) {
       print(e.toString());
     }
@@ -55,39 +88,42 @@ class OrderRepository {
   /*
   *
   * 
+  * Update Order Item
+  *
+  * */
+
+  updateOrderItem(
+      {required String userID,
+      required int orderItemID,
+      required double price,
+      required int orderID,
+      required int quantity,
+      required int productID}) async {
+    try {
+      final response = await supabase.client.from("order_items").update({
+        "quantity": quantity,
+        "price": price,
+        "product_id": 1,
+        "created_by": userID,
+        "order_id": orderID
+      }).eq("id", orderItemID);
+      print(response);
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+  /*
+  *
+  * Tested
   * Delete Category
   *
   * */
 
-  deleteCategory({required int id}) async {
-    try {
-      final dataFound = await supabase.client
-          .from("products")
-          .select("*")
-          .eq("category_id", id)
-          .select();
-
-      if (dataFound.isNotEmpty) {
-        print("there is data");
-      } else {
-        final response = await supabase.client
-            .from("categories")
-            .delete()
-            .eq("id", id)
-            .select();
-      }
-    } catch (e) {
-      print(e.toString());
-    }
-  }
-
-  getAllCategories() async {
-    try {
-      final response =
-          await supabase.client.from("products").select("*").select();
-      print(response);
-    } catch (e) {
-      print(e.toString());
-    }
-  }
+  /*
+  *
+  * Tested
+  * get all Categories
+  *
+  * */
 }

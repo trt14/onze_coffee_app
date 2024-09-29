@@ -14,5 +14,4 @@ class SupabaseService {
 
   final supabase = Supabase.instance.client;
 
-  SupabaseClient get client => Supabase.instance.client;
 }
