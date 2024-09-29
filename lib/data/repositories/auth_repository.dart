@@ -3,7 +3,6 @@ import '../../integrations/supabase/supabase_client.dart';
 
 class AuthRepository {
   // Supabase client instance
-  final SupabaseClient _supabase = SupabaseService().client;
 
   /*
   *
@@ -22,12 +21,23 @@ class AuthRepository {
     }
   }
 
+  Future<String> verifyOtp({required String email, required String otp}) async {
+    try {
+      await supabase.client.auth
+          .verifyOTP(type: OtpType.signup, email: email, token: otp);
+      return "Correct otp";
+    } catch (e) {
+      print(e.toString());
+      return "Something error $e";
+    }
+  }
   /*
   *
   * TODO need testing
   * Sign in an existing user
   *
   * */
+  
   // Future<User?> signIn(String email) async {
   //   try {
   //     final response = await supabase.client.auth.signInWithOtp(email: email);

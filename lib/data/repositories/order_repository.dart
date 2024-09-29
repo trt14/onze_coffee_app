@@ -21,6 +21,11 @@ class OrderRepository {
     }
   }
 
+
+  addNewOrderType(){
+    
+  }
+
   /*
   *
   * 
