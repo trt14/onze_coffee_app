@@ -7,16 +7,20 @@ part 'category_state.dart';
 
 class CategoryCubit extends Cubit<CategoryState> {
   TextEditingController txtEditController = TextEditingController();
+  List<Map<String, dynamic>> categoryList = [];
 
-  CategoryCubit() : super(CategoryInitial());
+  CategoryCubit() : super(CategoryInitial()) {
+    fetchCategoriesEvent();
+  }
 
-  addNewCategoryEvent() {
+  addNewCategoryEvent() async {
     emit(LoadingCategoryState());
     try {
-      final response =
-          CategoryRepository().addNewCategory(name: txtEditController.text);
+      final response = await CategoryRepository()
+          .addNewCategory(name: txtEditController.text);
       print(response);
       emit(SuccessCategoryState(msg: "Done:)"));
+      await fetchCategoriesEvent();
     } catch (e) {
       emit(ErrorCategoryState(msg: e.toString()));
     }
@@ -45,12 +49,15 @@ class CategoryCubit extends Cubit<CategoryState> {
     }
   }
 
-  fetchCategoriesEvent() {
+  fetchCategoriesEvent() async {
+    Future.delayed(Duration.zero);
     emit(LoadingCategoryState());
     try {
-      final response = CategoryRepository().getAllCategories();
-      print(response);
+      categoryList = await CategoryRepository().getAllCategories();
+      print(categoryList);
+      emit(SuccessCategoryState(msg: "msg"));
     } catch (e) {
+      print(e);
       emit(ErrorCategoryState(msg: e.toString()));
     }
   }

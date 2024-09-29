@@ -92,7 +92,8 @@ class EmpAddProductScreen extends StatelessWidget {
                 BlocProvider(
                   create: (context) => CategoryCubit(),
                   child: Builder(builder: (context) {
-                    final CategoryReadCubit = context.read<CategoryCubit>();
+                    final categoryReadCubit = context.read<CategoryCubit>();
+
                     return Padding(
                       padding: const EdgeInsets.only(left: 16, right: 12),
                       child: Column(
@@ -146,14 +147,15 @@ class EmpAddProductScreen extends StatelessWidget {
                                                   CustomTextField(
                                                     title: "Categore Name",
                                                     controller:
-                                                        CategoryReadCubit
+                                                        categoryReadCubit
                                                             .txtEditController,
                                                   ),
                                                   CustomMainButton(
                                                     title: "Add Category",
                                                     onPressed: () {
-                                                      CategoryReadCubit
+                                                      categoryReadCubit
                                                           .addNewCategoryEvent();
+                                                      Navigator.pop(context);
                                                     },
                                                   )
                                                 ],
@@ -171,21 +173,29 @@ class EmpAddProductScreen extends StatelessWidget {
                                   ))
                             ],
                           ),
-                          const Row(
-                            children: [
-                              CustomChoiceChip(
-                                  title: "Machiatto", isSelected: true),
-                              SizedBox(
-                                width: 10,
-                              ),
-                              CustomChoiceChip(
-                                  title: "Latte", isSelected: false),
-                              SizedBox(
-                                width: 10,
-                              ),
-                              CustomChoiceChip(
-                                  title: "Americano", isSelected: false),
-                            ],
+                          BlocBuilder<CategoryCubit, CategoryState>(
+                            builder: (context, state) {
+                              return SingleChildScrollView(
+                                scrollDirection: Axis.horizontal,
+                                child: Row(
+                                  children: List.generate(
+                                      categoryReadCubit.categoryList.length,
+                                      (int index) {
+                                    return Row(
+                                      children: [
+                                        CustomChoiceChip(
+                                            title: categoryReadCubit
+                                                .categoryList[index]["name"],
+                                            isSelected: false),
+                                        SizedBox(
+                                          width: 10,
+                                        ),
+                                      ],
+                                    );
+                                  }),
+                                ),
+                              );
+                            },
                           )
                         ],
                       ),
