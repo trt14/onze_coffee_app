@@ -136,7 +136,19 @@ class OrderRepository {
     try {
       final List<Map<String, dynamic>> data =
           await supabase.client.rpc("get_order_details_v1");
-      return data.map((element) => BillModel.fromJson(element)).toList() ?? [];
+      return data.map((element) => BillModel.fromJson(element)).toList();
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  getBill(int id) async {
+    print("Iam at getEmployeeOrder");
+    try {
+      final List<Map<String, dynamic>> data = await supabase.client
+          .rpc("get_order_details_by_id", params: {"user_order": id});
+
+      return BillModel.fromJson(data.first);
     } catch (e) {
       print(e);
     }

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onze_coffee_app/cubits/order_cubit/order_cubit.dart';
 import 'package:onze_coffee_app/helper/custom_colors.dart';
+import 'package:onze_coffee_app/screen/shared/order_details_screen.dart';
 import 'package:onze_coffee_app/widget/custom_container_order.dart';
 
 class OrdersScreen extends StatelessWidget {
@@ -52,22 +53,35 @@ class OrdersScreen extends StatelessWidget {
                             const SizedBox(
                               height: 10,
                             ),
-                            CustomContainerOrder(
-                                isNote: orderCubit.bills[index].note.isNotEmpty,
-                                orderID:
-                                    orderCubit.bills[index].billId.toString(),
-                                height: 120,
-                                width: 1,
-                                price: orderCubit.bills[index].totalPrice
-                                    .toDouble(),
-                                statusColor: AppColor.forth,
-                                note: orderCubit.bills[index].note,
-                                textStatus: orderCubit.bills[index].status,
-                                productsWithQuntity: orderCubit
-                                    .bills[index].products
-                                    .map((element) =>
-                                        "${element.name} x${element.qty}")
-                                    .toString()),
+                            InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => OrderDetailsScreen(
+                                      billId: orderCubit.bills[index].billId,
+                                    ),
+                                  ),
+                                );
+                              },
+                              child: CustomContainerOrder(
+                                  isNote:
+                                      orderCubit.bills[index].note.isNotEmpty,
+                                  orderID:
+                                      orderCubit.bills[index].billId.toString(),
+                                  height: 120,
+                                  width: 1,
+                                  price: orderCubit.bills[index].totalPrice
+                                      .toDouble(),
+                                  statusColor: AppColor.forth,
+                                  note: orderCubit.bills[index].note,
+                                  textStatus: orderCubit.bills[index].status,
+                                  productsWithQuntity: orderCubit
+                                      .bills[index].products
+                                      .map((element) =>
+                                          "${element.name} x${element.qty}")
+                                      .toString()),
+                            ),
                           ],
                         );
                       }),
