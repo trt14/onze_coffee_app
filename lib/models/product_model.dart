@@ -1,4 +1,4 @@
-import 'package:onze_coffee_app/models/variants.dart';
+import 'package:onze_coffee_app/models/variants_model.dart';
 
 class ProductModel {
   ProductModel({
@@ -14,7 +14,7 @@ class ProductModel {
   late final String productName;
   late final String description;
   late final String tempreture;
-  late final List<Variants> variants;
+  late final List<VariantsModel> variants;
   late final String productCategory;
   late final List imageUrls;
 
@@ -24,7 +24,7 @@ class ProductModel {
     description = json["description"] ?? '';
     tempreture = json['tempreture'] ?? "";
     variants =
-        List.from(json['variants']).map((e) => Variants.fromJson(e)).toList();
+        List.from(json['variants']).map((e) => VariantsModel.fromJson(e)).toList();
     productCategory = json['product_category'];
     imageUrls = List.castFrom<dynamic, dynamic>(json['image_urls']);
   }

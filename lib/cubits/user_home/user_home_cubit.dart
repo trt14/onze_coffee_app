@@ -12,12 +12,12 @@ class UserHomeCubit extends Cubit<UserHomeState> {
     print("iam at getProducts");
     emit(LoadingState());
     products = await getUserProducts();
-    for (var element in products) {
-      for (var y in element.imageUrls) {
-     
-        print(y.toString());
-      }
-    }
+    // for (var element in products) {
+    //   for (var y in element.imageUrls) {
+    //     print(y.toString());
+    //   }
+    // }
+    print(products);
     print("end");
     emit(GetProductSuccessState());
   }
@@ -25,4 +25,17 @@ class UserHomeCubit extends Cubit<UserHomeState> {
   UserHomeCubit() : super(UserHomeInitial()) {
     getProducts();
   }
+
+  getCategoryProducts(
+      {required List<ProductModel> customProduct, required String category}) {
+    emit(LoadingState());
+    try {
+      for (var element in customProduct) {
+        if (category == element.productCategory) {
+          print(element);
+        }
+      }
+    } catch (e) {}
+  }
+
 }

@@ -1,5 +1,5 @@
-class Variants {
-  Variants({
+class VariantsModel {
+  VariantsModel({
     required this.size,
     required this.price,
     required this.calories,
@@ -8,7 +8,7 @@ class Variants {
   late final int price;
   late final int calories;
 
-  Variants.fromJson(Map<String, dynamic> json) {
+  VariantsModel.fromJson(Map<String, dynamic> json) {
     size = json['size'] ?? "";
     price = json['price'] ?? 0;
     calories = json['calories'] ?? 0;

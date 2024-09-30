@@ -94,12 +94,12 @@ class EmpProductsScreen extends StatelessWidget {
                   //     productID: 1,
                   //     orderID: 106);
 
-                  OrderRepository().addOrderItem(
-                      userID: "e8661b98-e738-4093-80d3-4e9a9e7a90fd",
-                      price: 120,
-                      orderID: 106,
-                      quantity: 3,
-                      productID: 1);
+                  // OrderRepository().addOrderItem(
+                  //     userID: "e8661b98-e738-4093-80d3-4e9a9e7a90fd",
+                  //     price: 120,
+                  //     orderID: 106,
+                  //     quantity: 3,
+                  //     productID: 1);
                 },
                 onPressed: () {},
                 isEmployee: true,

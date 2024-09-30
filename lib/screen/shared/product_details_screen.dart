@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:onze_coffee_app/models/product_model.dart';
+import 'package:onze_coffee_app/screen/user/user_cart_screen.dart';
 import 'package:onze_coffee_app/widget/comment/custom_button_bottom_sheet.dart';
 import 'package:onze_coffee_app/widget/product_description.dart';
 import 'package:onze_coffee_app/widget/product_title.dart';
 
 class ProductDetailsScreen extends StatelessWidget {
-  const ProductDetailsScreen({super.key});
+  const ProductDetailsScreen({super.key, required this.product});
+  final ProductModel product;
 
   @override
   Widget build(BuildContext context) {
@@ -14,19 +17,26 @@ class ProductDetailsScreen extends StatelessWidget {
       ),
       bottomSheet: CustomButtonBottomSheet(
         title: "Add to Cart",
-        price: "10",
-        onPressed: () {},
+        price: product.variants.first.price.toString(),
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => UserCartScreen()),
+          );
+        },
       ),
       body: SafeArea(
         bottom: false,
         child: SingleChildScrollView(
           child: Column(
             children: [
-              Image.asset("assets/product/image.png"),
-              const ProductTitle(
-                name: "Coffee Mocha",
-                cal: "5",
-                type: "Hot",
+              product.imageUrls.isEmpty
+                  ? Image.network(product.imageUrls.first)
+                  : Image.asset("assets/logo/onze_logo.png"),
+              ProductTitle(
+                name: product.productName,
+                cal: product.variants.first.calories.toString(),
+                type: product.tempreture,
               ),
               const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 30.0),
@@ -47,10 +57,7 @@ class ProductDetailsScreen extends StatelessWidget {
               const SizedBox(
                 height: 10,
               ),
-              const ProductDescription(
-                description:
-                    "Flutter is Google's mobile Ul open source framework to build high-quality native (super fast) interfaces for iOS and Android apps with the unified codebase",
-              ),
+              ProductDescription(description: product.description),
               const SizedBox(
                 height: 30,
               ),

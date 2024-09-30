@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:onze_coffee_app/data/repositories/image_repository.dart';
 import 'package:onze_coffee_app/integrations/supabase/supabase_client.dart';
 import 'package:onze_coffee_app/models/product_model.dart';
-import 'package:onze_coffee_app/models/variants.dart';
+import 'package:onze_coffee_app/models/variants_model.dart';
 
 Future<List<ProductModel>> getUserProducts() async {
   List<Map<String, dynamic>> data =
@@ -25,7 +25,7 @@ createProduct(
     print(data);
     final id = data.first["id"];
     print("product ID :$id");
-    for (Variants element in product.variants) {
+    for (VariantsModel element in product.variants) {
       await supabase.client
           .from("product_variants")
           .upsert(element.toJson(productId: id));

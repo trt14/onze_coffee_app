@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:onze_coffee_app/cubit/user_home/user_home_cubit.dart';
+import 'package:onze_coffee_app/cubits/user_home/user_home_cubit.dart';
 import 'package:onze_coffee_app/helper/custom_colors.dart';
 import 'package:onze_coffee_app/helper/screen.dart';
 import 'package:onze_coffee_app/screen/shared/product_details_screen.dart';
@@ -34,33 +34,41 @@ class UserHomeScreen extends StatelessWidget {
                   const SizedBox(
                     height: 10,
                   ),
-                  SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        CustomChoiceChip(
-                          selected: true,
-                          text: "All Coffee",
-                          onSelected: (bool value) {},
+                  BlocBuilder<UserHomeCubit, UserHomeState>(
+                    builder: (context, state) {
+                      return SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children:
+
+                              // List.generate(homeCubit., generator)
+
+                              [
+                            CustomChoiceChip(
+                              selected: true,
+                              text: "All Coffee",
+                              onSelected: (bool value) {},
+                            ),
+                            CustomChoiceChip(
+                              selected: false,
+                              text: "Black",
+                              onSelected: (bool value) {},
+                            ),
+                            CustomChoiceChip(
+                              selected: false,
+                              text: "Spanish",
+                              onSelected: (bool value) {},
+                            ),
+                            CustomChoiceChip(
+                              selected: false,
+                              text: "Choclete",
+                              onSelected: (bool value) {},
+                            ),
+                          ],
                         ),
-                        CustomChoiceChip(
-                          selected: false,
-                          text: "Black",
-                          onSelected: (bool value) {},
-                        ),
-                        CustomChoiceChip(
-                          selected: false,
-                          text: "Spanish",
-                          onSelected: (bool value) {},
-                        ),
-                        CustomChoiceChip(
-                          selected: false,
-                          text: "Choclete",
-                          onSelected: (bool value) {},
-                        ),
-                      ],
-                    ),
+                      );
+                    },
                   ),
                   BlocBuilder<UserHomeCubit, UserHomeState>(
                     builder: (context, state) {
@@ -74,37 +82,26 @@ class UserHomeScreen extends StatelessWidget {
                           children: List.generate(homeCubit.products.length,
                               (int index) {
                             return ProductView(
-                              imageSrc: homeCubit
-                                          .products[index].imageUrls.first ?? "",
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          ProductDetailsScreen(
+                                            product: homeCubit.products[index],
+                                          )),
+                                );
+                              },
+                              imageSrc:
+                                  homeCubit.products[index].imageUrls.first ??
+                                      "",
                               onPressed: () {},
                               name: homeCubit.products[index].productName,
                               price:
                                   "${homeCubit.products[index].variants.first.price}",
                               type: homeCubit.products[index].productCategory,
                             );
-                          })
-                          // ProductView(
-                          //   onPressed: () {},
-                          //   name: "Coffee Mocha",
-                          //   price: "10",
-                          //   type: "Deep Foam",
-                          // ),
-                          // ProductView(
-                          //   onTap: () {},
-                          //   onPressed: () {},
-                          //   name: "Coffee Mocha",
-                          //   price: "10",
-                          //   type: "Deep Foam",
-                          // ),
-                          // ProductView(
-                          //   onTap: () {},
-                          //   onPressed: () {},
-                          //   name: "Black Coffee",
-                          //   price: "10",
-                          //   type: "Deep Foam",
-                          // )
-
-                          );
+                          }));
                     },
                   ),
                 ],
