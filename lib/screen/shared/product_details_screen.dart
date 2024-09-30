@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:onze_coffee_app/cubits/cart_cubit/cart_cubit.dart';
 import 'package:onze_coffee_app/models/product_model.dart';
 import 'package:onze_coffee_app/screen/user/user_cart_screen.dart';
 import 'package:onze_coffee_app/widget/comment/custom_button_bottom_sheet.dart';
@@ -15,15 +17,26 @@ class ProductDetailsScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Center(child: Text("Detail")),
       ),
-      bottomSheet: CustomButtonBottomSheet(
-        title: "Add to Cart",
-        price: product.variants.first.price.toString(),
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => UserCartScreen()),
+      bottomSheet: BlocProvider(
+        create: (context) => CartCubit(),
+        child: Builder(builder: (context) {
+          final cartReadCubit = context.read<CartCubit>();
+          return CustomButtonBottomSheet(
+            title: "Add to Cart",
+            price: product.variants.first.price.toString(),
+            onPressed: () {
+              cartReadCubit.addItemsToCart(product: product, qnty: 1);
+
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => UserCartScreen(
+                          myCart: cartReadCubit.myCart,
+                        )),
+              );
+            },
           );
-        },
+        }),
       ),
       body: SafeArea(
         bottom: false,
