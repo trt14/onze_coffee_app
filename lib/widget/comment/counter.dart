@@ -16,7 +16,7 @@ class Counter extends StatelessWidget {
     return Row(
       children: [
         IconButton(
-          onPressed: increment,
+          onPressed: decrement,
           icon: const Icon(
             Icons.remove_circle,
             color: AppColor.secondary,
@@ -24,7 +24,7 @@ class Counter extends StatelessWidget {
         ),
         Text(qty),
         IconButton(
-          onPressed: decrement,
+          onPressed: increment,
           icon: const Icon(
             Icons.add_circle,
             color: AppColor.primary,

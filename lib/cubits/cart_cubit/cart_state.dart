@@ -15,4 +15,6 @@ final class ErrorCartState extends CartState {
   ErrorCartState({required this.msg});
 }
 
+final class EmptyCartState extends CartState {}
+
 final class LoagingCartState extends CartState {}

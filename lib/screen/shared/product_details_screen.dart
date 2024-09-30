@@ -25,7 +25,10 @@ class ProductDetailsScreen extends StatelessWidget {
             title: "Add to Cart",
             price: product.variants.first.price.toString(),
             onPressed: () {
-              cartReadCubit.addItemsToCart(product: product, qnty: 1);
+              cartReadCubit.addItemsToCart(
+                  product: product,
+                  qnty: 1,
+                  productVarient: product.variants.first);
 
               Navigator.push(
                 context,
