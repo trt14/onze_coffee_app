@@ -53,7 +53,6 @@ class AuthRepository {
           'id': user.id,
           'email': user.email,
           'created_at': DateTime.now().toIso8601String(),
-          // Ensuring correct date format
         });
       }
 
@@ -64,6 +63,8 @@ class AuthRepository {
       throw Exception('Error inserting user data: ${e.message}');
     } on AuthException catch (e) {
       log('AuthException during OTP verification: ${e.message}');
+      log('email : $email, otp : $otp');
+      log(e.toString());
       throw Exception('AuthException during OTP verification: ${e.message}');
     } catch (e) {
       log('Error during OTP verification: $e');
