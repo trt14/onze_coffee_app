@@ -1,3 +1,5 @@
+import 'package:onze_coffee_app/models/bill_model.dart';
+
 import '../../integrations/supabase/supabase_client.dart';
 
 class OrderRepository {
@@ -129,4 +131,14 @@ class OrderRepository {
   * get all Categories
   *
   * */
+  getEmployeeBill() async {
+    print("Iam at getEmployeeOrder");
+    try {
+      final List<Map<String, dynamic>> data =
+          await supabase.client.rpc("get_order_details_v1");
+      return data.map((element) => BillModel.fromJson(element)).toList() ?? [];
+    } catch (e) {
+      print(e);
+    }
+  }
 }
