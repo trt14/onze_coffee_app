@@ -1,14 +1,17 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/widgets.dart';
+import 'package:get_it/get_it.dart';
 import 'package:meta/meta.dart';
 import 'package:onze_coffee_app/data/repositories/category_repository.dart';
+import 'package:onze_coffee_app/data_layer/category_layer.dart';
 
 part 'category_state.dart';
 
 class CategoryCubit extends Cubit<CategoryState> {
   TextEditingController txtEditController = TextEditingController();
-  List<Map<String, dynamic>> categoryList = [];
+  final categoryLayer = GetIt.I.get<CategoryLayer>();
   int productCategory = 1;
+  int userProductCategory = -1;
   CategoryCubit() : super(CategoryInitial()) {
     fetchCategoriesEvent();
   }
@@ -53,8 +56,14 @@ class CategoryCubit extends Cubit<CategoryState> {
     Future.delayed(Duration.zero);
     emit(LoadingCategoryState());
     try {
-      categoryList = await CategoryRepository().getAllCategories();
-      print(categoryList);
+      categoryLayer.userCategories =
+          await CategoryRepository().getUserCategories();
+      categoryLayer.categoryList =
+          List.from(await CategoryRepository().getAllCategories());
+      categoryLayer.userCategories.add({"id": -1, "name": "All Coffee"});
+      categoryLayer.userCategories =
+          categoryLayer.userCategories.reversed.toList();
+      print(categoryLayer.categoryList);
       emit(SuccessCategoryState(msg: "msg"));
     } catch (e) {
       print(e);

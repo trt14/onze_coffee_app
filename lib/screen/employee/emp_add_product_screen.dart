@@ -238,15 +238,19 @@ class EmpAddProductScreen extends StatelessWidget {
                                       scrollDirection: Axis.horizontal,
                                       child: Row(
                                         children: List.generate(
-                                            categoryReadCubit.categoryList
+                                            categoryReadCubit
+                                                .categoryLayer
+                                                .categoryList
                                                 .length, (int index) {
                                           return Row(
                                             children: [
                                               CustomChoiceChip(
                                                 title: categoryReadCubit
+                                                        .categoryLayer
                                                         .categoryList[index]
                                                     ["name"],
                                                 isSelected: categoryReadCubit
+                                                            .categoryLayer
                                                             .categoryList[index]
                                                         ["id"] ==
                                                     categoryReadCubit
@@ -255,6 +259,7 @@ class EmpAddProductScreen extends StatelessWidget {
                                                   categoryReadCubit
                                                           .productCategory =
                                                       categoryReadCubit
+                                                              .categoryLayer
                                                               .categoryList[
                                                           index]["id"];
 
@@ -265,6 +270,7 @@ class EmpAddProductScreen extends StatelessWidget {
                                                       "value through addProductCubit ID: ${addProductCubit.categoryId}");
                                                   final category =
                                                       categoryReadCubit
+                                                          .categoryLayer
                                                           .categoryList
                                                           .firstWhere((element) =>
                                                               element["id"] ==

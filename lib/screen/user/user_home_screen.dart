@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:onze_coffee_app/cubits/category_cubit/category_cubit.dart';
 import 'package:onze_coffee_app/cubits/user_home/user_home_cubit.dart';
 import 'package:onze_coffee_app/helper/custom_colors.dart';
 import 'package:onze_coffee_app/helper/screen.dart';
 import 'package:onze_coffee_app/screen/shared/product_details_screen.dart';
-import 'package:onze_coffee_app/widget/comment/custom_choice_chip.dart';
 import 'package:onze_coffee_app/widget/comment/product_view.dart';
+import 'package:onze_coffee_app/widget/custom_choice_chip.dart';
 import 'package:onze_coffee_app/widget/image_banner.dart';
 
 class UserHomeScreen extends StatelessWidget {
@@ -33,33 +34,50 @@ class UserHomeScreen extends StatelessWidget {
                 const SizedBox(
                   height: 10,
                 ),
-                SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      CustomChoiceChip(
-                        selected: true,
-                        text: "All Coffee",
-                        onSelected: (bool value) {},
-                      ),
-                      CustomChoiceChip(
-                        selected: false,
-                        text: "Black",
-                        onSelected: (bool value) {},
-                      ),
-                      CustomChoiceChip(
-                        selected: false,
-                        text: "Spanish",
-                        onSelected: (bool value) {},
-                      ),
-                      CustomChoiceChip(
-                        selected: false,
-                        text: "Choclete",
-                        onSelected: (bool value) {},
-                      ),
-                    ],
-                  ),
+                BlocProvider(
+                  create: (context) => CategoryCubit(),
+                  child: Builder(builder: (context) {
+                    final categoryReadCubit = context.read<CategoryCubit>();
+                    return BlocBuilder<CategoryCubit, CategoryState>(
+                      builder: (context, state) {
+                        return SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            children: List.generate(
+                                categoryReadCubit.categoryLayer.userCategories
+                                    .length, (int index) {
+                              return Row(
+                                children: [
+                                  CustomChoiceChip(
+                                    lblColor: AppColor.white,
+                                    selectedColor: AppColor.secondary,
+                                    isSelected:
+                                        categoryReadCubit.userProductCategory ==
+                                            categoryReadCubit.categoryLayer
+                                                .userCategories[index]["id"],
+                                    title: categoryReadCubit.categoryLayer
+                                        .userCategories[index]["name"],
+                                    onSelected: (p0) {
+                                      categoryReadCubit.userProductCategory =
+                                          categoryReadCubit.categoryLayer
+                                              .userCategories[index]["id"];
+                                      categoryReadCubit.updateChips();
+                                      homeCubit.filterProduct(categoryReadCubit
+                                          .categoryLayer
+                                          .userCategories[index]["name"]);
+                                    },
+                                  ),
+                                  const SizedBox(
+                                    width: 10,
+                                  ),
+                                ],
+                              );
+                            }),
+                          ),
+                        );
+                      },
+                    );
+                  }),
                 ),
                 BlocBuilder<UserHomeCubit, UserHomeState>(
                   builder: (context, state) {
@@ -73,15 +91,14 @@ class UserHomeScreen extends StatelessWidget {
                         children: List.generate(homeCubit.products.length,
                             (int index) {
                           return ProductView(
-                            onTap: (){
-                               Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          ProductDetailsScreen(
-                                            product: homeCubit.products[index],
-                                          )),
-                                );
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => ProductDetailsScreen(
+                                          product: homeCubit.products[index],
+                                        )),
+                              );
                             },
                             imageSrc:
                                 homeCubit.products[index].imageUrls.first ?? "",

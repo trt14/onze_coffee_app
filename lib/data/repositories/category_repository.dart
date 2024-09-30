@@ -102,4 +102,14 @@ class CategoryRepository {
       return [];
     }
   }
+
+  getUserCategories() async {
+    try {
+      List<Map<String, dynamic>> response =
+          await supabase.client.rpc("get_distinct_category_names");
+      return response;
+    } catch (e) {
+      print(e);
+    }
+  }
 }
