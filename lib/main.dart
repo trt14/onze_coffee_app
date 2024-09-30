@@ -17,7 +17,7 @@ import 'package:onze_coffee_app/screen/shared/orders_screen.dart';
 import 'package:onze_coffee_app/screen/user/user_home_screen.dart';
 import 'package:onze_coffee_app/services/init.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-
+import 'screen/auth/login_screen.dart';
 import 'integrations/supabase/supabase_client.dart';
 
 void main() async {
@@ -44,7 +44,6 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-        debugShowCheckedModeBanner: false, home: UserHomeScreen());
+    return MaterialApp(debugShowCheckedModeBanner: false, home: LoginScreen());
   }
 }
