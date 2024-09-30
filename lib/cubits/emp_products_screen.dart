@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:onze_coffee_app/cubits/category_cubit/category_cubit.dart';
 import 'package:onze_coffee_app/cubits/user_home/user_home_cubit.dart';
 import 'package:onze_coffee_app/data/repositories/order_repository.dart';
 import 'package:onze_coffee_app/data/repositories/payment_repository.dart';
+import 'package:onze_coffee_app/helper/custom_colors.dart';
 import 'package:onze_coffee_app/screen/employee/emp_add_product_screen.dart';
-import 'package:onze_coffee_app/widget/comment/custom_choice_chip.dart';
 import 'package:onze_coffee_app/widget/comment/product_view.dart';
+import 'package:onze_coffee_app/widget/custom_choice_chip.dart';
 
 class EmpProductsScreen extends StatelessWidget {
   const EmpProductsScreen({super.key});
@@ -24,35 +26,52 @@ class EmpProductsScreen extends StatelessWidget {
                 const SizedBox(
                   height: 20,
                 ),
-                SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      CustomChoiceChip(
-                        selected: true,
-                        text: "All Coffee",
-                        onSelected: (bool value) {},
-                      ),
-                      CustomChoiceChip(
-                        selected: false,
-                        text: "Black",
-                        onSelected: (bool value) {},
-                      ),
-                      CustomChoiceChip(
-                        selected: false,
-                        text: "Spanish",
-                        onSelected: (bool value) {},
-                      ),
-                      CustomChoiceChip(
-                        selected: false,
-                        text: "Choclete",
-                        onSelected: (bool value) {},
-                      ),
-                    ],
-                  ),
+                BlocProvider(
+                  create: (context) => CategoryCubit(),
+                  child: Builder(builder: (context) {
+                    final categoryReadCubit = context.read<CategoryCubit>();
+                    return BlocBuilder<CategoryCubit, CategoryState>(
+                      builder: (context, state) {
+                        return SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            children: List.generate(
+                                categoryReadCubit.categoryLayer.userCategories
+                                    .length, (int index) {
+                              return Row(
+                                children: [
+                                  CustomChoiceChip(
+                                    lblColor: AppColor.white,
+                                    selectedColor: AppColor.secondary,
+                                    isSelected:
+                                        categoryReadCubit.userProductCategory ==
+                                            categoryReadCubit.categoryLayer
+                                                .userCategories[index]["id"],
+                                    title: categoryReadCubit.categoryLayer
+                                        .userCategories[index]["name"],
+                                    onSelected: (p0) {
+                                      categoryReadCubit.userProductCategory =
+                                          categoryReadCubit.categoryLayer
+                                              .userCategories[index]["id"];
+                                      categoryReadCubit.updateChips();
+                                      homeCubit.filterProduct(categoryReadCubit
+                                          .categoryLayer
+                                          .userCategories[index]["name"]);
+                                    },
+                                  ),
+                                  const SizedBox(
+                                    width: 10,
+                                  ),
+                                ],
+                              );
+                            }),
+                          ),
+                        );
+                      },
+                    );
+                  }),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 30,
                 ),
                 BlocBuilder<UserHomeCubit, UserHomeState>(
