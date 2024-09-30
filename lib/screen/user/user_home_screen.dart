@@ -73,6 +73,16 @@ class UserHomeScreen extends StatelessWidget {
                         children: List.generate(homeCubit.products.length,
                             (int index) {
                           return ProductView(
+                            onTap: (){
+                               Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          ProductDetailsScreen(
+                                            product: homeCubit.products[index],
+                                          )),
+                                );
+                            },
                             imageSrc:
                                 homeCubit.products[index].imageUrls.first ?? "",
                             onPressed: () {},
