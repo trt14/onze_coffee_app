@@ -10,20 +10,15 @@ class OrderRepository {
   * Add new Order
   *
   * */
-  addNewOrderID({required String userID}) async {
+  addNewOrderID({required String userID, required double amount}) async {
     try {
       final response = await supabase.client.from("orders").insert({
         "user_id": userID,
-        "total_price": 0,
+        "total_price": amount,
         "status": "not-complete"
       }).select();
       print(response);
-      addOrderItem(
-          userID: userID,
-          price: 12.5,
-          quantity: 3,
-          productID: 1,
-          orderID: response.first["id"]);
+      return response.first["id"];
     } catch (e) {
       print(e.toString());
     }
@@ -74,7 +69,7 @@ class OrderRepository {
       final response = await supabase.client.from("order_items").insert({
         "quantity": quantity,
         "price": price,
-        "product_id": 1,
+        "product_id": productID,
         "created_by": userID,
         "order_id": orderID
       }).select();
@@ -84,49 +79,17 @@ class OrderRepository {
     }
   }
 
-  /*
-  *
-  * 
-  * Update Order Item
-  *
-  * */
-
-  updateOrderItem(
-      {required String userID,
-      required int orderItemID,
-      required double price,
-      required int orderID,
-      required int quantity,
-      required int productID}) async {
+  getProductVarient({required int productID}) async {
     try {
       final response = await supabase.client
-          .from("order_items")
-          .update({
-            "quantity": quantity,
-            "price": price,
-            "product_id": 1,
-            "created_by": userID,
-            "order_id": orderID
-          })
-          .eq("id", orderItemID)
+          .from("product_variants")
+          .select("id")
+          .eq("product_id", productID)
           .select();
-      print(response);
+      print(response.first);
+      return response.first["id"];
     } catch (e) {
-      print(e.toString());
+      print(e);
     }
   }
-
-  /*
-  *
-  * Tested
-  * Delete Category
-  *
-  * */
-
-  /*
-  *
-  * Tested
-  * get all Categories
-  *
-  * */
 }

@@ -2,6 +2,7 @@ import 'package:onze_coffee_app/models/product_model.dart';
 import 'package:onze_coffee_app/models/variants_model.dart';
 
 class CartProductModel {
+  final int productID;
   final String productName;
   final String tempreture;
   final int productPrice;
@@ -9,6 +10,7 @@ class CartProductModel {
 
   CartProductModel(
       {required this.productName,
+      required this.productID,
       required this.tempreture,
       required this.quantity,
       required this.productPrice});
@@ -20,6 +22,7 @@ class CartProductModel {
   }) {
     return CartProductModel(
       productName: product.productName,
+      productID: product.productId,
       tempreture: product.tempreture,
       productPrice: productVariants.price,
       quantity: quantity,
@@ -28,6 +31,7 @@ class CartProductModel {
 
   factory CartProductModel.fromJson(Map<String, dynamic> json) {
     return CartProductModel(
+      productID: json['product_name'],
       productName: json['product_name'],
       tempreture: json['tempreture'],
       quantity: json['quantity'],

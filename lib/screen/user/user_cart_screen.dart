@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onze_coffee_app/cubits/cart_cubit/cart_cubit.dart';
+import 'package:onze_coffee_app/cubits/order_cubit/order_cubit.dart';
 import 'package:onze_coffee_app/helper/custom_colors.dart';
 import 'package:onze_coffee_app/helper/screen.dart';
 import 'package:onze_coffee_app/models/cart_product_model.dart';
+import 'package:onze_coffee_app/screen/user/user_payment_screen.dart';
 
 import 'package:onze_coffee_app/widget/bill.dart';
 import 'package:onze_coffee_app/widget/comment/custom_button_bottom_sheet.dart';
@@ -16,15 +18,34 @@ class UserCartScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double amount = 0;
+    int orderID = 0;
     return BlocProvider(
       create: (context) => CartCubit(),
       child: Builder(builder: (context) {
         final cartReadCubit = context.read<CartCubit>();
 
         return Scaffold(
-          bottomSheet: CustomButtonBottomSheet(
-            title: "BUY NOW!!",
-            onPressed: () {},
+          bottomSheet: BlocProvider(
+            create: (context) => OrderCubit(),
+            child: Builder(builder: (context) {
+              final orderReadCubit = context.read<OrderCubit>();
+              return CustomButtonBottomSheet(
+                title: "BUY NOW!!",
+                onPressed: () async {
+                  orderID = await orderReadCubit.addNewOrder();
+                  print(orderID);
+                  amount = orderReadCubit.getAllAmountItems(cart: myCart!);
+                  print(amount);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => UserPaymentScreen(
+                            amount: amount, orderID: orderID)),
+                  );
+                },
+              );
+            }),
           ),
           appBar: AppBar(
             title: const Center(child: Text("Detail")),

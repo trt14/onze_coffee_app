@@ -24,7 +24,8 @@ class CartCubit extends Cubit<CartState> {
         productName: product.productName,
         tempreture: product.tempreture,
         productPrice: productVarient.price,
-        quantity: qnty));
+        quantity: qnty,
+        productID: product.productId));
     updateIncreamentAmount(price: productVarient.price, qnt: 1);
     // print(totalAmount);
     emit(SuccessCartState(msg: "Done :)"));
