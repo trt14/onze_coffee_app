@@ -17,11 +17,10 @@ class UserHomeScreen extends StatelessWidget {
       create: (context) => UserHomeCubit(),
       child: Builder(builder: (context) {
         final homeCubit = context.read<UserHomeCubit>();
-        return Scaffold(
-          body: SafeArea(
-            bottom: false,
-            top: false,
-            child: SingleChildScrollView(
+        return SafeArea(
+          top: false,
+          bottom: false,
+          child: SingleChildScrollView(
               child: Column(
                 children: [
                   Container(
@@ -103,13 +102,13 @@ class UserHomeScreen extends StatelessWidget {
                           //   price: "10",
                           //   type: "Deep Foam",
                           // )
-
+            
                           );
                     },
                   ),
                 ],
               ),
-            ),
+            
           ),
         );
       }),

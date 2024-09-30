@@ -4,9 +4,6 @@ import 'package:onze_coffee_app/data/repositories/payment_repository.dart';
 import 'package:onze_coffee_app/widget/comment/custom_choice_chip.dart';
 import 'package:onze_coffee_app/widget/comment/product_view.dart';
 
-import '../../data/repositories/category_repository.dart';
-import '../../integrations/supabase/supabase_client.dart';
-
 class EmpProductsScreen extends StatelessWidget {
   const EmpProductsScreen({super.key});
 
@@ -86,14 +83,6 @@ class EmpProductsScreen extends StatelessWidget {
               ),
               ProductView(
                 onTap: () {
-                  // OrderRepository().updateOrderItem(
-                  //     orderItemID: 2,
-                  //     userID: "e8661b98-e738-4093-80d3-4e9a9e7a90fd",
-                  //     price: 1300,
-                  //     quantity: 10,
-                  //     productID: 1,
-                  //     orderID: 106);
-
                   OrderRepository().addOrderItem(
                       userID: "e8661b98-e738-4093-80d3-4e9a9e7a90fd",
                       price: 120,
