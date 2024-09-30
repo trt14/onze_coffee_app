@@ -9,11 +9,7 @@ class EmpHomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Center(child: Text("Order")),
-      ),
-      body: Padding(
+    return  Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -81,7 +77,7 @@ class EmpHomeScreen extends StatelessWidget {
             )
           ],
         ),
-      ),
+      
     );
   }
 }

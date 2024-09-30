@@ -9,7 +9,23 @@ part 'admin_nav_state.dart';
 
 class AdminNavCubit extends Cubit<AdminNavState> {
   AdminNavCubit() : super(AdminNavInitial());
-  List<Widget> screens = const [EmpProductsScreen(), EmpHomeScreen(), OrdersScreen()];
+  List<Widget> screens = const [
+    EmpProductsScreen(),
+    EmpHomeScreen(),
+    OrdersScreen()
+  ];
+
+  List<PreferredSizeWidget> appBars = [
+    AppBar(
+      title: const Center(child: Text("Products")),
+    ),
+    AppBar(
+      title: const Center(child: Text("Order")),
+    ),
+    AppBar(
+      title: const Center(child: Text("Orders")),
+    ),
+  ];
   int index = 0;
   update() {
     emit(Navigate());

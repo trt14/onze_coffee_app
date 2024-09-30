@@ -81,28 +81,7 @@ class UserHomeScreen extends StatelessWidget {
                                   "${homeCubit.products[index].variants.first.price}",
                               type: homeCubit.products[index].productCategory,
                             );
-                          })
-                          // ProductView(
-                          //   onPressed: () {},
-                          //   name: "Coffee Mocha",
-                          //   price: "10",
-                          //   type: "Deep Foam",
-                          // ),
-                          // ProductView(
-                          //   onTap: () {},
-                          //   onPressed: () {},
-                          //   name: "Coffee Mocha",
-                          //   price: "10",
-                          //   type: "Deep Foam",
-                          // ),
-                          // ProductView(
-                          //   onTap: () {},
-                          //   onPressed: () {},
-                          //   name: "Black Coffee",
-                          //   price: "10",
-                          //   type: "Deep Foam",
-                          // )
-            
+                          })            
                           );
                     },
                   ),

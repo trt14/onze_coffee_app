@@ -7,11 +7,7 @@ class OrdersScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Center(child: Text("Orders")),
-      ),
-      body: const Padding(
+    return const Padding(
         padding: EdgeInsets.all(16.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -60,7 +56,7 @@ class OrdersScreen extends StatelessWidget {
                     "Coffee Mocha x 1  ,  Coffee Mocha x 2  ,  Coffee Mocha x 1"),
           ],
         ),
-      ),
+      
     );
   }
 }
