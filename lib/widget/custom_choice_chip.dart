@@ -8,13 +8,13 @@ class CustomChoiceChip extends StatelessWidget {
       required this.isSelected,
       this.lblColor = AppColor.primary,
       this.selectedColor = AppColor.forth,
-      this.backgroundColor = AppColor.white});
+      this.backgroundColor = AppColor.white, this.onSelected});
   final String title;
   final bool isSelected;
   final Color selectedColor;
   final Color backgroundColor;
   final Color lblColor;
-
+  final Function(bool)? onSelected;
   @override
   Widget build(BuildContext context) {
     return ChoiceChip(
@@ -28,7 +28,7 @@ class CustomChoiceChip extends StatelessWidget {
       labelStyle:
           TextStyle(color: isSelected == true ? lblColor : AppColor.black),
       showCheckmark: false,
-      onSelected: (value) {},
+      onSelected: onSelected,
     );
   }
 }

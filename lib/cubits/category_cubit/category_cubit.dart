@@ -8,7 +8,7 @@ part 'category_state.dart';
 class CategoryCubit extends Cubit<CategoryState> {
   TextEditingController txtEditController = TextEditingController();
   List<Map<String, dynamic>> categoryList = [];
-
+  int productCategory = 1;
   CategoryCubit() : super(CategoryInitial()) {
     fetchCategoriesEvent();
   }
@@ -60,5 +60,9 @@ class CategoryCubit extends Cubit<CategoryState> {
       print(e);
       emit(ErrorCategoryState(msg: e.toString()));
     }
+  }
+
+  updateChips() {
+    emit(SuccessCategoryState(msg: ""));
   }
 }

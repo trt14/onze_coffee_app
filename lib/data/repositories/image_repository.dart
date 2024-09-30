@@ -7,18 +7,29 @@ uploadImage({required int productId, required File image}) async {
   print("Iam at uploadImage");
 
   String imageName = DateTime.now().toIso8601String();
+  imageName = imageName.replaceAll("-", "_");
+  imageName = imageName.replaceAll(".", "_");
+  imageName = imageName.replaceAll(":", "_");
+  print(imageName);
+  print("image/${image.path.split(".").last}");
+  final imageAsByte = await image.readAsBytes();
   try {
-    await supabase.client.storage.from("Image").updateBinary(
-        imageName, image.readAsBytesSync(),
-        fileOptions: FileOptions(
-            upsert: true, contentType: "image/${image.path.split(".").last}"));
-
-    String imageUrl =
-        supabase.client.storage.from("Image").getPublicUrl(imageName);
-
-    await supabase.client.from("images").upsert({"image_url": imageUrl});
+    print("upload to storage");
+    await supabase.client.storage.from("image_backet").updateBinary(
+        imageName, imageAsByte,
+        fileOptions: FileOptions(upsert: true, contentType: "image/jpg"));
+    print("get url from storage");
+    String imageUrl = await supabase.client.storage
+        .from("image_backet")
+        .getPublicUrl(imageName);
+    print("upload to table");
+    await supabase.client
+        .from("images")
+        .upsert({"image_url": imageUrl, "product_id": productId});
     return true;
   } catch (e) {
-    throw (e.toString());
+    print("iam at catch");
+    print(e);
   }
+  return false;
 }

@@ -3,8 +3,8 @@ import 'package:onze_coffee_app/helper/custom_colors.dart';
 import 'package:onze_coffee_app/helper/screen.dart';
 
 class CustomAddImage extends StatelessWidget {
-  const CustomAddImage({super.key});
-
+  const CustomAddImage({super.key, this.onPressed});
+  final void Function()? onPressed;
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -13,7 +13,10 @@ class CustomAddImage extends StatelessWidget {
         height: context.getHeight(value: 0.25),
         constraints: const BoxConstraints(maxWidth: 400),
         decoration: const BoxDecoration(color: AppColor.fivth),
-        child: const Icon(Icons.add),
+        child: IconButton(
+          icon: Icon(Icons.add),
+          onPressed: onPressed,
+        ),
       ),
     );
   }

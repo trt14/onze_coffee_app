@@ -30,13 +30,14 @@ createProduct(
           .from("product_variants")
           .upsert(element.toJson(productId: id));
     }
-    if (images != null) {
-      for (var element in images) {
-        await uploadImage(productId: product.productId, image: element);
+    if (images != null || images!.isNotEmpty) {
+      for (File element in images) {
+        await uploadImage(productId: id, image: element);
       }
     }
     return true;
   } catch (e) {
+    print("iam at create product catch");
     print(e);
     return false;
   }

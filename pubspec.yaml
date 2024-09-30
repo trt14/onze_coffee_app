@@ -17,6 +17,7 @@ dependencies:
   supabase_flutter: ^2.6.0
   flutter_bloc: ^8.1.6
   bloc: ^8.1.4
+  file_picker: ^8.1.2
 
 
 dev_dependencies:
