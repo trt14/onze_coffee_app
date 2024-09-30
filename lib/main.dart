@@ -1,23 +1,8 @@
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:onze_coffee_app/data/repositories/product_repository.dart';
-import 'package:onze_coffee_app/models/product_model.dart';
-import 'package:onze_coffee_app/models/variants_model.dart';
-import 'package:onze_coffee_app/models/variants.dart';
-import 'package:onze_coffee_app/screen/employee/admin_nav.dart';
-import 'package:onze_coffee_app/screen/user/nav_bar/nav_bar.dart';
-import 'package:onze_coffee_app/screen/shared/order_details_screen.dart';
-import 'package:onze_coffee_app/screen/shared/product_details_screen.dart';
-import 'package:onze_coffee_app/screen/user/user_cart_screen.dart';
-import 'package:onze_coffee_app/screen/user/user_payment_screen.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:onze_coffee_app/screen/employee/emp_add_product_screen.dart';
-import 'package:onze_coffee_app/screen/employee/emp_home_screen.dart';
-import 'package:onze_coffee_app/screen/employee/emp_products_screen.dart';
-import 'package:onze_coffee_app/screen/employee/emp_promo_screen.dart';
-import 'package:onze_coffee_app/screen/shared/orders_screen.dart';
-import 'package:onze_coffee_app/screen/user/user_home_screen.dart';
+
 import 'package:onze_coffee_app/services/init.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'screen/auth/login_screen.dart';

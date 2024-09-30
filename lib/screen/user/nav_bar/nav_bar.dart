@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:onze_coffee_app/cubit/nav_bar/nav_bar_cubit.dart';
+import 'package:onze_coffee_app/cubits/nav_bar/nav_bar_cubit.dart';
 
 class NavBar extends StatelessWidget {
   const NavBar({super.key});

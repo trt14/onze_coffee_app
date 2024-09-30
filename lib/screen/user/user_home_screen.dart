@@ -21,93 +21,71 @@ class UserHomeScreen extends StatelessWidget {
           top: false,
           bottom: false,
           child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  Container(
-                    width: context.getWidth(value: 1),
-                    height: context.getWidth(value: 1),
-                    decoration: const BoxDecoration(color: AppColor.primary),
-                    child: Image.asset("assets/logo/onze_logo.png"),
+            child: Column(
+              children: [
+                Container(
+                  width: context.getWidth(value: 1),
+                  height: context.getWidth(value: 1),
+                  decoration: const BoxDecoration(color: AppColor.primary),
+                  child: Image.asset("assets/logo/onze_logo.png"),
+                ),
+                const ImageBanner(imageSrc: "assets/banner/Banner.png"),
+                const SizedBox(
+                  height: 10,
+                ),
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      CustomChoiceChip(
+                        selected: true,
+                        text: "All Coffee",
+                        onSelected: (bool value) {},
+                      ),
+                      CustomChoiceChip(
+                        selected: false,
+                        text: "Black",
+                        onSelected: (bool value) {},
+                      ),
+                      CustomChoiceChip(
+                        selected: false,
+                        text: "Spanish",
+                        onSelected: (bool value) {},
+                      ),
+                      CustomChoiceChip(
+                        selected: false,
+                        text: "Choclete",
+                        onSelected: (bool value) {},
+                      ),
+                    ],
                   ),
-                  const ImageBanner(imageSrc: "assets/banner/Banner.png"),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  BlocBuilder<UserHomeCubit, UserHomeState>(
-                    builder: (context, state) {
-                      return SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children:
-
-                              // List.generate(homeCubit., generator)
-
-                              [
-                            CustomChoiceChip(
-                              selected: true,
-                              text: "All Coffee",
-                              onSelected: (bool value) {},
-                            ),
-                            CustomChoiceChip(
-                              selected: false,
-                              text: "Black",
-                              onSelected: (bool value) {},
-                            ),
-                            CustomChoiceChip(
-                              selected: false,
-                              text: "Spanish",
-                              onSelected: (bool value) {},
-                            ),
-                            CustomChoiceChip(
-                              selected: false,
-                              text: "Choclete",
-                              onSelected: (bool value) {},
-                            ),
-                          ],
-                        ),
-                      );
-                    },
-                  ),
-                  BlocBuilder<UserHomeCubit, UserHomeState>(
-                    builder: (context, state) {
-                      return GridView(
-                          physics: const NeverScrollableScrollPhysics(),
-                          primary: false,
-                          shrinkWrap: true,
-                          gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 2, childAspectRatio: .75),
-                          children: List.generate(homeCubit.products.length,
-                              (int index) {
-                            return ProductView(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          ProductDetailsScreen(
-                                            product: homeCubit.products[index],
-                                          )),
-                                );
-                              },
-                              imageSrc:
-                                  homeCubit.products[index].imageUrls.first ??
-                                      "",
-                              onPressed: () {},
-                              name: homeCubit.products[index].productName,
-                              price:
-                                  "${homeCubit.products[index].variants.first.price}",
-                              type: homeCubit.products[index].productCategory,
-                            );
-                          }));
-                          })            
+                ),
+                BlocBuilder<UserHomeCubit, UserHomeState>(
+                  builder: (context, state) {
+                    return GridView(
+                        physics: const NeverScrollableScrollPhysics(),
+                        primary: false,
+                        shrinkWrap: true,
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2, childAspectRatio: .75),
+                        children: List.generate(homeCubit.products.length,
+                            (int index) {
+                          return ProductView(
+                            imageSrc:
+                                homeCubit.products[index].imageUrls.first ?? "",
+                            onPressed: () {},
+                            name: homeCubit.products[index].productName,
+                            price:
+                                "${homeCubit.products[index].variants.first.price}",
+                            type: homeCubit.products[index].productCategory,
                           );
-                    },
-                  ),
-                ],
-              ),
-            
+                        }));
+                  },
+                ),
+              ],
+            ),
           ),
         );
       }),

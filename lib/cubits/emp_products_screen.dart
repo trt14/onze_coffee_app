@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:onze_coffee_app/cubit/user_home/user_home_cubit.dart';
+import 'package:onze_coffee_app/cubits/user_home/user_home_cubit.dart';
 import 'package:onze_coffee_app/data/repositories/order_repository.dart';
 import 'package:onze_coffee_app/data/repositories/payment_repository.dart';
 import 'package:onze_coffee_app/screen/employee/emp_add_product_screen.dart';
@@ -80,68 +80,6 @@ class EmpProductsScreen extends StatelessWidget {
                 ),
               ],
             ),
-          ),
-          GridView(
-            physics: const NeverScrollableScrollPhysics(),
-            primary: false,
-            shrinkWrap: true,
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2, childAspectRatio: .75),
-            children: [
-              ProductView(
-                onTap: () async {
-                  await OrderRepository().addNewOrderID(
-                    userID: "e1552d62-c042-4130-9d9c-7f6dceb3d966",
-                  );
-                },
-                onPressed: () {},
-                name: "Coffee Mocha",
-                price: "10",
-                isEmployee: true,
-                type: "Deep Foam",
-              ),
-              ProductView(
-                onTap: () async {
-                  await PaymentRepository().addNewPayment(
-                      userID: "e8661b98-e738-4093-80d3-4e9a9e7a90fd",
-                      paymentMethod: "Visa",
-                      paymentStatus: "paid",
-                      orderID: 103,
-                      transactionID: "123",
-                      amount: 50);
-                },
-                onPressed: () {},
-                name: "Coffee Mocha",
-                price: "10",
-                isEmployee: true,
-                type: "Deep Foam",
-              ),
-              ProductView(
-                onTap: () {
-                  // OrderRepository().updateOrderItem(
-                  //     orderItemID: 2,
-                  //     userID: "e8661b98-e738-4093-80d3-4e9a9e7a90fd",
-                  //     price: 1300,
-                  //     quantity: 10,
-                  //     productID: 1,
-                  //     orderID: 106);
-
-                  // OrderRepository().addOrderItem(
-                  //     userID: "e8661b98-e738-4093-80d3-4e9a9e7a90fd",
-                  //     price: 120,
-                  //     orderID: 106,
-                  //     quantity: 3,
-                  //     productID: 1);
-                },
-                onPressed: () {},
-                isEmployee: true,
-                name: "Black Coffee",
-                price: "10",
-                type: "Deep Foam",
-              )
-            ],
-          ),
-        ],
           );
         },
       ),

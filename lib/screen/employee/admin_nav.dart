@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:onze_coffee_app/cubit/admin_nav/admin_nav_cubit.dart';
+import 'package:onze_coffee_app/cubits/admin_nav/admin_nav_cubit.dart';
 import 'package:onze_coffee_app/screen/employee/emp_add_product_screen.dart';
 
 class AdminNav extends StatelessWidget {

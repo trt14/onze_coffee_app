@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:onze_coffee_app/cubit/add_product/add_product_cubit.dart';
+import 'package:onze_coffee_app/cubits/add_product/add_product_cubit.dart';
 import 'package:onze_coffee_app/cubits/category_cubit/category_cubit.dart';
 import 'package:onze_coffee_app/helper/custom_colors.dart';
 import 'package:onze_coffee_app/helper/screen.dart';

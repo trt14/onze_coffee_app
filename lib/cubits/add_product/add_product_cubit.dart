@@ -6,7 +6,8 @@ import 'package:flutter/widgets.dart';
 import 'package:meta/meta.dart';
 import 'package:onze_coffee_app/data/repositories/product_repository.dart';
 import 'package:onze_coffee_app/models/product_model.dart';
-import 'package:onze_coffee_app/models/variants.dart';
+import 'package:onze_coffee_app/models/variants_model.dart';
+// import 'package:onze_coffee_app/models/variants.dart';
 
 part 'add_product_state.dart';
 
@@ -27,7 +28,7 @@ class AddProductCubit extends Cubit<AddProductState> {
     print("iam at addProduct");
     try {
       print(productCategory);
-      Variants variant = Variants(
+      VariantsModel variant = VariantsModel(
           size: "small",
           price: int.tryParse(priceController.text) ?? 0,
           calories: int.tryParse(caloriesController.text) ?? 0);
