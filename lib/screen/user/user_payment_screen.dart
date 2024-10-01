@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:moyasar/moyasar.dart';
 import 'package:onze_coffee_app/cubits/order_cubit/order_cubit.dart';
+import 'package:onze_coffee_app/helper/custom_alert.dart';
+import 'package:onze_coffee_app/helper/custom_colors.dart';
 import 'package:onze_coffee_app/screen/shared/order_details_screen.dart';
 
 class UserPaymentScreen extends StatelessWidget {
@@ -52,6 +54,11 @@ class UserPaymentScreen extends StatelessWidget {
                                       billId: orderID,
                                     )),
                           );
+                          showAlertSnackBar(
+                              context: context,
+                              color: AppColor.primary,
+                              title: "Your order was created successfully :)",
+                              colorStatus: AppColor.primary);
                         }
 
                         if (result.status == PaymentStatus.failed) {
@@ -61,6 +68,12 @@ class UserPaymentScreen extends StatelessWidget {
                               orderID: orderID,
                               transicitionID: result.id,
                               amount: amount.toDouble());
+                          Navigator.pop(context);
+                          showAlertSnackBar(
+                              context: context,
+                              color: AppColor.secondary,
+                              title: "Sorry :(! payment was faild , try again!",
+                              colorStatus: AppColor.secondary);
                         }
                       },
                     )
