@@ -147,8 +147,9 @@ class OrderRepository {
   getOrderByStatus(String status) async {
     print("Iam at getOrderByStatus");
     try {
-      final List<Map<String, dynamic>> data = await supabase.client
+      List<Map<String, dynamic>> data = await supabase.client
           .rpc("get_order_details_by_status", params: {"order_status": status});
+      data = data.reversed.toList();
       return data.map((element) => BillModel.fromJson(element)).toList();
     } catch (e) {
       print(e);
