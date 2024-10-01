@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:onze_coffee_app/helper/custom_colors.dart';
 import 'package:onze_coffee_app/helper/screen.dart';
@@ -33,7 +34,15 @@ class ProductView extends StatelessWidget {
               imageSrc != ""
                   ? Padding(
                       padding: const EdgeInsets.all(5.0),
-                      child: Image.network(imageSrc, height: 90),
+                      child: CachedNetworkImage(
+                        imageUrl: imageSrc,
+                        placeholder: (context, url) =>
+                            CircularProgressIndicator(),
+                        errorWidget: (context, url, error) => Image.asset(
+                            "assets/logo/onze_logo.png",
+                            height: 100),
+                      ),
+                      // child: Image.network(imageSrc, height: 90),
                     )
                   : Padding(
                       padding: const EdgeInsets.all(5.0),
