@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:onze_coffee_app/models/bill_model.dart';
 
 import '../../integrations/supabase/supabase_client.dart';
@@ -140,6 +141,17 @@ class OrderRepository {
       return response;
     } catch (e) {
       throw e;
+    }
+  }
+
+  getOrderByStatus(String status) async {
+    print("Iam at getOrderByStatus");
+    try {
+      final List<Map<String, dynamic>> data = await supabase.client
+          .rpc("get_order_details_by_status", params: {"order_status": status});
+      return data.map((element) => BillModel.fromJson(element)).toList();
+    } catch (e) {
+      print(e);
     }
   }
 }
