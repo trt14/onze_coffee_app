@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onze_coffee_app/cubits/order_details/order_details_cubit.dart';
+import 'package:onze_coffee_app/helper/converter.dart';
 import 'package:onze_coffee_app/helper/custom_colors.dart';
 import 'package:onze_coffee_app/helper/screen.dart';
 import 'package:onze_coffee_app/widget/comment/custom_pay_details_bottom_sheet.dart';
@@ -35,12 +36,21 @@ class OrderDetailsScreen extends StatelessWidget {
                     child: Column(
                       children: [
                         Center(
-                          child: Row(
-                            children: [
-                              Text("Order #${orderCubit.bill?.billId}"),
-                              Text("Date : ${orderCubit.bill?.createdAt}")
-                            ],
-                          ),
+                          child: Text("Order #${orderCubit.bill?.billId}",
+                              style: TextStyle(
+                                  color: AppColor.secondary,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w600)),
+                        ),
+                        const SizedBox(
+                          height: 30,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Text(
+                                "${formatDate(orderCubit.bill?.createdAt.toString() ?? "2024-11-07 10:10:10.26863+00")}      ${formatTime(orderCubit.bill?.createdAt.toString() ?? "2024-10-01 20:06:51.26863+00")}"),
+                          ],
                         ),
                         const SizedBox(
                           height: 30,
