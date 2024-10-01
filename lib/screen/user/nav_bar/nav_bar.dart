@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onze_coffee_app/cubits/nav_bar/nav_bar_cubit.dart';
+import 'package:onze_coffee_app/helper/custom_colors.dart';
 
 class NavBar extends StatelessWidget {
   const NavBar({super.key});
@@ -20,11 +21,14 @@ class NavBar extends StatelessWidget {
                   navCubit.index = index;
                   navCubit.update();
                 },
-                indicatorColor: Colors.amber,
+                indicatorColor: AppColor.primary,
                 selectedIndex: navCubit.index,
                 destinations: const <Widget>[
                   NavigationDestination(
-                    selectedIcon: Icon(Icons.home),
+                    selectedIcon: Icon(
+                      Icons.home,
+                      color: AppColor.white,
+                    ),
                     icon: Icon(Icons.home_outlined),
                     label: 'Home',
                   ),

@@ -48,7 +48,9 @@ class UserPaymentScreen extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => OrderDetailsScreen()),
+                                builder: (context) => OrderDetailsScreen(
+                                      billId: orderID,
+                                    )),
                           );
                         }
 

@@ -1,16 +1,22 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:get_it/get_it.dart';
 import 'package:onze_coffee_app/data/repositories/order_repository.dart';
+import 'package:onze_coffee_app/data/repositories/payment_repository.dart';
+import 'package:onze_coffee_app/data_layer/user_layer.dart';
 import 'package:onze_coffee_app/models/bill_model.dart';
+import 'package:onze_coffee_app/models/cart_product_model.dart';
 
 part 'order_state.dart';
 
 class OrderCubit extends Cubit<OrderState> {
   List<CartProductModel>? myCart = GetIt.I.get<UserLayer>().myCart;
-
+  List<BillModel> bills = [];
   late double totalAmount = GetIt.I.get<UserLayer>().totalAmount;
 
-  OrderCubit() : super(OrderInitial());
+  OrderCubit() : super(OrderInitial()) {
+    getBills();
+  }
 
   Future<int> addNewOrder() async {
     emit(LoadingOrderState());
@@ -69,9 +75,6 @@ class OrderCubit extends Cubit<OrderState> {
         status: "holding",
         orderID: orderID);
     emit(SuccessOrderPaymentState(msg: "Done :)"));
-  List<BillModel> bills = [];
-  OrderCubit() : super(OrderInitial()) {
-    getBills();
   }
 
   getBills() async {

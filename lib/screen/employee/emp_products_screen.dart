@@ -86,6 +86,7 @@ class EmpProductsScreen extends StatelessWidget {
                         children: List.generate(homeCubit.products.length,
                             (int index) {
                           return ProductView(
+                            isEmployee: true,
                             imageSrc:
                                 homeCubit.products[index].imageUrls.first ?? "",
                             onPressed: () {},

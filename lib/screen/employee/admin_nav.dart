@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:onze_coffee_app/cubits/admin_nav/admin_nav_cubit.dart';
+import 'package:onze_coffee_app/helper/custom_colors.dart';
 import 'package:onze_coffee_app/screen/employee/emp_add_product_screen.dart';
 
 class AdminNav extends StatelessWidget {
@@ -34,21 +35,24 @@ class AdminNav extends StatelessWidget {
                   navCubit.index = index;
                   navCubit.update();
                 },
-                indicatorColor: Colors.amber,
+                indicatorColor: AppColor.primary,
                 selectedIndex: navCubit.index,
                 destinations: const <Widget>[
                   NavigationDestination(
-                    selectedIcon: Icon(Icons.home),
+                    selectedIcon: Icon(
+                      Icons.home,
+                      color: AppColor.white,
+                    ),
                     icon: Icon(Icons.home_outlined),
-                    label: 'Home',
+                    label: '',
                   ),
                   NavigationDestination(
                     icon: Icon(FontAwesomeIcons.cartShopping),
-                    label: 'Orders',
+                    label: '',
                   ),
                   NavigationDestination(
                     icon: Icon(Icons.notifications_sharp),
-                    label: 'Notifications',
+                    label: '',
                   )
                 ],
               ),
