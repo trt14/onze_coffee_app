@@ -31,19 +31,6 @@ class OrdersScreen extends StatelessWidget {
                 const SizedBox(
                   height: 10,
                 ),
-                const CustomContainerOrder(
-                    isNote: false,
-                    orderID: "217",
-                    height: 120,
-                    width: 1,
-                    price: 20,
-                    textStatus: "Completed",
-                    productsWithQuntity:
-                        "Coffee Mocha x 1  ,  Coffee Mocha x 2  ,  Coffee Mocha x 1"),
-                const SizedBox(
-                  height: 10,
-                ),
-
                 BlocBuilder<OrderCubit, OrderState>(
                   builder: (context, state) {
                     return Column(children: [
@@ -73,7 +60,8 @@ class OrdersScreen extends StatelessWidget {
                                   width: 1,
                                   price: orderCubit.bills[index].totalPrice
                                       .toDouble(),
-                                  statusColor: AppColor.forth,
+                                  statusColor: statusColor(
+                                      orderCubit.bills[index].status),
                                   note: orderCubit.bills[index].note,
                                   textStatus: orderCubit.bills[index].status,
                                   productsWithQuntity: orderCubit
@@ -88,28 +76,6 @@ class OrdersScreen extends StatelessWidget {
                     ]);
                   },
                 ),
-
-                // CustomContainerOrder(
-                //     isNote: false,
-                //     orderID: "217",
-                //     height: 120,
-                //     width: 1,
-                //     statusColor: AppColor.forth,
-                //     textStatus: "Hold",
-                //     productsWithQuntity:
-                //         "Coffee Mocha x 1  ,  Coffee Mocha x 2  ,  Coffee Mocha x 1"),
-                // SizedBox(
-                //   height: 10,
-                // ),
-                // CustomContainerOrder(
-                //     isNote: false,
-                //     orderID: "217",
-                //     height: 120,
-                //     width: 1,
-                //     statusColor: AppColor.secondary,
-                //     textStatus: "Rejected",
-                //     productsWithQuntity:
-                //         "Coffee Mocha x 1  ,  Coffee Mocha x 2  ,  Coffee Mocha x 1"),
               ],
             ),
           ),
@@ -117,4 +83,11 @@ class OrdersScreen extends StatelessWidget {
       }),
     );
   }
+}
+
+statusColor(String status) {
+  if (status == "holding") return AppColor.fivth;
+  if (status == "processing") return AppColor.forth;
+  if (status == "rejected") return AppColor.secondary;
+  return AppColor.primary;
 }
