@@ -35,7 +35,12 @@ class OrderDetailsScreen extends StatelessWidget {
                     child: Column(
                       children: [
                         Center(
-                          child: Text("Order # ${orderCubit.bill?.billId}"),
+                          child: Row(
+                            children: [
+                              Text("Order #${orderCubit.bill?.billId}"),
+                              Text("Date : ${orderCubit.bill?.createdAt}")
+                            ],
+                          ),
                         ),
                         const SizedBox(
                           height: 30,
@@ -47,6 +52,7 @@ class OrderDetailsScreen extends StatelessWidget {
                               if (snapshot.hasData) {
                                 final data = snapshot.data!;
                                 print(data[0]["id"]);
+                                print(orderCubit.bill?.createdAt);
                                 print("here data");
                                 return Row(
                                   mainAxisAlignment:
