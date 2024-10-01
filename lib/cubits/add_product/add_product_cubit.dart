@@ -40,7 +40,7 @@ class AddProductCubit extends Cubit<AddProductState> {
           variants: [variant],
           productCategory: productCategory,
           imageUrls: files);
-      createProduct(product: product, categoryId: categoryId, images: files );
+      createProduct(product: product, categoryId: categoryId, images: files);
     } catch (e) {
       return false;
     }

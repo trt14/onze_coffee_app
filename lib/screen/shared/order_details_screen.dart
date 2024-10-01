@@ -42,7 +42,8 @@ class OrderDetailsScreen extends StatelessWidget {
                         ),
                         //progress indicator
                         StreamBuilder<List<Map<String, dynamic>>>(
-                            stream: orderCubit.getStatus(136),
+                            stream:
+                                orderCubit.getStatus(orderCubit.bill!.billId),
                             builder: (context, snapshot) {
                               var data = snapshot.data ?? [];
                               print(data[0]["id"]);

@@ -19,15 +19,19 @@ class AdminNav extends StatelessWidget {
             return Scaffold(
               appBar: navCubit.appBars[navCubit.index],
               floatingActionButton: FloatingActionButton(
+                backgroundColor: AppColor.primary,
                 onPressed: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) => const EmpAddProductScreen(),
                     ),
-                  );
+                  ).then((valu){});
                 },
-                child: const Icon(FontAwesomeIcons.plus),
+                child: const Icon(
+                  FontAwesomeIcons.plus,
+                  color: AppColor.white,
+                ),
               ),
               body: navCubit.screens[navCubit.index],
               bottomNavigationBar: NavigationBar(
