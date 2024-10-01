@@ -41,105 +41,121 @@ class OrderDetailsScreen extends StatelessWidget {
                           height: 30,
                         ),
                         //progress indicator
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            //status
-                            if (orderCubit.bill?.status == 'rejected')
-                              Column(
+                        StreamBuilder<List<Map<String, dynamic>>>(
+                            stream: orderCubit.getStatus(136),
+                            builder: (context, snapshot) {
+                              var data = snapshot.data ?? [];
+                              print(data[0]["id"]);
+                              print("here data");
+                              return Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
                                 children: [
-                                  const Text("rejected"),
-                                  const SizedBox(
-                                    height: 30,
-                                  ),
-                                  SizedBox(
-                                    width: context.getWidth(value: .2),
-                                    height: context.getHeight(value: .006),
-                                    child: const LinearProgressIndicator(
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(10)),
-                                        value: 1,
-                                        color: AppColor.secondary),
-                                  ),
-                                ],
-                              )
-                            else
-                              Column(
-                                children: [
-                                  const Text("holding"),
-                                  const SizedBox(
-                                    height: 30,
-                                  ),
-                                  SizedBox(
-                                    width: context.getWidth(value: .2),
-                                    height: context.getHeight(value: .006),
-                                    child: LinearProgressIndicator(
-                                        borderRadius: const BorderRadius.all(
-                                            Radius.circular(10)),
-                                        value: 1,
-                                        color:
-                                            orderCubit.bill?.status == "holding"
-                                                ? AppColor.secondary
-                                                : AppColor.primary),
-                                  ),
-                                ],
-                              ),
-
-                            if (orderCubit.bill?.status != "holding" &&
-                                orderCubit.bill?.status != "rejected")
-                              Column(
-                                children: [
-                                  const Text("Processing"),
-                                  const SizedBox(
-                                    height: 30,
-                                  ),
-                                  SizedBox(
-                                    width: context.getWidth(value: .2),
-                                    height: context.getHeight(value: .006),
-                                    child: LinearProgressIndicator(
-                                      borderRadius: const BorderRadius.all(
-                                        Radius.circular(10),
-                                      ),
-                                      value: 1,
-                                      color: orderCubit.bill?.status ==
-                                              "processing"
-                                          ? AppColor.secondary
-                                          : AppColor.primary,
-                                    ),
-                                  ),
-                                ],
-                              )
-                            else
-                              SizedBox(
-                                width: context.getWidth(value: .2),
-                                height: context.getHeight(value: .006),
-                              ),
-                            orderCubit.bill?.status == "completed"
-                                ? Column(
-                                    children: [
-                                      const Text("Complete"),
-                                      const SizedBox(
-                                        height: 30,
-                                      ),
-                                      SizedBox(
-                                        width: context.getWidth(value: .2),
-                                        height: context.getHeight(value: .006),
-                                        child: const LinearProgressIndicator(
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(10)),
-                                          value: 1,
-                                          color: AppColor.primary,
+                                  //status
+                                  if (data[0]["status"] == 'rejected')
+                                    Column(
+                                      children: [
+                                        const Text("rejected"),
+                                        const SizedBox(
+                                          height: 30,
                                         ),
-                                      ),
-                                    ],
-                                  )
-                                : SizedBox(
-                                    width: context.getWidth(value: .2),
-                                    height: context.getHeight(value: .006),
-                                  ),
-                          ],
-                        ),
-                      
+                                        SizedBox(
+                                          width: context.getWidth(value: 0.5),
+                                          height:
+                                              context.getHeight(value: .006),
+                                          child: const LinearProgressIndicator(
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(10)),
+                                              value: 1,
+                                              color: AppColor.secondary),
+                                        ),
+                                      ],
+                                    )
+                                  else
+                                    Column(
+                                      children: [
+                                        const Text("holding"),
+                                        const SizedBox(
+                                          height: 30,
+                                        ),
+                                        SizedBox(
+                                          width: context.getWidth(value: .2),
+                                          height:
+                                              context.getHeight(value: .006),
+                                          child: LinearProgressIndicator(
+                                              borderRadius:
+                                                  const BorderRadius.all(
+                                                      Radius.circular(10)),
+                                              value: 1,
+                                              color:
+                                                  data[0]["status"] == "holding"
+                                                      ? AppColor.secondary
+                                                      : AppColor.primary),
+                                        ),
+                                      ],
+                                    ),
+
+                                  if (data[0]["status"] != "holding" &&
+                                      data[0]["status"] != "rejected")
+                                    Column(
+                                      children: [
+                                        const Text("Processing"),
+                                        const SizedBox(
+                                          height: 30,
+                                        ),
+                                        SizedBox(
+                                          width: context.getWidth(value: .2),
+                                          height:
+                                              context.getHeight(value: .006),
+                                          child: LinearProgressIndicator(
+                                            borderRadius:
+                                                const BorderRadius.all(
+                                              Radius.circular(10),
+                                            ),
+                                            value: 1,
+                                            color: data[0]["status"] ==
+                                                    "processing"
+                                                ? AppColor.secondary
+                                                : AppColor.primary,
+                                          ),
+                                        ),
+                                      ],
+                                    )
+                                  else
+                                    SizedBox(
+                                      width: context.getWidth(value: .2),
+                                      height: context.getHeight(value: .006),
+                                    ),
+                                  data[0]["status"] == "completed"
+                                      ? Column(
+                                          children: [
+                                            const Text("Complete"),
+                                            const SizedBox(
+                                              height: 30,
+                                            ),
+                                            SizedBox(
+                                              width:
+                                                  context.getWidth(value: .2),
+                                              height: context.getHeight(
+                                                  value: .006),
+                                              child:
+                                                  const LinearProgressIndicator(
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(10)),
+                                                value: 1,
+                                                color: AppColor.primary,
+                                              ),
+                                            ),
+                                          ],
+                                        )
+                                      : SizedBox(
+                                          width: context.getWidth(value: .2),
+                                          height:
+                                              context.getHeight(value: .006),
+                                        ),
+                                ],
+                              );
+                            }),
 
                         if (orderCubit.bill?.products.isNotEmpty ?? false)
                           Column(

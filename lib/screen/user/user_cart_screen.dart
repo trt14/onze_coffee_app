@@ -34,14 +34,15 @@ class UserCartScreen extends StatelessWidget {
               return CustomButtonBottomSheet(
                 title: "BUY NOW!!",
                 onPressed: () async {
-                  showDialog<String>(
-                      context: context,
-                      builder: (BuildContext context) => SizedBox(
-                              child: LoadingAnimationWidget.twistingDots(
-                            leftDotColor: AppColor.primary,
-                            rightDotColor: AppColor.secondary,
-                            size: 100,
-                          )));
+                  // showDialog<String>(
+                  //     context: context,
+                  //     builder: (BuildContext context) => SizedBox(
+                  //         width: 50,
+                  //         child: LoadingAnimationWidget.twistingDots(
+                  //           leftDotColor: AppColor.primary,
+                  //           rightDotColor: AppColor.secondary,
+                  //           size: 100,
+                  //         )));
                   orderID = await orderReadCubit.addNewOrder();
                   print(orderID);
                   amount = orderReadCubit.getAllAmountItems(cart: myCart!);

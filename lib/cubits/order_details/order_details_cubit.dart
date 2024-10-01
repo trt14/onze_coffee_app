@@ -18,4 +18,15 @@ class OrderDetailsCubit extends Cubit<OrderDetailsState> {
       print(e);
     }
   }
+
+  Stream<List<Map<String, dynamic>>>? getStatus(int id) {
+    print("getStatus");
+    try {
+      final res = OrderRepository().getNewStatus(id);
+
+      return res;
+    } catch (e) {
+      print(e);
+    }
+  }
 }

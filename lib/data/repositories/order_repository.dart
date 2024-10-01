@@ -130,4 +130,16 @@ class OrderRepository {
       print(e);
     }
   }
+
+  Stream<List<Map<String, dynamic>>>? getNewStatus(int id) {
+    print("i'm in getNew state");
+    try {
+      final response = supabase.client
+          .from("orders")
+          .stream(primaryKey: ["id"]).eq("id", id);
+      return response;
+    } catch (e) {
+      throw e;
+    }
+  }
 }

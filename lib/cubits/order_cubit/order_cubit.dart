@@ -13,8 +13,8 @@ class OrderCubit extends Cubit<OrderState> {
   List<CartProductModel>? myCart = GetIt.I.get<UserLayer>().myCart;
   List<BillModel> bills = [];
   late double totalAmount = GetIt.I.get<UserLayer>().totalAmount;
-
   OrderCubit() : super(OrderInitial()) {
+
     getBills();
   }
 

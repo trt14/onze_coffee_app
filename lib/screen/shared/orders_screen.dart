@@ -86,7 +86,7 @@ class OrdersScreen extends StatelessWidget {
 }
 
 statusColor(String status) {
-  if (status == "holding") return AppColor.fivth;
+  if (status == "holding") return AppColor.third;
   if (status == "processing") return AppColor.forth;
   if (status == "rejected") return AppColor.secondary;
   return AppColor.primary;

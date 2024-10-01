@@ -24,7 +24,6 @@ class UserPaymentScreen extends StatelessWidget {
       publishableApiKey: dotenv.env['MOYASAR_PK'].toString(),
       amount: toInteger(amount: amount), // SAR 257.58
       description: 'order #$orderID',
-      metadata: {'size': '250g'},
       creditCard: CreditCardConfig(saveCard: false, manual: false),
     );
     return BlocProvider(
