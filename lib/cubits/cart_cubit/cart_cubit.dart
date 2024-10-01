@@ -19,7 +19,7 @@ class CartCubit extends Cubit<CartState> {
       {required ProductModel product,
       required int qnty,
       required VariantsModel productVarient}) {
-    emit(LoagingCartState());
+    emit(LoadingCartState());
     myCart?.add(CartProductModel(
         productName: product.productName,
         tempreture: product.tempreture,

@@ -17,4 +17,4 @@ final class ErrorCartState extends CartState {
 
 final class EmptyCartState extends CartState {}
 
-final class LoagingCartState extends CartState {}
+final class LoadingCartState extends CartState {}

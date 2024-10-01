@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:onze_coffee_app/cubits/cart_cubit/cart_cubit.dart';
 import 'package:onze_coffee_app/cubits/order_cubit/order_cubit.dart';
 import 'package:onze_coffee_app/helper/custom_colors.dart';
@@ -33,6 +34,14 @@ class UserCartScreen extends StatelessWidget {
               return CustomButtonBottomSheet(
                 title: "BUY NOW!!",
                 onPressed: () async {
+                  showDialog<String>(
+                      context: context,
+                      builder: (BuildContext context) => SizedBox(
+                              child: LoadingAnimationWidget.twistingDots(
+                            leftDotColor: AppColor.primary,
+                            rightDotColor: AppColor.secondary,
+                            size: 100,
+                          )));
                   orderID = await orderReadCubit.addNewOrder();
                   print(orderID);
                   amount = orderReadCubit.getAllAmountItems(cart: myCart!);

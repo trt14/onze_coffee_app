@@ -34,13 +34,16 @@ class ProductView extends StatelessWidget {
               imageSrc != ""
                   ? Padding(
                       padding: const EdgeInsets.all(5.0),
-                      child: CachedNetworkImage(
-                        imageUrl: imageSrc,
-                        placeholder: (context, url) =>
-                            CircularProgressIndicator(),
-                        errorWidget: (context, url, error) => Image.asset(
-                            "assets/logo/onze_logo.png",
-                            height: 100),
+                      child: SizedBox(
+                        height: 100,
+                        child: CachedNetworkImage(
+                          imageUrl: imageSrc,
+                          placeholder: (context, url) =>
+                              CircularProgressIndicator(),
+                          errorWidget: (context, url, error) => Image.asset(
+                              "assets/logo/onze_logo.png",
+                              height: 100),
+                        ),
                       ),
                       // child: Image.network(imageSrc, height: 90),
                     )
