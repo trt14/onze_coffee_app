@@ -8,7 +8,8 @@ import 'package:onze_coffee_app/helper/custom_colors.dart';
 import 'package:onze_coffee_app/screen/shared/order_details_screen.dart';
 
 class UserPaymentScreen extends StatelessWidget {
-  UserPaymentScreen({super.key, required this.amount, required this.orderID});
+  const UserPaymentScreen(
+      {super.key, required this.amount, required this.orderID});
   final double amount;
   final int orderID;
 
