@@ -8,7 +8,8 @@ class CustomChoiceChip extends StatelessWidget {
       required this.isSelected,
       this.lblColor = AppColor.primary,
       this.selectedColor = AppColor.forth,
-      this.backgroundColor = AppColor.white, this.onSelected});
+      this.backgroundColor = AppColor.white,
+      this.onSelected});
   final String title;
   final bool isSelected;
   final Color selectedColor;

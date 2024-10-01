@@ -1,38 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:onze_coffee_app/cubits/category_cubit/category_cubit.dart';
 import 'package:onze_coffee_app/cubits/user_home/user_home_cubit.dart';
+import 'package:onze_coffee_app/data/repositories/order_repository.dart';
+import 'package:onze_coffee_app/data/repositories/payment_repository.dart';
 import 'package:onze_coffee_app/helper/custom_colors.dart';
-import 'package:onze_coffee_app/helper/screen.dart';
-import 'package:onze_coffee_app/screen/shared/product_details_screen.dart';
+import 'package:onze_coffee_app/screen/employee/emp_add_product_screen.dart';
 import 'package:onze_coffee_app/widget/comment/product_view.dart';
 import 'package:onze_coffee_app/widget/custom_choice_chip.dart';
-import 'package:onze_coffee_app/widget/image_banner.dart';
 
-class UserHomeScreen extends StatelessWidget {
-  const UserHomeScreen({super.key});
+class EmpProductsScreen extends StatelessWidget {
+  const EmpProductsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => UserHomeCubit(),
-      child: Builder(builder: (context) {
-        final homeCubit = context.read<UserHomeCubit>();
-        return SafeArea(
-          top: false,
-          bottom: false,
-          child: SingleChildScrollView(
+      child: Builder(
+        builder: (context) {
+          final homeCubit = context.read<UserHomeCubit>();
+          return SingleChildScrollView(
             child: Column(
               children: [
-                Container(
-                  width: context.getWidth(value: 1),
-                  height: context.getWidth(value: 1),
-                  decoration: const BoxDecoration(color: AppColor.primary),
-                  child: Image.asset("assets/logo/onze_logo.png"),
-                ),
-                const ImageBanner(imageSrc: "assets/banner/Banner.png"),
                 const SizedBox(
-                  height: 10,
+                  height: 20,
                 ),
                 BlocProvider(
                   create: (context) => CategoryCubit(),
@@ -79,6 +71,9 @@ class UserHomeScreen extends StatelessWidget {
                     );
                   }),
                 ),
+                const SizedBox(
+                  height: 30,
+                ),
                 BlocBuilder<UserHomeCubit, UserHomeState>(
                   builder: (context, state) {
                     return GridView(
@@ -91,15 +86,6 @@ class UserHomeScreen extends StatelessWidget {
                         children: List.generate(homeCubit.products.length,
                             (int index) {
                           return ProductView(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => ProductDetailsScreen(
-                                          product: homeCubit.products[index],
-                                        )),
-                              );
-                            },
                             imageSrc:
                                 homeCubit.products[index].imageUrls.first ?? "",
                             onPressed: () {},
@@ -113,9 +99,9 @@ class UserHomeScreen extends StatelessWidget {
                 ),
               ],
             ),
-          ),
-        );
-      }),
+          );
+        },
+      ),
     );
   }
 }

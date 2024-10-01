@@ -30,3 +30,5 @@ final class SuccessOrderState extends OrderState {
   final String msg;
   const SuccessOrderState({required this.msg});
 }
+
+final class SuccessState extends OrderState {}
