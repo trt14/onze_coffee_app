@@ -15,7 +15,7 @@ class OrderDetailsScreen extends StatelessWidget {
       create: (context) => OrderDetailsCubit()..getOrderDetails(billId),
       child: Builder(builder: (context) {
         final orderCubit = context.read<OrderDetailsCubit>();
-        
+
         return BlocBuilder<OrderDetailsCubit, OrderDetailsState>(
           builder: (context, state) {
             return Scaffold(
@@ -31,109 +31,157 @@ class OrderDetailsScreen extends StatelessWidget {
                 padding: const EdgeInsets.all(18.0),
                 child: SafeArea(
                   bottom: false,
-                  child: Column(
-                    children: [
-                      const Center(
-                        child: Text("Order # 217"),
-                      ),
-                      const SizedBox(
-                        height: 30,
-                      ),
-                      //progress indicator
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          //status
-                          Column(
-                            children: [
-                              const Text("holding"),
-                              const SizedBox(
-                                height: 30,
-                              ),
-                              SizedBox(
-                                width: context.getWidth(value: .2),
-                                height: context.getHeight(value: .006),
-                                child: const LinearProgressIndicator(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(10)),
-                                  value: 1,
-                                  color: AppColor.primary,
-                                ),
-                              ),
-                            ],
-                          ),
-
-                          Column(
-                            children: [
-                              const Text("Processing"),
-                              const SizedBox(
-                                height: 30,
-                              ),
-                              SizedBox(
-                                width: context.getWidth(value: .2),
-                                height: context.getHeight(value: .006),
-                                child: const LinearProgressIndicator(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(10)),
-                                  value: 1,
-                                  color: AppColor.primary,
-                                ),
-                              ),
-                            ],
-                          ),
-
-                          Column(
-                            children: [
-                              const Text("Complete"),
-                              const SizedBox(
-                                height: 30,
-                              ),
-                              SizedBox(
-                                width: context.getWidth(value: .2),
-                                height: context.getHeight(value: .006),
-                                child: const LinearProgressIndicator(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(10)),
-                                  value: 1,
-                                  color: AppColor.primary,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                      const Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: ProductCard(
-                          qty: "2",
-                          enable: false,
-                          imageSrc: "assets/product/image.png",
-                          name: "Coffee Mocha",
-                          type: "Deep Foam",
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        Center(
+                          child: Text("Order # ${orderCubit.bill?.billId}"),
                         ),
-                      ),
-                      const SizedBox(
-                        height: 30,
-                      ),
-                      const Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                            "Note:"),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      const Align(
-                        alignment: Alignment.centerLeft,
-                        child: Padding(
-                          padding: EdgeInsets.only(left: 18),
+                        const SizedBox(
+                          height: 30,
+                        ),
+                        //progress indicator
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            //status
+                            if (orderCubit.bill?.status == 'rejected')
+                              Column(
+                                children: [
+                                  const Text("rejected"),
+                                  const SizedBox(
+                                    height: 30,
+                                  ),
+                                  SizedBox(
+                                    width: context.getWidth(value: .2),
+                                    height: context.getHeight(value: .006),
+                                    child: const LinearProgressIndicator(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(10)),
+                                        value: 1,
+                                        color: AppColor.secondary),
+                                  ),
+                                ],
+                              )
+                            else
+                              Column(
+                                children: [
+                                  const Text("holding"),
+                                  const SizedBox(
+                                    height: 30,
+                                  ),
+                                  SizedBox(
+                                    width: context.getWidth(value: .2),
+                                    height: context.getHeight(value: .006),
+                                    child: LinearProgressIndicator(
+                                        borderRadius: const BorderRadius.all(
+                                            Radius.circular(10)),
+                                        value: 1,
+                                        color:
+                                            orderCubit.bill?.status == "holding"
+                                                ? AppColor.secondary
+                                                : AppColor.primary),
+                                  ),
+                                ],
+                              ),
+
+                            if (orderCubit.bill?.status != "holding" &&
+                                orderCubit.bill?.status != "rejected")
+                              Column(
+                                children: [
+                                  const Text("Processing"),
+                                  const SizedBox(
+                                    height: 30,
+                                  ),
+                                  SizedBox(
+                                    width: context.getWidth(value: .2),
+                                    height: context.getHeight(value: .006),
+                                    child: LinearProgressIndicator(
+                                      borderRadius: const BorderRadius.all(
+                                        Radius.circular(10),
+                                      ),
+                                      value: 1,
+                                      color: orderCubit.bill?.status ==
+                                              "processing"
+                                          ? AppColor.secondary
+                                          : AppColor.primary,
+                                    ),
+                                  ),
+                                ],
+                              )
+                            else
+                              SizedBox(
+                                width: context.getWidth(value: .2),
+                                height: context.getHeight(value: .006),
+                              ),
+                            orderCubit.bill?.status == "completed"
+                                ? Column(
+                                    children: [
+                                      const Text("Complete"),
+                                      const SizedBox(
+                                        height: 30,
+                                      ),
+                                      SizedBox(
+                                        width: context.getWidth(value: .2),
+                                        height: context.getHeight(value: .006),
+                                        child: const LinearProgressIndicator(
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(10)),
+                                          value: 1,
+                                          color: AppColor.primary,
+                                        ),
+                                      ),
+                                    ],
+                                  )
+                                : SizedBox(
+                                    width: context.getWidth(value: .2),
+                                    height: context.getHeight(value: .006),
+                                  ),
+                          ],
+                        ),
+                      
+
+                        if (orderCubit.bill?.products.isNotEmpty ?? false)
+                          Column(
+                            children: List.generate(
+                                orderCubit.bill!.products.length, (int index) {
+                              return Padding(
+                                padding: EdgeInsets.all(8.0),
+                                child: ProductCard(
+                                  qty: orderCubit.bill!.products[index].qty
+                                      .toString(),
+                                  enable: false,
+                                  imageSrc: "assets/product/image.png",
+                                  name: orderCubit.bill!.products[index].name,
+                                  type: orderCubit.bill!.products[index].size,
+                                ),
+                              );
+                            }),
+                          ),
+                        const SizedBox(
+                          height: 30,
+                        ),
+                        const Align(
+                          alignment: Alignment.centerLeft,
                           child: Text(
-                              style: TextStyle(color: AppColor.secondary),
-                              "Do not add milk to the coffee "),
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                              "Note:"),
                         ),
-                      )
-                    ],
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 18),
+                            child: Text(
+                                style:
+                                    const TextStyle(color: AppColor.secondary),
+                                orderCubit.bill?.note ?? "no notes"),
+                          ),
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ),
