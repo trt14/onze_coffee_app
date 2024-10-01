@@ -14,7 +14,6 @@ class OrderCubit extends Cubit<OrderState> {
   List<BillModel> bills = [];
   late double totalAmount = GetIt.I.get<UserLayer>().totalAmount;
   OrderCubit() : super(OrderInitial()) {
-
     getBills();
   }
 
@@ -80,6 +79,7 @@ class OrderCubit extends Cubit<OrderState> {
   getBills() async {
     try {
       bills = await OrderRepository().getEmployeeBill();
+      bills = bills.reversed.toList();
       emit(SuccessState());
     } catch (e) {
       print(e);

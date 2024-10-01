@@ -76,7 +76,7 @@ class CustomContainerOrder extends StatelessWidget {
                       title: textStatus.toString(),
                       isSelected: true,
                       selectedColor: statusColor,
-                      lblColor: AppColor.white,
+                      lblColor: Colors.white,
                     ),
                     Text(
                       "$price SAR",
