@@ -91,8 +91,8 @@ class ProductDetailsScreen extends StatelessWidget {
                         imageUrl: product.imageUrls[index]);
                   }),
                 ),
-              const SizedBox(
-                height: 200,
+              SizedBox(
+                height: context.getHeight(value: .2),
               ),
             ],
           ),

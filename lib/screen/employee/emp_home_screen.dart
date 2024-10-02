@@ -67,17 +67,20 @@ class EmpHomeScreen extends StatelessWidget {
                             GestureDetector(
                               onLongPress: () {},
                               child: CustomContainerOrder(
-                                  isNote: true,
-                                  note: empHomeCubit.orders[index].note,
-                                  orderID: empHomeCubit.orders[index].billId
-                                      .toString(),
-                                  height: 100,
-                                  width: 0.65,
-                                  productsWithQuntity: empHomeCubit
-                                      .orders[index].products
-                                      .map((element) =>
-                                          "${element.name} x${element.qty}")
-                                      .toString()),
+                                isNote: true,
+                                note: empHomeCubit.orders[index].note.isNotEmpty
+                                    ? "Note: ${empHomeCubit.orders[index].note}"
+                                    : "",
+                                orderID: empHomeCubit.orders[index].billId
+                                    .toString(),
+                                height: 100,
+                                width: 0.65,
+                                productsWithQuntity: empHomeCubit
+                                    .orders[index].products
+                                    .map((element) =>
+                                        "${element.name} x${element.qty}")
+                                    .toString(),
+                              ),
                             ),
                             InkWell(
                               onTap: () {},
