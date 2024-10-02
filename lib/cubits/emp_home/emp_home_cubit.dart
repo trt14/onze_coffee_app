@@ -19,38 +19,36 @@ class EmpHomeCubit extends Cubit<EmpHomeState> {
 
   getOrderByStatus(int index) async {
     print("cubit iam at getOrderByStatus");
-    emit(LoadingState());
+   if (!isClosed)  emit(LoadingState());
 
     try {
       switch (index) {
         case == 0:
           await OrderRepository().getOrderByStatus("holding");
-          if (!isClosed) emit(SuccessState());
           break;
         case == 1:
           await OrderRepository().getOrderByStatus("processing");
-          if (!isClosed) emit(SuccessState());
           break;
         case == 2:
           await OrderRepository().getOrderByStatus("completed");
-          if (!isClosed) emit(SuccessState());
           break;
         default:
           await OrderRepository().getOrderByStatus("holding");
-          if (!isClosed) emit(SuccessState());
+          break;
       }
+      if (!isClosed) emit(SuccessState());
     } catch (e) {
       print(e);
     }
   }
 
-  acceptedOrder({required int billId, required String status}) async {
+  updateOrder({required int billId, required String status}) async {
     print("Cubit acceptedOrder");
-    emit(LoadingState());
+    if (!isClosed) emit(LoadingState());
     try {
-      await OrderRepository().acceptedState(id: billId, status: status);
+      await OrderRepository().updateOrderStatus(id: billId, status: status);
       await getOrderByStatus(orderDataLayer.index);
-      emit(SuccessState());
+     if (!isClosed)  emit(SuccessState());
     } catch (e) {
       print(e);
     }
@@ -70,6 +68,6 @@ class EmpHomeCubit extends Cubit<EmpHomeState> {
   }
 
   updateChip() {
-    emit(SuccessState());
+    if (!isClosed) emit(SuccessState());
   }
 }

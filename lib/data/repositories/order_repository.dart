@@ -159,7 +159,7 @@ class OrderRepository {
     }
   }
 
-  acceptedState({required int id, required String status}) async {
+  updateOrderStatus({required int id, required String status}) async {
     print("Order repository acceptedState");
     try {
       await supabase.client

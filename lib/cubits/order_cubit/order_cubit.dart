@@ -18,7 +18,7 @@ class OrderCubit extends Cubit<OrderState> {
   }
 
   Future<int> addNewOrder() async {
-    emit(LoadingOrderState());
+   if (!isClosed)  emit(LoadingOrderState());
     final responseCreateOrder = await OrderRepository().addNewOrderID(
         userID: "e1552d62-c042-4130-9d9c-7f6dceb3d966",
         amount: getAllAmountItems(cart: myCart!));
@@ -58,7 +58,7 @@ class OrderCubit extends Cubit<OrderState> {
       required int orderID,
       required String transicitionID,
       required double amount}) async {
-    emit(LoadingOrderState());
+   if (!isClosed)  emit(LoadingOrderState());
 
     await PaymentRepository().addNewPayment(
         userID: "e1552d62-c042-4130-9d9c-7f6dceb3d966",
@@ -73,14 +73,14 @@ class OrderCubit extends Cubit<OrderState> {
         amount: amount,
         status: "holding",
         orderID: orderID);
-    emit(SuccessOrderPaymentState(msg: "Done :)"));
+   if (!isClosed)  emit(SuccessOrderPaymentState(msg: "Done :)"));
   }
 
   getBills() async {
     try {
       bills = await OrderRepository().getEmployeeBill();
       bills = bills.reversed.toList();
-      emit(SuccessState());
+   if (!isClosed)    emit(SuccessState());
     } catch (e) {
       print(e);
     }

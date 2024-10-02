@@ -13,11 +13,11 @@ class UserHomeCubit extends Cubit<UserHomeState> {
   final productLayer = GetIt.I.get<ProductLayer>();
   Future getProducts() async {
     print("iam at getProducts");
-    emit(LoadingState());
+    if (!isClosed) emit(LoadingState());
     productLayer.products = await ProductRepository().getUserProducts();
     products = productLayer.products;
     print("end");
-    emit(GetProductSuccessState());
+    if (!isClosed) emit(GetProductSuccessState());
   }
 
   UserHomeCubit() : super(UserHomeInitial()) {
@@ -26,7 +26,7 @@ class UserHomeCubit extends Cubit<UserHomeState> {
 
   getCategoryProducts(
       {required List<ProductModel> customProduct, required String category}) {
-    emit(LoadingState());
+    if (!isClosed) emit(LoadingState());
     try {
       for (var element in customProduct) {
         if (category == element.productCategory) {
@@ -44,6 +44,6 @@ class UserHomeCubit extends Cubit<UserHomeState> {
     } else {
       products = productLayer.products;
     }
-    emit(GetProductSuccessState());
+    if (!isClosed) emit(GetProductSuccessState());
   }
 }

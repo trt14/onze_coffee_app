@@ -8,13 +8,13 @@ part 'nav_bar_state.dart';
 
 class NavBarCubit extends Cubit<NavBarState> {
   List<Widget> screens = [
-    UserHomeScreen(),
-    OrdersScreen(),
+    const UserHomeScreen(),
+    const OrdersScreen(),
   ];
   int index = 0;
   NavBarCubit() : super(NavBarInitial());
 
   update() {
-    emit(Navigate());
+   if (!isClosed)  emit(Navigate());
   }
 }

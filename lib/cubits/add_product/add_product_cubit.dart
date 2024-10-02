@@ -28,7 +28,7 @@ class AddProductCubit extends Cubit<AddProductState> {
   //?--- cubit function
   AddProductCubit() : super(AddProductInitial());
   addProduct() async {
-    emit(LoadingState());
+   if (!isClosed)  emit(LoadingState());
     print("iam at addProduct");
     try {
       print(productCategory);
@@ -54,6 +54,6 @@ class AddProductCubit extends Cubit<AddProductState> {
   }
 
   updateTempreture() {
-    emit(SuccessState());
+   if (!isClosed)  emit(SuccessState());
   }
 }

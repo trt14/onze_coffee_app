@@ -19,7 +19,7 @@ class CartCubit extends Cubit<CartState> {
       {required ProductModel product,
       required int qnty,
       required VariantsModel productVarient}) {
-    emit(LoadingCartState());
+  if (!isClosed)   emit(LoadingCartState());
     myCart?.add(CartProductModel(
         productName: product.productName,
         tempreture: product.tempreture,
@@ -28,7 +28,7 @@ class CartCubit extends Cubit<CartState> {
         productID: product.productId));
     updateIncreamentAmount(price: productVarient.price, qnt: 1);
     // print(totalAmount);
-    emit(SuccessCartState(msg: "Done :)"));
+  if (!isClosed)   emit(SuccessCartState(msg: "Done :)"));
   }
 
   updateIncreamentAmount({required int price, required int qnt}) {
@@ -36,7 +36,7 @@ class CartCubit extends Cubit<CartState> {
     print("totalAmount 1: $totalAmount");
     totalAmount = (price * qnt).toDouble();
     print("totalAmount 2: $totalAmount");
-    emit(SuccessCartState(msg: "Done:)"));
+  if (!isClosed)   emit(SuccessCartState(msg: "Done:)"));
   }
 
   double getAllAmountItems({required List<CartProductModel> cart}) {
@@ -44,7 +44,7 @@ class CartCubit extends Cubit<CartState> {
     for (var element in cart) {
       sum += element.productPrice * element.quantity;
     }
-    emit(SuccessCartState(msg: "Done:)"));
+  if (!isClosed)   emit(SuccessCartState(msg: "Done:)"));
     return sum;
   }
 
@@ -52,10 +52,10 @@ class CartCubit extends Cubit<CartState> {
     if (cart.quantity <= 0) {
       myCart!.remove(cart);
       totalAmount = 0;
-      emit(SuccessCartState(msg: "Done:)"));
+     if (!isClosed)  emit(SuccessCartState(msg: "Done:)"));
     } else {
       totalAmount = totalAmount - cart.productPrice;
-      emit(SuccessCartState(msg: "Done:)"));
+   if (!isClosed)    emit(SuccessCartState(msg: "Done:)"));
     }
   }
 }

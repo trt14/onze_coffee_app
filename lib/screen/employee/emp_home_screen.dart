@@ -61,66 +61,74 @@ class EmpHomeScreen extends StatelessWidget {
                 BlocBuilder<EmpHomeCubit, EmpHomeState>(
                   builder: (context, state) {
                     return Column(
-                        children: List.generate(
-                            empHomeCubit.orderDataLayer.orders.length,
-                            (int index) {
-                      return Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(
-                          children: [
-                            GestureDetector(
-                              onTap: () async {
-                                if (empHomeCubit
-                                        .orderDataLayer.orders[index].status ==
-                                    "holding") {
-                                  await empHomeCubit.acceptedOrder(
-                                      status: "processing",
-                                      billId: empHomeCubit
-                                          .orderDataLayer.orders[index].billId);
-                                }
+                        children: empHomeCubit.orderDataLayer.orders.isNotEmpty
+                            ? List.generate(
+                                empHomeCubit.orderDataLayer.orders.length,
+                                (int index) {
+                                  return Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Row(
+                                      children: [
+                                        CustomContainerOrder(
+                                          isNote: true,
+                                          note: empHomeCubit.orderDataLayer
+                                                  .orders[index].note.isNotEmpty
+                                              ? "Note: ${empHomeCubit.orderDataLayer.orders[index].note}"
+                                              : "",
+                                          orderID: empHomeCubit.orderDataLayer
+                                              .orders[index].billId
+                                              .toString(),
+                                          height: 100,
+                                          width: 0.65,
+                                          productsWithQuntity: empHomeCubit
+                                              .orderDataLayer
+                                              .orders[index]
+                                              .products
+                                              .map((element) =>
+                                                  "${element.name} x${element.qty}")
+                                              .toString(),
+                                        ),
+                                        InkWell(
+                                          onTap: () async {
+                                            try {
+                                              if (empHomeCubit.orderDataLayer
+                                                      .orders[index].status ==
+                                                  "holding") {
+                                                await empHomeCubit.updateOrder(
+                                                    status: "processing",
+                                                    billId: empHomeCubit
+                                                        .orderDataLayer
+                                                        .orders[index]
+                                                        .billId);
+                                              }
 
-                                if (empHomeCubit
-                                        .orderDataLayer.orders[index].status ==
-                                    "processing") {
-                                  await empHomeCubit.acceptedOrder(
-                                      status: "completed",
-                                      billId: empHomeCubit
-                                          .orderDataLayer.orders[index].billId);
-                                }
-                              },
-                              onLongPress: () {},
-                              child: CustomContainerOrder(
-                                isNote: true,
-                                note: empHomeCubit.orderDataLayer.orders[index]
-                                        .note.isNotEmpty
-                                    ? "Note: ${empHomeCubit.orderDataLayer.orders[index].note}"
-                                    : "",
-                                orderID: empHomeCubit
-                                    .orderDataLayer.orders[index].billId
-                                    .toString(),
-                                height: 100,
-                                width: 0.65,
-                                productsWithQuntity: empHomeCubit
-                                    .orderDataLayer.orders[index].products
-                                    .map((element) =>
-                                        "${element.name} x${element.qty}")
-                                    .toString(),
-                              ),
-                            ),
-                            InkWell(
-                              onTap: () {},
-                              child: Container(
-                                width: context.getWidth(value: 0.25),
-                                height: 100,
-                                color: AppColor.primary,
-                                child:
-                                    Image.asset("assets/images/onzo-icon.png"),
-                              ),
-                            )
-                          ],
-                        ),
-                      );
-                    }));
+                                              if (empHomeCubit.orderDataLayer
+                                                      .orders[index].status ==
+                                                  "processing") {
+                                                await empHomeCubit.updateOrder(
+                                                    status: "completed",
+                                                    billId: empHomeCubit
+                                                        .orderDataLayer
+                                                        .orders[index]
+                                                        .billId);
+                                              }
+                                            } catch (e) {}
+                                          },
+                                          child: Container(
+                                            width:
+                                                context.getWidth(value: 0.25),
+                                            height: 100,
+                                            color: AppColor.primary,
+                                            child: Image.asset(
+                                                "assets/images/onzo-icon.png"),
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  );
+                                },
+                              )
+                            : const [Center(child: Text("No order here"))]);
                   },
                 )
               ],
