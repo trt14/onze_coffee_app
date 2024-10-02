@@ -25,20 +25,19 @@ class EmpHomeCubit extends Cubit<EmpHomeState> {
       switch (index) {
         case == 0:
           await OrderRepository().getOrderByStatus("holding");
-          print("emit(SuccessState())");
-          emit(SuccessState());
+          if (!isClosed) emit(SuccessState());
           break;
         case == 1:
           await OrderRepository().getOrderByStatus("processing");
-          emit(SuccessState());
+          if (!isClosed) emit(SuccessState());
           break;
         case == 2:
           await OrderRepository().getOrderByStatus("completed");
-          emit(SuccessState());
+          if (!isClosed) emit(SuccessState());
           break;
         default:
           await OrderRepository().getOrderByStatus("holding");
-          emit(SuccessState());
+          if (!isClosed) emit(SuccessState());
       }
     } catch (e) {
       print(e);
