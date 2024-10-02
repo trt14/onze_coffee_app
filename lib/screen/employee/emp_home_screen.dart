@@ -36,15 +36,18 @@ class EmpHomeScreen extends StatelessWidget {
                   builder: (context, state) {
                     return Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: List.generate(empHomeCubit.orderStatus.length,
+                        children: List.generate(
+                            empHomeCubit.orderDataLayer.orderStatus.length,
                             (int index) {
                           return CustomChoiceChip(
-                            title: empHomeCubit.orderStatus[index],
-                            isSelected: index == empHomeCubit.index,
+                            title:
+                                empHomeCubit.orderDataLayer.orderStatus[index],
+                            isSelected:
+                                index == empHomeCubit.orderDataLayer.index,
                             lblColor: AppColor.white,
                             selectedColor: AppColor.secondary,
                             onSelected: (value) {
-                              empHomeCubit.index = index;
+                              empHomeCubit.orderDataLayer.index = index;
                               empHomeCubit.updateChip();
                               empHomeCubit.getOrderByStatus(index);
                             },
@@ -58,7 +61,8 @@ class EmpHomeScreen extends StatelessWidget {
                 BlocBuilder<EmpHomeCubit, EmpHomeState>(
                   builder: (context, state) {
                     return Column(
-                        children: List.generate(empHomeCubit.orders.length,
+                        children: List.generate(
+                            empHomeCubit.orderDataLayer.orders.length,
                             (int index) {
                       return Padding(
                         padding: const EdgeInsets.all(8.0),
@@ -66,34 +70,38 @@ class EmpHomeScreen extends StatelessWidget {
                           children: [
                             GestureDetector(
                               onTap: () async {
-                                if (empHomeCubit.orders[index].status ==
+                                if (empHomeCubit
+                                        .orderDataLayer.orders[index].status ==
                                     "holding") {
                                   await empHomeCubit.acceptedOrder(
                                       status: "processing",
-                                      billId:
-                                          empHomeCubit.orders[index].billId);
+                                      billId: empHomeCubit
+                                          .orderDataLayer.orders[index].billId);
                                 }
 
-                                if (empHomeCubit.orders[index].status ==
+                                if (empHomeCubit
+                                        .orderDataLayer.orders[index].status ==
                                     "processing") {
                                   await empHomeCubit.acceptedOrder(
                                       status: "completed",
-                                      billId:
-                                          empHomeCubit.orders[index].billId);
+                                      billId: empHomeCubit
+                                          .orderDataLayer.orders[index].billId);
                                 }
                               },
                               onLongPress: () {},
                               child: CustomContainerOrder(
                                 isNote: true,
-                                note: empHomeCubit.orders[index].note.isNotEmpty
-                                    ? "Note: ${empHomeCubit.orders[index].note}"
+                                note: empHomeCubit.orderDataLayer.orders[index]
+                                        .note.isNotEmpty
+                                    ? "Note: ${empHomeCubit.orderDataLayer.orders[index].note}"
                                     : "",
-                                orderID: empHomeCubit.orders[index].billId
+                                orderID: empHomeCubit
+                                    .orderDataLayer.orders[index].billId
                                     .toString(),
                                 height: 100,
                                 width: 0.65,
                                 productsWithQuntity: empHomeCubit
-                                    .orders[index].products
+                                    .orderDataLayer.orders[index].products
                                     .map((element) =>
                                         "${element.name} x${element.qty}")
                                     .toString(),
