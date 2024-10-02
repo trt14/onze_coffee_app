@@ -14,7 +14,7 @@ class UserHomeCubit extends Cubit<UserHomeState> {
   Future getProducts() async {
     print("iam at getProducts");
     emit(LoadingState());
-    productLayer.products = await getUserProducts();
+    productLayer.products = await ProductRepository().getUserProducts();
     products = productLayer.products;
     print("end");
     emit(GetProductSuccessState());

@@ -26,7 +26,7 @@ class AdminNav extends StatelessWidget {
                     MaterialPageRoute(
                       builder: (context) => const EmpAddProductScreen(),
                     ),
-                  ).then((valu){});
+                  ).then((value){});
                 },
                 child: const Icon(
                   FontAwesomeIcons.plus,
