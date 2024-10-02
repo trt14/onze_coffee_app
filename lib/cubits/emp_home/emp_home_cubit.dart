@@ -19,7 +19,7 @@ class EmpHomeCubit extends Cubit<EmpHomeState> {
 
   getOrderByStatus(int index) async {
     print("cubit iam at getOrderByStatus");
-   if (!isClosed)  emit(LoadingState());
+    if (!isClosed) emit(LoadingState());
 
     try {
       switch (index) {
@@ -48,7 +48,7 @@ class EmpHomeCubit extends Cubit<EmpHomeState> {
     try {
       await OrderRepository().updateOrderStatus(id: billId, status: status);
       await getOrderByStatus(orderDataLayer.index);
-     if (!isClosed)  emit(SuccessState());
+      if (!isClosed) emit(SuccessState());
     } catch (e) {
       print(e);
     }
@@ -69,5 +69,11 @@ class EmpHomeCubit extends Cubit<EmpHomeState> {
 
   updateChip() {
     if (!isClosed) emit(SuccessState());
+  }
+
+  @override
+  Future<void> close() async {
+    await supabase.client.channel("orders").unsubscribe();
+    super.close();
   }
 }
