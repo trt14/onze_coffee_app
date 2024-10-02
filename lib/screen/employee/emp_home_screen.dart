@@ -65,6 +65,23 @@ class EmpHomeScreen extends StatelessWidget {
                         child: Row(
                           children: [
                             GestureDetector(
+                              onTap: () async {
+                                if (empHomeCubit.orders[index].status ==
+                                    "holding") {
+                                  await empHomeCubit.acceptedOrder(
+                                      status: "processing",
+                                      billId:
+                                          empHomeCubit.orders[index].billId);
+                                }
+
+                                if (empHomeCubit.orders[index].status ==
+                                    "processing") {
+                                  await empHomeCubit.acceptedOrder(
+                                      status: "completed",
+                                      billId:
+                                          empHomeCubit.orders[index].billId);
+                                }
+                              },
                               onLongPress: () {},
                               child: CustomContainerOrder(
                                 isNote: true,

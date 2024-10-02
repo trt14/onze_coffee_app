@@ -155,4 +155,15 @@ class OrderRepository {
       print(e);
     }
   }
+
+  acceptedState({required int id, required String status}) async {
+    print("Order repository acceptedState");
+    try {
+      await supabase.client
+          .from("orders")
+          .update({"status": status}).eq("id", id);
+    } catch (e) {
+      print(e);
+    }
+  }
 }

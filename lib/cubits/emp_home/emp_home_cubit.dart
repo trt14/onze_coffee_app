@@ -40,6 +40,18 @@ class EmpHomeCubit extends Cubit<EmpHomeState> {
     }
   }
 
+  acceptedOrder({required int billId,required String status}) async {
+    print("acceptedOrder");
+    emit(LoadingState());
+    try {
+      await OrderRepository().acceptedState(id: billId,status: status);
+      await getOrderByStatus(index);
+      emit(SuccessState());
+    } catch (e) {
+      print(e);
+    }
+  }
+
   updateChip() {
     emit(SuccessState());
   }
