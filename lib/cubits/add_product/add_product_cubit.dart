@@ -47,7 +47,7 @@ class AddProductCubit extends Cubit<AddProductState> {
           productCategory: productCategory,
           imageUrls: files);
       //?-- create product
-      ProductRepository().createProduct(product: product, categoryId: categoryId, images: files);
+    await  ProductRepository().createProduct(product: product, categoryId: categoryId, images: files);
     } catch (e) {
       return false;
     }

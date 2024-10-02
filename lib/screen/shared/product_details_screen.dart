@@ -8,6 +8,7 @@ import 'package:onze_coffee_app/screen/user/user_cart_screen.dart';
 import 'package:onze_coffee_app/widget/comment/custom_button_bottom_sheet.dart';
 import 'package:onze_coffee_app/widget/product_description.dart';
 import 'package:onze_coffee_app/widget/product_title.dart';
+import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 
 class ProductDetailsScreen extends StatelessWidget {
   const ProductDetailsScreen({super.key, required this.product});
@@ -82,7 +83,17 @@ class ProductDetailsScreen extends StatelessWidget {
               const SizedBox(
                 height: 30,
               ),
-              const Text("scolling images")
+              if (product.imageUrls.first != null)
+                ImageSlideshow(
+                  children:
+                      List.generate(product.imageUrls.length, (int index) {
+                    return CachedNetworkImage(
+                        imageUrl: product.imageUrls[index]);
+                  }),
+                ),
+              const SizedBox(
+                height: 200,
+              ),
             ],
           ),
         ),
