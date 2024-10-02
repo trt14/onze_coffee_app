@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onze_coffee_app/cubits/nav_bar/nav_bar_cubit.dart';
 import 'package:onze_coffee_app/helper/custom_colors.dart';
 
-class NavBar extends StatelessWidget {
-  const NavBar({super.key});
+class UserNav extends StatelessWidget {
+  const UserNav({super.key});
 
   @override
   Widget build(BuildContext context) {

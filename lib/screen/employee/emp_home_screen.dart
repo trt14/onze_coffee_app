@@ -17,47 +17,47 @@ class EmpHomeScreen extends StatelessWidget {
         final empHomeCubit = context.read<EmpHomeCubit>();
         return Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(
-                height: 20,
-              ),
-              const Text(
-                "Order Status",
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              BlocBuilder<EmpHomeCubit, EmpHomeState>(
-                builder: (context, state) {
-                  return Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: List.generate(empHomeCubit.orderStatus.length,
-                          (int index) {
-                        return CustomChoiceChip(
-                          title: empHomeCubit.orderStatus[index],
-                          isSelected: index == empHomeCubit.index,
-                          lblColor: AppColor.white,
-                          selectedColor: AppColor.secondary,
-                          onSelected: (value) {
-                            empHomeCubit.index = index;
-                            empHomeCubit.updateChip();
-                            empHomeCubit.getOrderByStatus(index);
-                          },
-                        );
-                      }));
-                },
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              BlocBuilder<EmpHomeCubit, EmpHomeState>(
-                builder: (context, state) {
-                  return SingleChildScrollView(
-                    child: Column(
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(
+                  height: 20,
+                ),
+                const Text(
+                  "Order Status",
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                BlocBuilder<EmpHomeCubit, EmpHomeState>(
+                  builder: (context, state) {
+                    return Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: List.generate(empHomeCubit.orderStatus.length,
+                            (int index) {
+                          return CustomChoiceChip(
+                            title: empHomeCubit.orderStatus[index],
+                            isSelected: index == empHomeCubit.index,
+                            lblColor: AppColor.white,
+                            selectedColor: AppColor.secondary,
+                            onSelected: (value) {
+                              empHomeCubit.index = index;
+                              empHomeCubit.updateChip();
+                              empHomeCubit.getOrderByStatus(index);
+                            },
+                          );
+                        }));
+                  },
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                BlocBuilder<EmpHomeCubit, EmpHomeState>(
+                  builder: (context, state) {
+                    return Column(
                         children: List.generate(empHomeCubit.orders.length,
                             (int index) {
                       return Padding(
@@ -92,46 +92,14 @@ class EmpHomeScreen extends StatelessWidget {
                           ],
                         ),
                       );
-                    })),
-                  );
-                },
-              )
-            ],
+                    }));
+                  },
+                )
+              ],
+            ),
           ),
         );
       }),
     );
   }
 }
-
-
-/*
-
-Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Row(
-                            children: [
-                              GestureDetector(
-                                onLongPress: () {},
-                                child: const CustomContainerOrder(
-                                    isNote: true,
-                                    note: "Don't add milk to the coffee",
-                                    orderID: "10",
-                                    height: 100,
-                                    width: 0.65,
-                                    productsWithQuntity:
-                                        "Coffee Mocha x 1  ,  Coffee Mocha x 2  ,  Coffee Mocha x 1"),
-                              ),
-                              InkWell(
-                                onTap: () {},
-                                child: Container(
-                                  width: context.getWidth(value: 0.25),
-                                  height: 100,
-                                  color: AppColor.primary,
-                                  child: Image.asset("assets/images/onzo-icon.png"),
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
- */
