@@ -1,11 +1,14 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onze_coffee_app/cubits/cart_cubit/cart_cubit.dart';
+import 'package:onze_coffee_app/helper/screen.dart';
 import 'package:onze_coffee_app/models/product_model.dart';
 import 'package:onze_coffee_app/screen/user/user_cart_screen.dart';
 import 'package:onze_coffee_app/widget/comment/custom_button_bottom_sheet.dart';
 import 'package:onze_coffee_app/widget/product_description.dart';
 import 'package:onze_coffee_app/widget/product_title.dart';
+import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 
 class ProductDetailsScreen extends StatelessWidget {
   const ProductDetailsScreen({super.key, required this.product});
@@ -32,10 +35,7 @@ class ProductDetailsScreen extends StatelessWidget {
 
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                    builder: (context) => UserCartScreen(
-                          myCart: cartReadCubit.myCart,
-                        )),
+                MaterialPageRoute(builder: (context) => const UserCartScreen()),
               );
             },
           );
@@ -46,8 +46,11 @@ class ProductDetailsScreen extends StatelessWidget {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              product.imageUrls.isEmpty
-                  ? Image.network(product.imageUrls.first)
+              product.imageUrls.first != null
+                  ? CachedNetworkImage(
+                      imageUrl: product.imageUrls.first,
+                      height: context.getHeight(value: .3),
+                    )
                   : Image.asset("assets/logo/onze_logo.png"),
               ProductTitle(
                 name: product.productName,
@@ -77,7 +80,17 @@ class ProductDetailsScreen extends StatelessWidget {
               const SizedBox(
                 height: 30,
               ),
-              const Text("scolling images")
+              if (product.imageUrls.first != null)
+                ImageSlideshow(
+                  children:
+                      List.generate(product.imageUrls.length, (int index) {
+                    return CachedNetworkImage(
+                        imageUrl: product.imageUrls[index]);
+                  }),
+                ),
+              SizedBox(
+                height: context.getHeight(value: .2),
+              ),
             ],
           ),
         ),

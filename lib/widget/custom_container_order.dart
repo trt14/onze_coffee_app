@@ -56,18 +56,10 @@ class CustomContainerOrder extends StatelessWidget {
             height: 10,
           ),
           isNote == true
-              ? const Row(
-                  children: [
-                    Text(
-                      "Note:",
-                      style:
-                          TextStyle(fontSize: 10, fontWeight: FontWeight.w600),
-                    ),
-                    Text(
-                      "Don't add milk to the coffee",
-                      style: TextStyle(fontSize: 10, color: AppColor.secondary),
-                    ),
-                  ],
+              ? Text(
+                  "$note",
+                  style:
+                      const TextStyle(fontSize: 10, color: AppColor.secondary),
                 )
               : Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -80,7 +72,7 @@ class CustomContainerOrder extends StatelessWidget {
                     ),
                     Text(
                       "$price SAR",
-                      style: TextStyle(
+                      style: const TextStyle(
                           fontSize: 14,
                           color: AppColor.secondary,
                           fontWeight: FontWeight.bold),

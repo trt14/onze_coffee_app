@@ -7,6 +7,7 @@ import 'package:onze_coffee_app/data/repositories/order_repository.dart';
 import 'package:onze_coffee_app/data/repositories/payment_repository.dart';
 import 'package:onze_coffee_app/helper/custom_colors.dart';
 import 'package:onze_coffee_app/screen/employee/emp_add_product_screen.dart';
+import 'package:onze_coffee_app/screen/shared/product_details_screen.dart';
 import 'package:onze_coffee_app/widget/comment/product_view.dart';
 import 'package:onze_coffee_app/widget/custom_choice_chip.dart';
 
@@ -86,6 +87,16 @@ class EmpProductsScreen extends StatelessWidget {
                         children: List.generate(homeCubit.products.length,
                             (int index) {
                           return ProductView(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ProductDetailsScreen(
+                                    product: homeCubit.products[index],
+                                  ),
+                                ),
+                              );
+                            },
                             isEmployee: true,
                             imageSrc:
                                 homeCubit.products[index].imageUrls.first ?? "",

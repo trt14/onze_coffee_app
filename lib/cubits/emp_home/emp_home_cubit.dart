@@ -1,47 +1,79 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:onze_coffee_app/data/repositories/order_repository.dart';
-import 'package:onze_coffee_app/models/bill_model.dart';
+import 'package:onze_coffee_app/data_layer/order_layer.dart';
+import 'package:onze_coffee_app/integrations/supabase/supabase_client.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 part 'emp_home_state.dart';
 
 class EmpHomeCubit extends Cubit<EmpHomeState> {
-  List<String> orderStatus = ["hold", "accepted", "completed"];
-  int index = 0;
+  final orderDataLayer = GetIt.I.get<OrderLayer>();
+  bool enableChannel = false;
   EmpHomeCubit() : super(EmpHomeInitial()) {
-    getOrderByStatus(index);
+    getOrderByStatus(orderDataLayer.index);
+    synOrder();
   }
-  List<BillModel> orders = [];
-   Stream<List<BillModel>>? getOrderByStatus(int index) async* {
-    print("iam at getOrderByStatus");
-    emit(LoadingState());
+
+  getOrderByStatus(int index) async {
+    print("cubit iam at getOrderByStatus");
+    if (!isClosed) emit(LoadingState());
 
     try {
       switch (index) {
         case == 0:
-          orders = await OrderRepository().getOrderByStatus("holding");
-          emit(SuccessState());
+          await OrderRepository().getOrderByStatus("holding");
           break;
         case == 1:
-          orders = await OrderRepository().getOrderByStatus("processing");
-          emit(SuccessState());
+          await OrderRepository().getOrderByStatus("processing");
           break;
         case == 2:
-          orders = await OrderRepository().getOrderByStatus("completed");
-          emit(SuccessState());
+          await OrderRepository().getOrderByStatus("completed");
           break;
         default:
-          orders = await OrderRepository().getOrderByStatus("holding");
-          emit(SuccessState());
+          await OrderRepository().getOrderByStatus("holding");
+          break;
       }
-
+      if (!isClosed) emit(SuccessState());
     } catch (e) {
       print(e);
     }
   }
 
+  updateOrder({required int billId, required String status}) async {
+    print("Cubit acceptedOrder");
+    if (!isClosed) emit(LoadingState());
+    try {
+      await OrderRepository().updateOrderStatus(id: billId, status: status);
+      await getOrderByStatus(orderDataLayer.index);
+      if (!isClosed) emit(SuccessState());
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  synOrder() async {
+    supabase.client
+        .channel('orders')
+        .onPostgresChanges(
+            event: PostgresChangeEvent.update,
+            schema: 'public',
+            table: 'orders',
+            callback: (value) async {
+              await getOrderByStatus(orderDataLayer.index);
+            })
+        .subscribe();
+  }
+
   updateChip() {
-    emit(SuccessState());
+    if (!isClosed) emit(SuccessState());
+  }
+
+  @override
+  Future<void> close() async {
+    await supabase.client.channel("orders").unsubscribe();
+    super.close();
   }
 }

@@ -17,44 +17,44 @@ class CategoryCubit extends Cubit<CategoryState> {
   }
 
   addNewCategoryEvent() async {
-    emit(LoadingCategoryState());
+    if (!isClosed) emit(LoadingCategoryState());
     try {
       final response = await CategoryRepository()
           .addNewCategory(name: txtEditController.text);
       print(response);
-      emit(SuccessCategoryState(msg: "Done:)"));
+      if (!isClosed) emit(SuccessCategoryState(msg: "Done:)"));
       await fetchCategoriesEvent();
     } catch (e) {
-      emit(ErrorCategoryState(msg: e.toString()));
+      if (!isClosed) emit(ErrorCategoryState(msg: e.toString()));
     }
   }
 
   deleteCategoryEvent({required int categoryID}) {
-    emit(LoadingCategoryState());
+    if (!isClosed) emit(LoadingCategoryState());
     try {
       final response = CategoryRepository().deleteCategory(id: categoryID);
       print(response);
-      emit(SuccessCategoryState(msg: "Delete it Done:)"));
+      if (!isClosed) emit(SuccessCategoryState(msg: "Delete it Done:)"));
     } catch (e) {
-      emit(ErrorCategoryState(msg: e.toString()));
+      if (!isClosed) emit(ErrorCategoryState(msg: e.toString()));
     }
   }
 
   updateCategoryEvent({required int categoryID, required String name}) {
-    emit(LoadingCategoryState());
+    if (!isClosed) emit(LoadingCategoryState());
     try {
       final response =
           CategoryRepository().updateCategory(id: categoryID, name: name);
       print(response);
-      emit(SuccessCategoryState(msg: "Update it Done:)"));
+      if (!isClosed) emit(SuccessCategoryState(msg: "Update it Done:)"));
     } catch (e) {
-      emit(ErrorCategoryState(msg: e.toString()));
+      if (!isClosed) emit(ErrorCategoryState(msg: e.toString()));
     }
   }
 
   fetchCategoriesEvent() async {
     Future.delayed(Duration.zero);
-    emit(LoadingCategoryState());
+    if (!isClosed) emit(LoadingCategoryState());
     try {
       categoryLayer.userCategories =
           await CategoryRepository().getUserCategories();
@@ -64,14 +64,14 @@ class CategoryCubit extends Cubit<CategoryState> {
       categoryLayer.userCategories =
           categoryLayer.userCategories.reversed.toList();
       print(categoryLayer.categoryList);
-      emit(SuccessCategoryState(msg: "msg"));
+      if (!isClosed) emit(SuccessCategoryState(msg: "msg"));
     } catch (e) {
       print(e);
-      emit(ErrorCategoryState(msg: e.toString()));
+      if (!isClosed) emit(ErrorCategoryState(msg: e.toString()));
     }
   }
 
   updateChips() {
-    emit(SuccessCategoryState(msg: ""));
+    if (!isClosed) emit(SuccessCategoryState(msg: ""));
   }
 }

@@ -9,8 +9,7 @@ import 'package:onze_coffee_app/models/variants_model.dart';
 part 'cart_state.dart';
 
 class CartCubit extends Cubit<CartState> {
-  List<CartProductModel>? myCart = GetIt.I.get<UserLayer>().myCart;
-
+  final userDataLayer = GetIt.I.get<UserLayer>();
   late double totalAmount = GetIt.I.get<UserLayer>().totalAmount;
 
   CartCubit() : super(CartInitial());
@@ -19,8 +18,8 @@ class CartCubit extends Cubit<CartState> {
       {required ProductModel product,
       required int qnty,
       required VariantsModel productVarient}) {
-    emit(LoadingCartState());
-    myCart?.add(CartProductModel(
+    if (!isClosed) emit(LoadingCartState());
+    userDataLayer.myCart.add(CartProductModel(
         productName: product.productName,
         tempreture: product.tempreture,
         productPrice: productVarient.price,
@@ -44,13 +43,13 @@ class CartCubit extends Cubit<CartState> {
     for (var element in cart) {
       sum += element.productPrice * element.quantity;
     }
-    emit(SuccessCartState(msg: "Done:)"));
+    if (!isClosed) emit(SuccessCartState(msg: "Done:)"));
     return sum;
   }
 
   updateDecreaseAmount({required CartProductModel cart}) {
     if (cart.quantity <= 0) {
-      myCart!.remove(cart);
+      userDataLayer.myCart.remove(cart);
       totalAmount = 0;
       emit(SuccessCartState(msg: "Done:)"));
     } else {

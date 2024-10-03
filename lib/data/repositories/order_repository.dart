@@ -1,5 +1,7 @@
-import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+import 'package:onze_coffee_app/data_layer/order_layer.dart';
 import 'package:onze_coffee_app/models/bill_model.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../integrations/supabase/supabase_client.dart';
 
@@ -150,7 +152,19 @@ class OrderRepository {
       List<Map<String, dynamic>> data = await supabase.client
           .rpc("get_order_details_by_status", params: {"order_status": status});
       data = data.reversed.toList();
-      return data.map((element) => BillModel.fromJson(element)).toList();
+      GetIt.I.get<OrderLayer>().orders =
+          data.map((element) => BillModel.fromJson(element)).toList();
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  updateOrderStatus({required int id, required String status}) async {
+    print("Order repository acceptedState");
+    try {
+      await supabase.client
+          .from("orders")
+          .update({"status": status}).eq("id", id);
     } catch (e) {
       print(e);
     }

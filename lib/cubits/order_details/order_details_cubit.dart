@@ -13,7 +13,7 @@ class OrderDetailsCubit extends Cubit<OrderDetailsState> {
     try {
       bill = await OrderRepository().getBill(id);
       print(bill?.totalPrice.toString());
-      emit(SuccessState());
+     if (!isClosed)  emit(SuccessState());
     } catch (e) {
       print(e);
     }

@@ -3,7 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:onze_coffee_app/screen/employee/admin_nav.dart';
-import 'package:onze_coffee_app/screen/user/nav_bar/nav_bar.dart';
+import 'package:onze_coffee_app/screen/user/nav_bar/user_nav.dart';
 import 'package:onze_coffee_app/screen/user/user_home_screen.dart';
 
 import 'package:onze_coffee_app/services/init.dart';
@@ -35,6 +35,6 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(debugShowCheckedModeBanner: false, home: NavBar());
+    return MaterialApp(debugShowCheckedModeBanner: false, home: UserNav());
   }
 }
