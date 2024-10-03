@@ -28,5 +28,6 @@ class OrderDetailsCubit extends Cubit<OrderDetailsState> {
     } catch (e) {
       print(e);
     }
+    return null;
   }
 }

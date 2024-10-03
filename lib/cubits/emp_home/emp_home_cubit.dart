@@ -13,7 +13,7 @@ class EmpHomeCubit extends Cubit<EmpHomeState> {
     getOrderByStatus(index);
   }
   List<BillModel> orders = [];
-  getOrderByStatus(int index) async {
+   Stream<List<BillModel>>? getOrderByStatus(int index) async* {
     print("iam at getOrderByStatus");
     emit(LoadingState());
 
@@ -35,6 +35,7 @@ class EmpHomeCubit extends Cubit<EmpHomeState> {
           orders = await OrderRepository().getOrderByStatus("holding");
           emit(SuccessState());
       }
+
     } catch (e) {
       print(e);
     }
