@@ -28,7 +28,7 @@ class AddProductCubit extends Cubit<AddProductState> {
   //?--- cubit function
   AddProductCubit() : super(AddProductInitial());
   addProduct() async {
-    if (!isClosed) emit(LoadingState());
+    if (!isClosed) emit(LoadingAddState());
     print("iam at addProduct");
     try {
       print(productCategory);
@@ -49,12 +49,13 @@ class AddProductCubit extends Cubit<AddProductState> {
       //?-- create product
       await ProductRepository().createProduct(
           product: product, categoryId: categoryId, images: files);
+      emit(SuccessState());
     } catch (e) {
       return false;
     }
   }
 
   updateTempreture() {
-    if (!isClosed) emit(SuccessState());
+    if (!isClosed) emit(UpdateChip());
   }
 }
