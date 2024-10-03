@@ -35,10 +35,7 @@ class ProductDetailsScreen extends StatelessWidget {
 
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                    builder: (context) => UserCartScreen(
-                          myCart: cartReadCubit.myCart,
-                        )),
+                MaterialPageRoute(builder: (context) => const UserCartScreen()),
               );
             },
           );

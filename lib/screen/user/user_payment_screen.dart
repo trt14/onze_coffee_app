@@ -47,33 +47,41 @@ class UserPaymentScreen extends StatelessWidget {
                               orderID: orderID,
                               transicitionID: result.id,
                               amount: amount.toDouble());
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => OrderDetailsScreen(
-                                      billId: orderID,
-                                    )),
-                          );
-                          showAlertSnackBar(
-                              context: context,
-                              color: AppColor.primary,
-                              title: "Your order was created successfully :)",
-                              colorStatus: AppColor.primary);
+
+                          if (context.mounted) {
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => OrderDetailsScreen(
+                                        billId: orderID,
+                                      )),
+                            );
+                          }
+                          if (context.mounted) {
+                            showAlertSnackBar(
+                                context: context,
+                                color: AppColor.primary,
+                                title: "Your order was created successfully :)",
+                                colorStatus: AppColor.primary);
+                          }
                         }
 
                         if (result.status == PaymentStatus.failed) {
                           await orderReadcubit.addNewPayment(
                               paymentMethod: "MADA",
-                              paymentStatus: "faild",
+                              paymentStatus: "failed",
                               orderID: orderID,
                               transicitionID: result.id,
                               amount: amount.toDouble());
-                          Navigator.pop(context);
-                          showAlertSnackBar(
-                              context: context,
-                              color: AppColor.secondary,
-                              title: "Sorry :(! payment was faild , try again!",
-                              colorStatus: AppColor.secondary);
+                          if (context.mounted) Navigator.pop(context);
+                          if (context.mounted) {
+                            showAlertSnackBar(
+                                context: context,
+                                color: AppColor.secondary,
+                                title:
+                                    "Sorry :(! payment was failed , try again!",
+                                colorStatus: AppColor.secondary);
+                          }
                         }
                       },
                     )

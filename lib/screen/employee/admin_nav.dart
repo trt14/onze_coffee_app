@@ -18,21 +18,23 @@ class AdminNav extends StatelessWidget {
           builder: (context, state) {
             return Scaffold(
               appBar: navCubit.appBars[navCubit.index],
-              floatingActionButton: FloatingActionButton(
-                backgroundColor: AppColor.primary,
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const EmpAddProductScreen(),
-                    ),
-                  ).then((value){});
-                },
-                child: const Icon(
-                  FontAwesomeIcons.plus,
-                  color: AppColor.white,
-                ),
-              ),
+              floatingActionButton: navCubit.index == 0
+                  ? FloatingActionButton(
+                      backgroundColor: AppColor.primary,
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const EmpAddProductScreen(),
+                          ),
+                        ).then((value) {});
+                      },
+                      child: const Icon(
+                        FontAwesomeIcons.plus,
+                        color: AppColor.white,
+                      ),
+                    )
+                  : null,
               body: navCubit.screens[navCubit.index],
               bottomNavigationBar: NavigationBar(
                 onDestinationSelected: (int index) {

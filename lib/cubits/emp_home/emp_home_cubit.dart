@@ -58,7 +58,7 @@ class EmpHomeCubit extends Cubit<EmpHomeState> {
     supabase.client
         .channel('orders')
         .onPostgresChanges(
-            event: PostgresChangeEvent.insert,
+            event: PostgresChangeEvent.update,
             schema: 'public',
             table: 'orders',
             callback: (value) async {
