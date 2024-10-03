@@ -54,10 +54,18 @@ class AdminNav extends StatelessWidget {
                   ),
                   NavigationDestination(
                     icon: Icon(FontAwesomeIcons.cartShopping),
+                    selectedIcon: Icon(
+                      FontAwesomeIcons.cartShopping,
+                      color: AppColor.white,
+                    ),
                     label: '',
                   ),
                   NavigationDestination(
                     icon: Icon(Icons.notifications_sharp),
+                    selectedIcon: Icon(
+                      Icons.notifications_sharp,
+                      color: AppColor.white,
+                    ),
                     label: '',
                   )
                 ],
