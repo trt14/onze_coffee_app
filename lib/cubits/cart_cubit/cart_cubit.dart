@@ -30,7 +30,7 @@ class CartCubit extends Cubit<CartState> {
     emit(SuccessCartState(msg: "Done :)"));
   }
 
-  updateIncreamentAmount({required int price, required int qnt}) {
+  updateIncreamentAmount({required num price, required int qnt}) {
     // totalAmount += (price * qnt);
     print("totalAmount 1: $totalAmount");
     totalAmount = (price * qnt).toDouble();

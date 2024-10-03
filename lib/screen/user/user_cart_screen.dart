@@ -100,11 +100,13 @@ class UserCartScreen extends StatelessWidget {
                                       .userDataLayer.myCart[index].quantity
                                       .toString(),
                                   decrement: () {
-                                    cartReadCubit
-                                        .userDataLayer.myCart[index].quantity--;
-                                    cartReadCubit.updateDecreaseAmount(
-                                        cart: cartReadCubit
-                                            .userDataLayer.myCart[index]);
+                                    try {
+                                      cartReadCubit.userDataLayer.myCart[index]
+                                          .quantity--;
+                                      cartReadCubit.updateDecreaseAmount(
+                                          cart: cartReadCubit
+                                              .userDataLayer.myCart[index]);
+                                    } catch (e) {}
                                   },
                                   increment: () {
                                     cartReadCubit

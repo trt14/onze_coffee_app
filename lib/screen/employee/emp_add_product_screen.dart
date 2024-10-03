@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onze_coffee_app/cubits/add_product/add_product_cubit.dart';
 import 'package:onze_coffee_app/cubits/category_cubit/category_cubit.dart';
@@ -79,11 +80,23 @@ class EmpAddProductScreen extends StatelessWidget {
                         title: "Price",
                         hint: "Price",
                         controller: addProductCubit.priceController,
+                        inputFormatters: [
+                          FilteringTextInputFormatter.allow(
+                            RegExp(r'^\d*\.?\d{0,2}'),
+                          ),
+                        ],
+                        keyboardType: const TextInputType.numberWithOptions(
+                            decimal: true),
                       ),
                       CustomTextField(
                         title: "Calories",
                         hint: "Calories",
                         controller: addProductCubit.caloriesController,
+                        inputFormatters: [
+                          FilteringTextInputFormatter.digitsOnly
+                        ],
+                        keyboardType: const TextInputType.numberWithOptions(
+                            decimal: false),
                       ),
                       const SizedBox(
                         height: 10,

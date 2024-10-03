@@ -10,9 +10,7 @@ import 'package:onze_coffee_app/models/cart_product_model.dart';
 part 'order_state.dart';
 
 class OrderCubit extends Cubit<OrderState> {
-  List<CartProductModel>? myCart = GetIt.I.get<UserLayer>().myCart;
   List<BillModel> bills = [];
-  late double totalAmount = GetIt.I.get<UserLayer>().totalAmount;
   OrderCubit() : super(OrderInitial()) {
     getBills();
   }
@@ -21,12 +19,12 @@ class OrderCubit extends Cubit<OrderState> {
     if (!isClosed) emit(LoadingOrderState());
     final responseCreateOrder = await OrderRepository().addNewOrderID(
         userID: "e1552d62-c042-4130-9d9c-7f6dceb3d966",
-        amount: getAllAmountItems(cart: myCart!));
+        amount: getAllAmountItems(cart:  GetIt.I.get<UserLayer>().myCart));
 
     if (responseCreateOrder != null) {
       print(responseCreateOrder);
 
-      for (var element in myCart!) {
+      for (var element in  GetIt.I.get<UserLayer>().myCart) {
         final productV = await OrderRepository()
             .getProductVarient(productID: element.productID);
 
@@ -58,6 +56,8 @@ class OrderCubit extends Cubit<OrderState> {
       required int orderID,
       required String transicitionID,
       required double amount}) async {
+    await Future.delayed(Duration.zero);
+
     if (!isClosed) emit(LoadingOrderState());
 
     await PaymentRepository().addNewPayment(
@@ -66,7 +66,7 @@ class OrderCubit extends Cubit<OrderState> {
         paymentStatus: paymentStatus,
         orderID: orderID,
         transactionID: transicitionID,
-        amount: getAllAmountItems(cart: myCart!));
+        amount: getAllAmountItems(cart: GetIt.I.get<UserLayer>().myCart));
 
     await OrderRepository().updateOrderID(
         userID: "e1552d62-c042-4130-9d9c-7f6dceb3d966",
@@ -74,9 +74,9 @@ class OrderCubit extends Cubit<OrderState> {
         status: "holding",
         orderID: orderID);
     if (!isClosed) {
-      emit(const SuccessOrderPaymentState(msg: "Done :)"));
       GetIt.I.get<UserLayer>().myCart.clear();
       GetIt.I.get<UserLayer>().totalAmount = 0;
+      emit(const SuccessOrderPaymentState(msg: "Done :)"));
     }
   }
 
