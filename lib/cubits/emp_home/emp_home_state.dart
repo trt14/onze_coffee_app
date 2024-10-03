@@ -12,3 +12,5 @@ final class EmpHomeInitial extends EmpHomeState {}
 final class SuccessState extends EmpHomeState {}
 
 final class LoadingState extends EmpHomeState {}
+
+final class UpdateState extends EmpHomeState {}

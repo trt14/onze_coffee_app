@@ -81,6 +81,9 @@ class OrderCubit extends Cubit<OrderState> {
   }
 
   getBills() async {
+    await Future.delayed(Duration.zero);
+    if (!isClosed) emit(LoadingOrderState());
+
     try {
       bills = await OrderRepository().getEmployeeBill();
       bills = bills.reversed.toList();
@@ -88,5 +91,11 @@ class OrderCubit extends Cubit<OrderState> {
     } catch (e) {
       print(e);
     }
+  }
+
+  emitSuccess() async {
+    await Future.delayed(Duration.zero);
+
+    if (!isClosed) emit(LoadingOrderState());
   }
 }

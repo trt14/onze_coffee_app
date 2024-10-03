@@ -68,7 +68,7 @@ class EmpHomeCubit extends Cubit<EmpHomeState> {
   }
 
   updateChip() {
-    if (!isClosed) emit(SuccessState());
+    if (!isClosed) emit(UpdateState());
   }
 
   @override

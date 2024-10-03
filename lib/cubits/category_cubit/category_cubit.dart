@@ -54,6 +54,7 @@ class CategoryCubit extends Cubit<CategoryState> {
 
   fetchCategoriesEvent() async {
     Future.delayed(Duration.zero);
+    print("fetchCategoriesEvent");
     if (!isClosed) emit(LoadingCategoryState());
     try {
       categoryLayer.userCategories =
@@ -63,7 +64,6 @@ class CategoryCubit extends Cubit<CategoryState> {
       categoryLayer.userCategories.add({"id": -1, "name": "All Coffee"});
       categoryLayer.userCategories =
           categoryLayer.userCategories.reversed.toList();
-      print(categoryLayer.categoryList);
       if (!isClosed) emit(SuccessCategoryState(msg: "msg"));
     } catch (e) {
       print(e);
