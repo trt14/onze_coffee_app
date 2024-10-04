@@ -69,24 +69,68 @@ class EmpHomeScreen extends StatelessWidget {
                                     padding: const EdgeInsets.all(8.0),
                                     child: Row(
                                       children: [
-                                        CustomContainerOrder(
-                                          isNote: true,
-                                          note: empHomeCubit.orderDataLayer
-                                                  .orders[index].note.isNotEmpty
-                                              ? "Note: ${empHomeCubit.orderDataLayer.orders[index].note}"
-                                              : "",
-                                          orderID: empHomeCubit.orderDataLayer
-                                              .orders[index].billId
-                                              .toString(),
-                                          height: 100,
-                                          width: 0.65,
-                                          productsWithQuntity: empHomeCubit
-                                              .orderDataLayer
-                                              .orders[index]
-                                              .products
-                                              .map((element) =>
-                                                  "${element.name} x${element.qty}")
-                                              .toString(),
+                                        InkWell(
+                                          onLongPress: () async {
+                                            showDialog<void>(
+                                              context: context,
+                                              barrierDismissible:
+                                                  false, // user must tap button!
+                                              builder: (BuildContext context) {
+                                                return AlertDialog(
+                                                  title: const Text('ALERT'),
+                                                  content:
+                                                      const SingleChildScrollView(
+                                                    child: Text(
+                                                        "YOUR GOING TO REJECT THIS ORDER"),
+                                                  ),
+                                                  actions: <Widget>[
+                                                    TextButton(
+                                                      child: const Text(
+                                                        'Reject',
+                                                        style: TextStyle(
+                                                            color: AppColor
+                                                                .secondary),
+                                                      ),
+                                                      onPressed: () async {
+                                                        await empHomeCubit.updateOrder(
+                                                            status: "rejected",
+                                                            billId: empHomeCubit
+                                                                .orderDataLayer
+                                                                .orders[index]
+                                                                .billId);
+                                                        if (context.mounted) {
+                                                          Navigator.of(context)
+                                                              .pop();
+                                                        }
+                                                      },
+                                                    ),
+                                                  ],
+                                                );
+                                              },
+                                            );
+                                          },
+                                          child: CustomContainerOrder(
+                                            isNote: true,
+                                            note: empHomeCubit
+                                                    .orderDataLayer
+                                                    .orders[index]
+                                                    .note
+                                                    .isNotEmpty
+                                                ? "Note: ${empHomeCubit.orderDataLayer.orders[index].note}"
+                                                : "",
+                                            orderID: empHomeCubit.orderDataLayer
+                                                .orders[index].billId
+                                                .toString(),
+                                            height: 100,
+                                            width: 0.65,
+                                            productsWithQuntity: empHomeCubit
+                                                .orderDataLayer
+                                                .orders[index]
+                                                .products
+                                                .map((element) =>
+                                                    "${element.name} x${element.qty}")
+                                                .toString(),
+                                          ),
                                         ),
                                         InkWell(
                                           onTap: () async {
