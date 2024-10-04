@@ -93,7 +93,11 @@ class AuthRepository {
       print("get user data");
       final data =
           await supabase.client.from("users").select("*").eq("email", email);
+      print("print user data after login");
+      print(data);
       GetIt.I.get<UserLayer>().user = UserModel.fromJson(data.first);
+      print("user in singalton after login");
+      print(GetIt.I.get<UserLayer>().user.id);
       print("return true");
       return true;
     } on PostgrestException catch (e) {

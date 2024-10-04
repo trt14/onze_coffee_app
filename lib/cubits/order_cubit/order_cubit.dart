@@ -10,26 +10,28 @@ import 'package:onze_coffee_app/models/cart_product_model.dart';
 part 'order_state.dart';
 
 class OrderCubit extends Cubit<OrderState> {
+  final userLayer = GetIt.I.get<UserLayer>();
   List<BillModel> bills = [];
   OrderCubit() : super(OrderInitial()) {
     getBills();
   }
+  // userID: "e1552d62-c042-4130-9d9c-7f6dceb3d966",
 
   Future<int> addNewOrder() async {
     if (!isClosed) emit(LoadingOrderState());
     final responseCreateOrder = await OrderRepository().addNewOrderID(
-        userID: "e1552d62-c042-4130-9d9c-7f6dceb3d966",
-        amount: getAllAmountItems(cart:  GetIt.I.get<UserLayer>().myCart));
+        userID: userLayer.user.id,
+        amount: getAllAmountItems(cart: userLayer.myCart));
 
     if (responseCreateOrder != null) {
       print(responseCreateOrder);
 
-      for (var element in  GetIt.I.get<UserLayer>().myCart) {
+      for (var element in GetIt.I.get<UserLayer>().myCart) {
         final productV = await OrderRepository()
             .getProductVarient(productID: element.productID);
 
         await OrderRepository().addOrderItem(
-            userID: "e1552d62-c042-4130-9d9c-7f6dceb3d966",
+            userID: userLayer.user.id,
             price: element.productPrice.toDouble(),
             orderID: responseCreateOrder,
             quantity: element.quantity,
@@ -61,7 +63,7 @@ class OrderCubit extends Cubit<OrderState> {
     if (!isClosed) emit(LoadingOrderState());
 
     await PaymentRepository().addNewPayment(
-        userID: "e1552d62-c042-4130-9d9c-7f6dceb3d966",
+        userID: userLayer.user.id,
         paymentMethod: paymentMethod,
         paymentStatus: paymentStatus,
         orderID: orderID,
@@ -69,7 +71,7 @@ class OrderCubit extends Cubit<OrderState> {
         amount: getAllAmountItems(cart: GetIt.I.get<UserLayer>().myCart));
 
     await OrderRepository().updateOrderID(
-        userID: "e1552d62-c042-4130-9d9c-7f6dceb3d966",
+        userID: userLayer.user.id,
         amount: amount,
         status: "holding",
         orderID: orderID);
