@@ -18,6 +18,7 @@ class EmpHomeCubit extends Cubit<EmpHomeState> {
   }
 
   getOrderByStatus(int index) async {
+    await Future.delayed(Duration.zero);
     print("cubit iam at getOrderByStatus");
     if (!isClosed) emit(LoadingState());
 
@@ -43,6 +44,8 @@ class EmpHomeCubit extends Cubit<EmpHomeState> {
   }
 
   updateOrder({required int billId, required String status}) async {
+    await Future.delayed(Duration.zero);
+
     print("Cubit acceptedOrder");
     if (!isClosed) emit(LoadingState());
     try {
@@ -55,6 +58,8 @@ class EmpHomeCubit extends Cubit<EmpHomeState> {
   }
 
   synOrder() async {
+    await Future.delayed(Duration.zero);
+
     supabase.client
         .channel('orders')
         .onPostgresChanges(
@@ -67,12 +72,16 @@ class EmpHomeCubit extends Cubit<EmpHomeState> {
         .subscribe();
   }
 
-  updateChip() {
+  updateChip() async {
+    await Future.delayed(Duration.zero);
+
     if (!isClosed) emit(UpdateState());
   }
 
   @override
   Future<void> close() async {
+    await Future.delayed(Duration.zero);
+
     await supabase.client.channel("orders").unsubscribe();
     super.close();
   }
