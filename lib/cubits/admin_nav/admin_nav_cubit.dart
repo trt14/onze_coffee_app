@@ -15,8 +15,8 @@ part 'admin_nav_state.dart';
 
 class AdminNavCubit extends Cubit<AdminNavState> {
   List<Widget> screens = const [
-    EmpProductsScreen(),
     EmpHomeScreen(),
+    EmpProductsScreen(),
     OrdersScreen()
   ];
 
@@ -70,7 +70,6 @@ class AdminNavCubit extends Cubit<AdminNavState> {
                     title: '${order.billId}',
                     body: 'New order has arrive ',
                     icon: "resource://drawable/onze_logo",
-
                   ),
                 );
               }

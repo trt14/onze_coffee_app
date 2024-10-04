@@ -18,7 +18,7 @@ class AdminNav extends StatelessWidget {
           builder: (context, state) {
             return Scaffold(
               appBar: navCubit.appBars[navCubit.index],
-              floatingActionButton: navCubit.index == 0
+              floatingActionButton: navCubit.index == 1
                   ? FloatingActionButton(
                       backgroundColor: AppColor.primary,
                       onPressed: () {
