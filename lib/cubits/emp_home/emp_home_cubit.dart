@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:onze_coffee_app/data/repositories/order_repository.dart';
 import 'package:onze_coffee_app/data_layer/order_layer.dart';
@@ -11,8 +10,8 @@ part 'emp_home_state.dart';
 
 class EmpHomeCubit extends Cubit<EmpHomeState> {
   final orderDataLayer = GetIt.I.get<OrderLayer>();
-  bool enableChannel = false;
   EmpHomeCubit() : super(EmpHomeInitial()) {
+
     getOrderByStatus(orderDataLayer.index);
     synOrder();
   }
@@ -68,6 +67,7 @@ class EmpHomeCubit extends Cubit<EmpHomeState> {
             table: 'orders',
             callback: (value) async {
               await getOrderByStatus(orderDataLayer.index);
+          
             })
         .subscribe();
   }
