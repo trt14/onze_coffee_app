@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:onze_coffee_app/helper/custom_colors.dart';
 
 import '../../cubits/auth_cubit/auth_cubit.dart';
 import '../../data/repositories/auth_repository.dart';
@@ -15,9 +16,7 @@ class LoginScreen extends StatelessWidget {
     return BlocProvider(
       create: (context) => AuthCubit(),
       child: Scaffold(
-        appBar: AppBar(
-          title: Text('Login via Email OTP'),
-        ),
+        backgroundColor: const Color.fromARGB(255, 88, 105, 112),
         body: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
