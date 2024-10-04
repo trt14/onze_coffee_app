@@ -1,11 +1,18 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 
 import '../../data/repositories/auth_repository.dart';
 
 part 'auth_state.dart';
 
 class AuthCubit extends Cubit<AuthState> {
+//?--- Text Controller
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController phoneController = TextEditingController();
+  final TextEditingController firstNameController = TextEditingController();
+  final TextEditingController lastNameController = TextEditingController();
+
   AuthCubit() : super(AuthInitial());
 
   /*
@@ -15,17 +22,16 @@ class AuthCubit extends Cubit<AuthState> {
   * */
   Future<void> verifyEmailOtp(
       {required String email, required String otp}) async {
+    await Future.delayed(Duration.zero);
+
     emit(AuthLoading());
     try {
       // Call the repository function to verify OTP
       final result = await AuthRepository().verifyOtp(
-          email: email,
-          otp: otp,
-          fName: 'Sami',
-          lName: 'Mahdi',
-          phoneNumber: '059');
-
-      if (result != '') {
+        email: email,
+        otp: otp,
+      );
+      if (result == true) {
         // OTP verification successful
         emit(AuthSuccess());
       } else {
@@ -43,11 +49,33 @@ class AuthCubit extends Cubit<AuthState> {
   * Method to initiate sending OTP (if needed)
   *
   * */
-  Future<void> sendOtpToEmail(String email) async {
+
+  Future eventLogin() async {
+    print("login");
+    await Future.delayed(Duration.zero);
     emit(AuthLoading());
     try {
       // Call the repository function to send the OTP to the email
-      await AuthRepository().signUp(email: email);
+     bool status = await AuthRepository().login(email: emailController.text.trim());
+     if(status) emit(AuthSuccess());
+    } catch (error) {
+      emit(AuthFailure('Failed to send OTP. Please try again.'));
+    }
+  }
+
+  Future<void> signUp() async {
+    await Future.delayed(Duration.zero);
+    emit(AuthLoading());
+
+    print("iam at cubit signUp");
+    emit(AuthLoading());
+    try {
+      // Call the repository function to send the OTP to the email
+      await AuthRepository().signUp(
+          email: emailController.text.trim(),
+          fName: firstNameController.text.trim(),
+          lName: lastNameController.text.trim(),
+          phoneNumber: phoneController.text.trim());
       emit(AuthSuccess());
     } catch (error) {
       emit(AuthFailure('Failed to send OTP. Please try again.'));
