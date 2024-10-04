@@ -92,9 +92,9 @@ class CategoryRepository {
   *
   * */
   Future<List<Map<String, dynamic>>> getAllCategories() async {
+    print("iam at getAllCategories");
     try {
       final response = await supabase.client.from("categories").select("*");
-      print(response);
       return response;
     } catch (e) {
       print(e.toString());

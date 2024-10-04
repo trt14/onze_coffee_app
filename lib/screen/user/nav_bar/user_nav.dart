@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:onze_coffee_app/cubits/nav_bar/nav_bar_cubit.dart';
 import 'package:onze_coffee_app/helper/custom_colors.dart';
 
@@ -33,8 +34,20 @@ class UserNav extends StatelessWidget {
                     label: 'Home',
                   ),
                   NavigationDestination(
-                    icon: Badge(child: Icon(Icons.notifications_sharp)),
+                    icon: Icon(Icons.notifications_sharp),
                     label: 'Notifications',
+                    selectedIcon: Icon(
+                      Icons.notifications_sharp,
+                      color: AppColor.white,
+                    ),
+                  ),
+                  NavigationDestination(
+                    icon: Icon(FontAwesomeIcons.cartShopping),
+                    label: 'Cart',
+                    selectedIcon: Icon(
+                      FontAwesomeIcons.cartShopping,
+                      color: AppColor.white,
+                    ),
                   ),
                 ],
               ),

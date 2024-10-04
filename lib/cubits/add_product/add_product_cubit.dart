@@ -28,14 +28,14 @@ class AddProductCubit extends Cubit<AddProductState> {
   //?--- cubit function
   AddProductCubit() : super(AddProductInitial());
   addProduct() async {
-   if (!isClosed)  emit(LoadingState());
+    if (!isClosed) emit(LoadingAddState());
     print("iam at addProduct");
     try {
       print(productCategory);
       //?-- product variant
       VariantsModel variant = VariantsModel(
           size: "small",
-          price: int.tryParse(priceController.text) ?? 0,
+          price: double.tryParse(priceController.text) ?? 0,
           calories: int.tryParse(caloriesController.text) ?? 0);
       //?-- product
       ProductModel product = ProductModel(
@@ -47,13 +47,15 @@ class AddProductCubit extends Cubit<AddProductState> {
           productCategory: productCategory,
           imageUrls: files);
       //?-- create product
-    await  ProductRepository().createProduct(product: product, categoryId: categoryId, images: files);
+      await ProductRepository().createProduct(
+          product: product, categoryId: categoryId, images: files);
+      emit(SuccessState());
     } catch (e) {
       return false;
     }
   }
 
   updateTempreture() {
-   if (!isClosed)  emit(SuccessState());
+    if (!isClosed) emit(UpdateChip());
   }
 }

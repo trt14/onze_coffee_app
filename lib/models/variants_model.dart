@@ -5,7 +5,7 @@ class VariantsModel {
     required this.calories,
   });
   late final String size;
-  late final int price;
+  late final num price;
   late final int calories;
 
   VariantsModel.fromJson(Map<String, dynamic> json) {

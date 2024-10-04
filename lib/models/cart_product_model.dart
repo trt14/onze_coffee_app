@@ -5,7 +5,7 @@ class CartProductModel {
   final int productID;
   final String productName;
   final String tempreture;
-  final int productPrice;
+  final num productPrice;
   int quantity;
 
   CartProductModel(

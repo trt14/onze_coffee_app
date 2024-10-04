@@ -35,6 +35,10 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+<<<<<<< HEAD
     return MaterialApp(debugShowCheckedModeBanner: false, home: LoginScreen());
+=======
+    return MaterialApp(debugShowCheckedModeBanner: false, home: AdminNav());
+>>>>>>> 17350c5e6abceee441642247873593c356958188
   }
 }

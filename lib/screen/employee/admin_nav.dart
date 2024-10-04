@@ -18,7 +18,7 @@ class AdminNav extends StatelessWidget {
           builder: (context, state) {
             return Scaffold(
               appBar: navCubit.appBars[navCubit.index],
-              floatingActionButton: navCubit.index == 0
+              floatingActionButton: navCubit.index == 1
                   ? FloatingActionButton(
                       backgroundColor: AppColor.primary,
                       onPressed: () {
@@ -54,10 +54,18 @@ class AdminNav extends StatelessWidget {
                   ),
                   NavigationDestination(
                     icon: Icon(FontAwesomeIcons.cartShopping),
+                    selectedIcon: Icon(
+                      FontAwesomeIcons.cartShopping,
+                      color: AppColor.white,
+                    ),
                     label: '',
                   ),
                   NavigationDestination(
                     icon: Icon(Icons.notifications_sharp),
+                    selectedIcon: Icon(
+                      Icons.notifications_sharp,
+                      color: AppColor.white,
+                    ),
                     label: '',
                   )
                 ],

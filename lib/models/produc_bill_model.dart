@@ -1,4 +1,3 @@
-
 class ProductBillModel {
   ProductBillModel({
     required this.id,
@@ -12,7 +11,7 @@ class ProductBillModel {
   late final int qty;
   late final String name;
   late final String size;
-  late final int price;
+  late final num price;
   late final int calories;
 
   ProductBillModel.fromJson(Map<String, dynamic> json) {

@@ -169,4 +169,17 @@ class OrderRepository {
       print(e);
     }
   }
+
+  Future getOrderById(int id) async {
+    print("iam at getOrderById");
+    await Future.delayed(Duration.zero);
+
+    try {
+      final data = await supabase.client
+          .rpc("get_order_details_by_id", params: {"user_order": id});
+      return BillModel.fromJson(data.first);
+    } catch (e) {
+      print(e);
+    }
+  }
 }

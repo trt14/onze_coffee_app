@@ -42,17 +42,21 @@ class UserCartScreen extends StatelessWidget {
                   //           rightDotColor: AppColor.secondary,
                   //           size: 100,
                   //         )));
-                  orderID = await orderReadCubit.addNewOrder();
-                  print(orderID);
-                  amount = orderReadCubit.getAllAmountItems(
-                      cart: cartReadCubit.userDataLayer.myCart);
-                  print(amount);
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => UserPaymentScreen(
-                            amount: amount, orderID: orderID)),
-                  );
+                  if (cartReadCubit.userDataLayer.myCart.isNotEmpty) {
+                    orderID = await orderReadCubit.addNewOrder();
+                    print(orderID);
+                    amount = orderReadCubit.getAllAmountItems(
+                        cart: cartReadCubit.userDataLayer.myCart);
+                    print(amount);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => UserPaymentScreen(
+                              amount: amount, orderID: orderID)),
+                    );
+                  } else {
+                    print("empty");
+                  }
                 },
               );
             }),
@@ -70,14 +74,14 @@ class UserCartScreen extends StatelessWidget {
                     onPressed: () {},
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 5,
                 ),
                 BlocBuilder<CartCubit, CartState>(
                   builder: (context, state) {
                     if (state is EmptyCartState ||
                         cartReadCubit.userDataLayer.myCart.isEmpty) {
-                      return Text("Empty Cart",
+                      return const Text("Empty Cart",
                           style: TextStyle(
                               color: AppColor.secondary, fontSize: 20));
                     }
@@ -96,11 +100,13 @@ class UserCartScreen extends StatelessWidget {
                                       .userDataLayer.myCart[index].quantity
                                       .toString(),
                                   decrement: () {
-                                    cartReadCubit
-                                        .userDataLayer.myCart[index].quantity--;
-                                    cartReadCubit.updateDecreaseAmount(
-                                        cart: cartReadCubit
-                                            .userDataLayer.myCart[index]);
+                                    try {
+                                      cartReadCubit.userDataLayer.myCart[index]
+                                          .quantity--;
+                                      cartReadCubit.updateDecreaseAmount(
+                                          cart: cartReadCubit
+                                              .userDataLayer.myCart[index]);
+                                    } catch (e) {}
                                   },
                                   increment: () {
                                     cartReadCubit

@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:onze_coffee_app/data/repositories/order_repository.dart';
 import 'package:onze_coffee_app/data_layer/order_layer.dart';
@@ -11,13 +10,14 @@ part 'emp_home_state.dart';
 
 class EmpHomeCubit extends Cubit<EmpHomeState> {
   final orderDataLayer = GetIt.I.get<OrderLayer>();
-  bool enableChannel = false;
   EmpHomeCubit() : super(EmpHomeInitial()) {
+
     getOrderByStatus(orderDataLayer.index);
     synOrder();
   }
 
   getOrderByStatus(int index) async {
+    await Future.delayed(Duration.zero);
     print("cubit iam at getOrderByStatus");
     if (!isClosed) emit(LoadingState());
 
@@ -43,6 +43,8 @@ class EmpHomeCubit extends Cubit<EmpHomeState> {
   }
 
   updateOrder({required int billId, required String status}) async {
+    await Future.delayed(Duration.zero);
+
     print("Cubit acceptedOrder");
     if (!isClosed) emit(LoadingState());
     try {
@@ -55,6 +57,8 @@ class EmpHomeCubit extends Cubit<EmpHomeState> {
   }
 
   synOrder() async {
+    await Future.delayed(Duration.zero);
+
     supabase.client
         .channel('orders')
         .onPostgresChanges(
@@ -63,16 +67,21 @@ class EmpHomeCubit extends Cubit<EmpHomeState> {
             table: 'orders',
             callback: (value) async {
               await getOrderByStatus(orderDataLayer.index);
+          
             })
         .subscribe();
   }
 
-  updateChip() {
-    if (!isClosed) emit(SuccessState());
+  updateChip() async {
+    await Future.delayed(Duration.zero);
+
+    if (!isClosed) emit(UpdateState());
   }
 
   @override
   Future<void> close() async {
+    await Future.delayed(Duration.zero);
+
     await supabase.client.channel("orders").unsubscribe();
     super.close();
   }
