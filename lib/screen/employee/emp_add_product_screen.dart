@@ -306,7 +306,9 @@ class EmpAddProductScreen extends StatelessWidget {
                           title: "Add Product",
                           onPressed: () async {
                             await addProductCubit.addProduct();
-                            Navigator.pop(context);
+                            if (context.mounted) {
+                              Navigator.pop(context);
+                            }
                           },
                         ),
                       ),

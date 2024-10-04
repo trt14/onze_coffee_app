@@ -14,8 +14,7 @@ import 'package:onze_coffee_app/widget/comment/product_card.dart';
 import 'package:onze_coffee_app/widget/custom_main_button.dart';
 
 class UserCartScreen extends StatelessWidget {
-  const UserCartScreen({super.key, required this.myCart});
-  final List<CartProductModel>? myCart;
+  const UserCartScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -45,9 +44,10 @@ class UserCartScreen extends StatelessWidget {
                   //         )));
                   orderID = await orderReadCubit.addNewOrder();
                   print(orderID);
-                  amount = orderReadCubit.getAllAmountItems(cart: myCart!);
+                  amount = orderReadCubit.getAllAmountItems(
+                      cart: cartReadCubit.userDataLayer.myCart);
                   print(amount);
-                  Navigator.push(
+                  Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
                         builder: (context) => UserPaymentScreen(
@@ -75,7 +75,8 @@ class UserCartScreen extends StatelessWidget {
                 ),
                 BlocBuilder<CartCubit, CartState>(
                   builder: (context, state) {
-                    if (state is EmptyCartState || myCart!.isEmpty) {
+                    if (state is EmptyCartState ||
+                        cartReadCubit.userDataLayer.myCart.isEmpty) {
                       return Text("Empty Cart",
                           style: TextStyle(
                               color: AppColor.secondary, fontSize: 20));
@@ -85,25 +86,36 @@ class UserCartScreen extends StatelessWidget {
                           maxHeight: context.getHeight(value: 0.2)),
                       child: SingleChildScrollView(
                         child: Column(
-                          children: List.generate(myCart!.length, (index) {
+                          children: List.generate(
+                              cartReadCubit.userDataLayer.myCart.length,
+                              (index) {
                             return Column(
                               children: [
                                 ProductCard(
-                                  qty: myCart![index].quantity.toString(),
+                                  qty: cartReadCubit
+                                      .userDataLayer.myCart[index].quantity
+                                      .toString(),
                                   decrement: () {
-                                    myCart![index].quantity--;
+                                    cartReadCubit
+                                        .userDataLayer.myCart[index].quantity--;
                                     cartReadCubit.updateDecreaseAmount(
-                                        cart: myCart![index]);
+                                        cart: cartReadCubit
+                                            .userDataLayer.myCart[index]);
                                   },
                                   increment: () {
-                                    myCart![index].quantity++;
+                                    cartReadCubit
+                                        .userDataLayer.myCart[index].quantity++;
                                     cartReadCubit.updateIncreamentAmount(
-                                        price: myCart![index].productPrice,
-                                        qnt: myCart![index].quantity);
+                                        price: cartReadCubit.userDataLayer
+                                            .myCart[index].productPrice,
+                                        qnt: cartReadCubit.userDataLayer
+                                            .myCart[index].quantity);
                                   },
                                   imageSrc: "assets/product/image.png",
-                                  name: myCart![index].productName,
-                                  type: myCart![index].tempreture,
+                                  name: cartReadCubit
+                                      .userDataLayer.myCart[index].productName,
+                                  type: cartReadCubit
+                                      .userDataLayer.myCart[index].tempreture,
                                 ),
                                 const Divider(),
                               ],
@@ -118,7 +130,8 @@ class UserCartScreen extends StatelessWidget {
                   builder: (context, state) {
                     return Bill(
                       price: cartReadCubit
-                          .getAllAmountItems(cart: myCart!)
+                          .getAllAmountItems(
+                              cart: cartReadCubit.userDataLayer.myCart)
                           .toString(),
                     );
                   },

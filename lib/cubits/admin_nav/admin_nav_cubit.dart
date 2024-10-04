@@ -28,6 +28,6 @@ class AdminNavCubit extends Cubit<AdminNavState> {
   ];
   int index = 0;
   update() {
-    emit(Navigate());
+    if (!isClosed) emit(Navigate());
   }
 }

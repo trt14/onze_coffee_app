@@ -17,121 +17,125 @@ class EmpHomeScreen extends StatelessWidget {
         final empHomeCubit = context.read<EmpHomeCubit>();
         return Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(
-                height: 20,
-              ),
-              const Text(
-                "Order Status",
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              BlocBuilder<EmpHomeCubit, EmpHomeState>(
-                builder: (context, state) {
-                  return Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: List.generate(empHomeCubit.orderStatus.length,
-                          (int index) {
-                        return CustomChoiceChip(
-                          title: empHomeCubit.orderStatus[index],
-                          isSelected: index == empHomeCubit.index,
-                          lblColor: AppColor.white,
-                          selectedColor: AppColor.secondary,
-                          onSelected: (value) {
-                            empHomeCubit.index = index;
-                            empHomeCubit.updateChip();
-                            empHomeCubit.getOrderByStatus(index);
-                          },
-                        );
-                      }));
-                },
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              BlocBuilder<EmpHomeCubit, EmpHomeState>(
-                builder: (context, state) {
-                  return SingleChildScrollView(
-                    child: Column(
-                        children: List.generate(empHomeCubit.orders.length,
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(
+                  height: 20,
+                ),
+                const Text(
+                  "Order Status",
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                BlocBuilder<EmpHomeCubit, EmpHomeState>(
+                  builder: (context, state) {
+                    return Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: List.generate(
+                            empHomeCubit.orderDataLayer.orderStatus.length,
                             (int index) {
-                      return Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(
-                          children: [
-                            GestureDetector(
-                              onLongPress: () {},
-                              child: CustomContainerOrder(
-                                  isNote: true,
-                                  note: empHomeCubit.orders[index].note,
-                                  orderID: empHomeCubit.orders[index].billId
-                                      .toString(),
-                                  height: 100,
-                                  width: 0.65,
-                                  productsWithQuntity: empHomeCubit
-                                      .orders[index].products
-                                      .map((element) =>
-                                          "${element.name} x${element.qty}")
-                                      .toString()),
-                            ),
-                            InkWell(
-                              onTap: () {},
-                              child: Container(
-                                width: context.getWidth(value: 0.25),
-                                height: 100,
-                                color: AppColor.primary,
-                                child:
-                                    Image.asset("assets/images/onzo-icon.png"),
-                              ),
-                            )
-                          ],
-                        ),
-                      );
-                    })),
-                  );
-                },
-              )
-            ],
+                          return CustomChoiceChip(
+                            title:
+                                empHomeCubit.orderDataLayer.orderStatus[index],
+                            isSelected:
+                                index == empHomeCubit.orderDataLayer.index,
+                            lblColor: AppColor.white,
+                            selectedColor: AppColor.secondary,
+                            onSelected: (value) {
+                              empHomeCubit.orderDataLayer.index = index;
+                              empHomeCubit.updateChip();
+                              empHomeCubit.getOrderByStatus(index);
+                            },
+                          );
+                        }));
+                  },
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                BlocBuilder<EmpHomeCubit, EmpHomeState>(
+                  builder: (context, state) {
+                    return Column(
+                        children: empHomeCubit.orderDataLayer.orders.isNotEmpty
+                            ? List.generate(
+                                empHomeCubit.orderDataLayer.orders.length,
+                                (int index) {
+                                  return Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Row(
+                                      children: [
+                                        CustomContainerOrder(
+                                          isNote: true,
+                                          note: empHomeCubit.orderDataLayer
+                                                  .orders[index].note.isNotEmpty
+                                              ? "Note: ${empHomeCubit.orderDataLayer.orders[index].note}"
+                                              : "",
+                                          orderID: empHomeCubit.orderDataLayer
+                                              .orders[index].billId
+                                              .toString(),
+                                          height: 100,
+                                          width: 0.65,
+                                          productsWithQuntity: empHomeCubit
+                                              .orderDataLayer
+                                              .orders[index]
+                                              .products
+                                              .map((element) =>
+                                                  "${element.name} x${element.qty}")
+                                              .toString(),
+                                        ),
+                                        InkWell(
+                                          onTap: () async {
+                                            try {
+                                              if (empHomeCubit.orderDataLayer
+                                                      .orders[index].status ==
+                                                  "holding") {
+                                                await empHomeCubit.updateOrder(
+                                                    status: "processing",
+                                                    billId: empHomeCubit
+                                                        .orderDataLayer
+                                                        .orders[index]
+                                                        .billId);
+                                              }
+
+                                              if (empHomeCubit.orderDataLayer
+                                                      .orders[index].status ==
+                                                  "processing") {
+                                                await empHomeCubit.updateOrder(
+                                                    status: "completed",
+                                                    billId: empHomeCubit
+                                                        .orderDataLayer
+                                                        .orders[index]
+                                                        .billId);
+                                              }
+                                            } catch (e) {}
+                                          },
+                                          child: Container(
+                                            width:
+                                                context.getWidth(value: 0.25),
+                                            height: 100,
+                                            color: AppColor.primary,
+                                            child: Image.asset(
+                                                "assets/images/onzo-icon.png"),
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  );
+                                },
+                              )
+                            : const [Center(child: Text("No order here"))]);
+                  },
+                )
+              ],
+            ),
           ),
         );
       }),
     );
   }
 }
-
-
-/*
-
-Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Row(
-                            children: [
-                              GestureDetector(
-                                onLongPress: () {},
-                                child: const CustomContainerOrder(
-                                    isNote: true,
-                                    note: "Don't add milk to the coffee",
-                                    orderID: "10",
-                                    height: 100,
-                                    width: 0.65,
-                                    productsWithQuntity:
-                                        "Coffee Mocha x 1  ,  Coffee Mocha x 2  ,  Coffee Mocha x 1"),
-                              ),
-                              InkWell(
-                                onTap: () {},
-                                child: Container(
-                                  width: context.getWidth(value: 0.25),
-                                  height: 100,
-                                  color: AppColor.primary,
-                                  child: Image.asset("assets/images/onzo-icon.png"),
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
- */
