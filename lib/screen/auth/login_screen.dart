@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onze_coffee_app/helper/custom_colors.dart';
+import 'package:onze_coffee_app/helper/screen.dart';
+import 'package:onze_coffee_app/screen/auth/register_screen.dart';
+import 'package:onze_coffee_app/widget/custom_main_button.dart';
+import 'package:onze_coffee_app/widget/custom_text_field.dart';
 
 import '../../cubits/auth_cubit/auth_cubit.dart';
 import '../../data/repositories/auth_repository.dart';
@@ -16,26 +20,25 @@ class LoginScreen extends StatelessWidget {
     return BlocProvider(
       create: (context) => AuthCubit(),
       child: Scaffold(
-        backgroundColor: const Color.fromARGB(255, 88, 105, 112),
+        backgroundColor: AppColor.primary,
         body: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                'Enter your email to receive an OTP',
-                style: TextStyle(fontSize: 18),
+              const SizedBox(height: 40),
+              SizedBox(
+                width: context.getWidth(value: 1),
+                height: context.getWidth(value: 0.5),
+                child: Image.asset("assets/logo/onze_logo.png"),
               ),
-              SizedBox(height: 20),
-              TextField(
-                controller: emailController,
+              const SizedBox(height: 30),
+              CustomTextField(
+                title: "Email",
+                hint: "Email",
                 keyboardType: TextInputType.emailAddress,
-                decoration: InputDecoration(
-                  labelText: 'Email',
-                  border: OutlineInputBorder(),
-                ),
+                controller: emailController,
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               BlocConsumer<AuthCubit, AuthState>(
                 listener: (context, state) {
                   if (state is AuthLoading) {
@@ -59,18 +62,51 @@ class LoginScreen extends StatelessWidget {
                 },
                 builder: (context, state) {
                   return state is AuthLoading
-                      ? CircularProgressIndicator()
-                      : ElevatedButton(
-                          onPressed: () {
-                            // Trigger sending OTP to email
-                            context
+                      ? const CircularProgressIndicator()
+                      // : ElevatedButton(
+                      //     onPressed: () {
+                      //       // Trigger sending OTP to email
+                      //       context
+                      //           .read<AuthCubit>()
+                      //           .sendOtpToEmail(emailController.text);
+                      //     },
+                      //     child: const Text('Send OTP'),
+                      //   );
+                      : CustomMainButton(
+                          title: "Login",
+                          color: AppColor.secondary,
+                          onPressed: () async {
+                            await context
                                 .read<AuthCubit>()
                                 .sendOtpToEmail(emailController.text);
+                            if (context.mounted) {
+                              Navigator.pop(context);
+                            }
                           },
-                          child: Text('Send OTP'),
                         );
                 },
               ),
+              const SizedBox(height: 20),
+              TextButton(
+                onPressed: () {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => RegisterScreen(),
+                    ),
+                  );
+                },
+                child: const Text("Create new account ?",
+                    style: TextStyle(color: AppColor.white)),
+              ),
+              const SizedBox(height: 50),
+              SizedBox(
+                height: context.getHeight(value: 0.23),
+                child: Image.asset(
+                  "assets/images/onzo-icon.png",
+                  fit: BoxFit.fitWidth,
+                ),
+              )
             ],
           ),
         ),

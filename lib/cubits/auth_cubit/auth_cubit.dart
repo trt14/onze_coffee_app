@@ -18,7 +18,12 @@ class AuthCubit extends Cubit<AuthState> {
     emit(AuthLoading());
     try {
       // Call the repository function to verify OTP
-      final result = await AuthRepository().verifyOtp(email: email, otp: otp);
+      final result = await AuthRepository().verifyOtp(
+          email: email,
+          otp: otp,
+          fName: 'Sami',
+          lName: 'Mahdi',
+          phoneNumber: '059');
 
       if (result != '') {
         // OTP verification successful

@@ -40,7 +40,11 @@ class AuthRepository {
 
   * */
   Future<AuthResponse> verifyOtp(
-      {required String email, required String otp}) async {
+      {required String email,
+      required String otp,
+      required String fName,
+      required String lName,
+      required String phoneNumber}) async {
     try {
       // Return the auth response if OTP verification is successful
       final AuthResponse response = await supabase.client.auth
@@ -49,9 +53,12 @@ class AuthRepository {
       // If the user is not null, create a user data entry in the 'users' table
       final user = response.user;
       if (user != null) {
-        await supabase.client.from('users').insert({
+        await supabase.client.from('public.users').insert({
           'id': user.id,
           'email': user.email,
+          'first_name': fName,
+          'last_name': lName,
+          'phone': phoneNumber,
           'created_at': DateTime.now().toIso8601String(),
         });
       }

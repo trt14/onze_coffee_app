@@ -2,6 +2,8 @@ import 'package:device_preview/device_preview.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:onze_coffee_app/screen/auth/otp_screen.dart';
+import 'package:onze_coffee_app/screen/auth/register_screen.dart';
 import 'package:onze_coffee_app/screen/employee/admin_nav.dart';
 import 'package:onze_coffee_app/screen/user/nav_bar/user_nav.dart';
 import 'package:onze_coffee_app/screen/user/user_home_screen.dart';
@@ -35,10 +37,6 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-<<<<<<< HEAD
     return MaterialApp(debugShowCheckedModeBanner: false, home: LoginScreen());
-=======
-    return MaterialApp(debugShowCheckedModeBanner: false, home: AdminNav());
->>>>>>> 17350c5e6abceee441642247873593c356958188
   }
 }
