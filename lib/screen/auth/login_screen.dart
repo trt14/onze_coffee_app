@@ -67,7 +67,9 @@ class LoginScreen extends StatelessWidget {
                     },
                     builder: (context, state) {
                       return state is AuthLoading
-                          ? const CircularProgressIndicator()
+                          ? const CircularProgressIndicator(
+                              color: AppColor.secondary,
+                            )
                           : CustomMainButton(
                               title: "Login",
                               color: AppColor.secondary,

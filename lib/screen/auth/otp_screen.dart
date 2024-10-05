@@ -35,6 +35,7 @@ class OtpScreen extends StatelessWidget {
                           color: AppColor.white,
                         )),
                     Text('\n$email',
+                        softWrap: true,
                         style: const TextStyle(
                             color: AppColor.forth,
                             fontWeight: FontWeight.bold)),
@@ -78,7 +79,9 @@ class OtpScreen extends StatelessWidget {
                   },
                   builder: (context, state) {
                     return state is AuthLoading
-                        ? const CircularProgressIndicator()
+                        ? const CircularProgressIndicator(
+                            color: AppColor.secondary,
+                          )
                         : const CustomMainButton(
                             title: "Verify OTP",
                             color: AppColor.secondary,

@@ -30,35 +30,28 @@ class UserCartScreen extends StatelessWidget {
             create: (context) => OrderCubit(),
             child: Builder(builder: (context) {
               final orderReadCubit = context.read<OrderCubit>();
-              return CustomButtonBottomSheet(
-                title: "BUY NOW!!",
-                onPressed: () async {
-                  // showDialog<String>(
-                  //     context: context,
-                  //     builder: (BuildContext context) => SizedBox(
-                  //         width: 50,
-                  //         child: LoadingAnimationWidget.twistingDots(
-                  //           leftDotColor: AppColor.primary,
-                  //           rightDotColor: AppColor.secondary,
-                  //           size: 100,
-                  //         )));
-                  if (cartReadCubit.userDataLayer.myCart.isNotEmpty) {
-                    orderID = await orderReadCubit.addNewOrder();
-                    print(orderID);
-                    amount = orderReadCubit.getAllAmountItems(
-                        cart: cartReadCubit.userDataLayer.myCart);
-                    print(amount);
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => UserPaymentScreen(
-                              amount: amount, orderID: orderID)),
-                    );
-                  } else {
-                    print("empty");
-                  }
-                },
-              );
+              return orderReadCubit.userLayer.myCart.isNotEmpty
+                  ? CustomButtonBottomSheet(
+                      title: "BUY NOW!!",
+                      onPressed: () async {
+                        if (cartReadCubit.userDataLayer.myCart.isNotEmpty) {
+                          orderID = await orderReadCubit.addNewOrder();
+                          print(orderID);
+                          amount = orderReadCubit.getAllAmountItems(
+                              cart: cartReadCubit.userDataLayer.myCart);
+                          print(amount);
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => UserPaymentScreen(
+                                    amount: amount, orderID: orderID)),
+                          );
+                        } else {
+                          print("empty");
+                        }
+                      },
+                    )
+                  : SizedBox();
             }),
           ),
           appBar: AppBar(
@@ -81,9 +74,11 @@ class UserCartScreen extends StatelessWidget {
                   builder: (context, state) {
                     if (state is EmptyCartState ||
                         cartReadCubit.userDataLayer.myCart.isEmpty) {
-                      return const Text("Empty Cart",
-                          style: TextStyle(
-                              color: AppColor.secondary, fontSize: 20));
+                      return Center(
+                        child: const Text("Empty Cart",
+                            style: TextStyle(
+                                color: AppColor.secondary, fontSize: 20)),
+                      );
                     }
                     return ConstrainedBox(
                       constraints: BoxConstraints(
@@ -134,12 +129,14 @@ class UserCartScreen extends StatelessWidget {
                 ),
                 BlocBuilder<CartCubit, CartState>(
                   builder: (context, state) {
-                    return Bill(
-                      price: cartReadCubit
-                          .getAllAmountItems(
-                              cart: cartReadCubit.userDataLayer.myCart)
-                          .toString(),
-                    );
+                    return cartReadCubit.userDataLayer.myCart.isNotEmpty
+                        ? Bill(
+                            price: cartReadCubit
+                                .getAllAmountItems(
+                                    cart: cartReadCubit.userDataLayer.myCart)
+                                .toString(),
+                          )
+                        : SizedBox();
                   },
                 )
               ],

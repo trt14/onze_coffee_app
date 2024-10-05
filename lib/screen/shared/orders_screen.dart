@@ -34,8 +34,11 @@ class OrdersScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  SizedBox(
+                    height: 30,
+                  ),
                   const Text(
-                    "27,December,2024",
+                    "6,October,2024",
                     style: TextStyle(
                         color: AppColor.secondary, fontWeight: FontWeight.w500),
                   ),
@@ -44,46 +47,54 @@ class OrdersScreen extends StatelessWidget {
                   ),
                   BlocBuilder<OrderCubit, OrderState>(
                     builder: (context, state) {
-                      return ListView.builder(
-                          cacheExtent: 10,
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemCount: orderCubit.bills.length,
-                          itemBuilder: (context, index) {
-                            return Container(
-                              margin: const EdgeInsets.only(top: 10),
-                              child: InkWell(
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => OrderDetailsScreen(
-                                        billId: orderCubit.bills[index].billId,
-                                      ),
-                                    ),
-                                  );
-                                },
-                                child: CustomContainerOrder(
-                                    isNote:
-                                        orderCubit.bills[index].note.isNotEmpty,
-                                    orderID: orderCubit.bills[index].billId
-                                        .toString(),
-                                    height: 120,
-                                    width: 1,
-                                    price: orderCubit.bills[index].totalPrice
-                                        .toDouble(),
-                                    statusColor: statusColor(
-                                        orderCubit.bills[index].status),
-                                    note: orderCubit.bills[index].note,
-                                    textStatus: orderCubit.bills[index].status,
-                                    productsWithQuntity: orderCubit
-                                        .bills[index].products
-                                        .map((element) =>
-                                            "${element.name} x${element.qty}")
-                                        .toString()),
-                              ),
+                      return orderCubit.bills.isNotEmpty
+                          ? ListView.builder(
+                              cacheExtent: 10,
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemCount: orderCubit.bills.length,
+                              itemBuilder: (context, index) {
+                                return Container(
+                                  margin: const EdgeInsets.only(top: 10),
+                                  child: InkWell(
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              OrderDetailsScreen(
+                                            billId:
+                                                orderCubit.bills[index].billId,
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                    child: CustomContainerOrder(
+                                        isNote: orderCubit
+                                            .bills[index].note.isNotEmpty,
+                                        orderID: orderCubit.bills[index].billId
+                                            .toString(),
+                                        height: 120,
+                                        width: 1,
+                                        price: orderCubit
+                                            .bills[index].totalPrice
+                                            .toDouble(),
+                                        statusColor: statusColor(
+                                            orderCubit.bills[index].status),
+                                        note: orderCubit.bills[index].note,
+                                        textStatus:
+                                            orderCubit.bills[index].status,
+                                        productsWithQuntity: orderCubit
+                                            .bills[index].products
+                                            .map((element) =>
+                                                "${element.name} x${element.qty}")
+                                            .toString()),
+                                  ),
+                                );
+                              })
+                          : Center(
+                              child: Text("No orders!"),
                             );
-                          });
                     },
                   ),
                 ],

@@ -24,10 +24,10 @@ class ProductDetailsScreen extends StatelessWidget {
         create: (context) => CartCubit(),
         child: Builder(builder: (context) {
           final cartReadCubit = context.read<CartCubit>();
-
+          final isEmployee = cartReadCubit.userDataLayer.user.role != "user";
           return CustomButtonBottomSheet(
             title: "Add to Cart",
-            isEmployee: true,
+            isEmployee: isEmployee,
             price: product.variants.first.price.toString(),
             onPressed: () {
               cartReadCubit.addItemsToCart(

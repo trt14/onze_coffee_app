@@ -22,10 +22,10 @@ class AdminNavCubit extends Cubit<AdminNavState> {
 
   List<PreferredSizeWidget> appBars = [
     AppBar(
-      title: const Center(child: Text("Products")),
+      title: const Center(child: Text("New Orders")),
     ),
     AppBar(
-      title: const Center(child: Text("Order")),
+      title: const Center(child: Text("Products")),
     ),
     AppBar(
       title: const Center(child: Text("Orders")),

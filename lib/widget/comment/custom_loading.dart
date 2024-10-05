@@ -6,16 +6,9 @@ customLoading({required BuildContext context}) {
   showDialog<String>(
       barrierDismissible: false,
       context: context,
-      builder: (BuildContext context) => const SizedBox(
-          height: 500, child: Center(child: CircularProgressIndicator())));
+      builder: (BuildContext context) => SizedBox(
+          height: 500,
+          child: Center(
+              child: LoadingAnimationWidget.inkDrop(
+                  color: AppColor.secondary, size: 50))));
 }
-
-// customLoading({required BuildContext context}) {
-//   return Center(
-//     child: LoadingAnimationWidget.twistingDots(
-//       leftDotColor: AppColor.primary,
-//       rightDotColor: AppColor.secondary,
-//       size: 100,
-//     ),
-//   );
-// }
