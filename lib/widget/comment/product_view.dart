@@ -39,7 +39,7 @@ class ProductView extends StatelessWidget {
                         child: CachedNetworkImage(
                           imageUrl: imageSrc,
                           placeholder: (context, url) =>
-                             const Center(child: CircularProgressIndicator()),
+                              const Center(child: CircularProgressIndicator()),
                           errorWidget: (context, url, error) => Image.asset(
                               "assets/logo/onze_logo.png",
                               height: 100),
@@ -53,7 +53,10 @@ class ProductView extends StatelessWidget {
                           Image.asset("assets/logo/onze_logo.png", height: 100),
                     ),
               ListTile(
-                title: Text(name),
+                title: Text(
+                  name,
+                  style: TextStyle(fontSize: 14),
+                ),
                 subtitle: Text(type),
               ),
               Padding(
