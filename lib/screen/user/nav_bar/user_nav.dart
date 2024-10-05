@@ -19,7 +19,6 @@ class UserNav extends StatelessWidget {
           builder: (context, state) {
             return BlocListener<NavBarCubit, NavBarState>(
               listener: (context, state) {
-                // TODO: implement listener
                 if (state is LoadingNavState) {
                   customLoading(context: context);
                 }

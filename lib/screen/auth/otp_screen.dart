@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:onze_coffee_app/data_layer/user_layer.dart';
+import 'package:onze_coffee_app/helper/custom_alert.dart';
 import 'package:onze_coffee_app/helper/custom_colors.dart';
 import 'package:onze_coffee_app/screen/employee/admin_nav.dart';
 import 'package:onze_coffee_app/screen/user/nav_bar/user_nav.dart';
@@ -67,9 +68,11 @@ class OtpScreen extends StatelessWidget {
                       }
                     } else if (state is AuthFailure) {
                       // Show error message
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text(state.errorMessage)),
-                      );
+                        showAlertSnackBar(
+                            context: context,
+                            color: AppColor.secondary,
+                            title: state.errorMessage,
+                            colorStatus: AppColor.secondary);
                     }
                   },
                   builder: (context, state) {

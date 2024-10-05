@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:onze_coffee_app/helper/custom_alert.dart';
 import 'package:onze_coffee_app/helper/custom_colors.dart';
 import 'package:onze_coffee_app/helper/screen.dart';
 import 'package:onze_coffee_app/screen/auth/login_screen.dart';
@@ -71,9 +72,11 @@ class RegisterScreen extends StatelessWidget {
                         );
                       } else if (state is AuthFailure) {
                         // Show an error message
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text(state.errorMessage)),
-                        );
+                           showAlertSnackBar(
+                            context: context,
+                            color: AppColor.secondary,
+                            title: state.errorMessage,
+                            colorStatus: AppColor.secondary);
                       }
                     },
                     builder: (context, state) {
