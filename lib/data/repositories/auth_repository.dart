@@ -158,7 +158,7 @@ class AuthRepository {
     try {
       await supabase.client.auth.signOut();
     } catch (e) {
-      throw Exception('Error during sign-out: $e');
+      throw Exception('Error during sign-out');
     }
   }
 }

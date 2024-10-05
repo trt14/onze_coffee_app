@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onze_coffee_app/cubits/add_product/add_product_cubit.dart';
 import 'package:onze_coffee_app/cubits/category_cubit/category_cubit.dart';
+import 'package:onze_coffee_app/data/repositories/category_repository.dart';
 import 'package:onze_coffee_app/helper/custom_colors.dart';
 import 'package:onze_coffee_app/helper/screen.dart';
 import 'package:onze_coffee_app/widget/comment/custom_loading.dart';
@@ -270,44 +271,55 @@ class EmpAddProductScreen extends StatelessWidget {
                                                   .length, (int index) {
                                             return Row(
                                               children: [
-                                                CustomChoiceChip(
-                                                  title: categoryReadCubit
-                                                          .categoryLayer
-                                                          .categoryList[index]
-                                                      ["name"],
-                                                  isSelected: categoryReadCubit
-                                                              .categoryLayer
-                                                              .categoryList[
-                                                          index]["id"] ==
-                                                      categoryReadCubit
-                                                          .productCategory,
-                                                  onSelected: (value) {
-                                                    categoryReadCubit
-                                                            .productCategory =
-                                                        categoryReadCubit
+                                                InkWell(
+                                                  onLongPress: () async {
+                                                    await categoryReadCubit
+                                                        .deleteCategoryEvent(
+                                                            categoryID: categoryReadCubit
+                                                                    .categoryLayer
+                                                                    .categoryList[
+                                                                index]["id"]);
+                                                    print("delete");
+                                                  },
+                                                  child: CustomChoiceChip(
+                                                    title: categoryReadCubit
+                                                            .categoryLayer
+                                                            .categoryList[index]
+                                                        ["name"],
+                                                    isSelected: categoryReadCubit
                                                                 .categoryLayer
                                                                 .categoryList[
-                                                            index]["id"];
+                                                            index]["id"] ==
+                                                        categoryReadCubit
+                                                            .productCategory,
+                                                    onSelected: (value) {
+                                                      categoryReadCubit
+                                                              .productCategory =
+                                                          categoryReadCubit
+                                                                  .categoryLayer
+                                                                  .categoryList[
+                                                              index]["id"];
 
-                                                    addProductCubit.categoryId =
-                                                        categoryReadCubit
-                                                            .productCategory;
-                                                    print(
-                                                        "value through addProductCubit ID: ${addProductCubit.categoryId}");
-                                                    final category =
-                                                        categoryReadCubit
-                                                            .categoryLayer
-                                                            .categoryList
-                                                            .firstWhere((element) =>
-                                                                element["id"] ==
-                                                                addProductCubit
-                                                                    .categoryId);
-                                                    addProductCubit
-                                                            .productCategory =
-                                                        category["name"];
-                                                    categoryReadCubit
-                                                        .updateChips();
-                                                  },
+                                                      addProductCubit
+                                                              .categoryId =
+                                                          categoryReadCubit
+                                                              .productCategory;
+                                                      print(
+                                                          "value through addProductCubit ID: ${addProductCubit.categoryId}");
+                                                      final category = categoryReadCubit
+                                                          .categoryLayer
+                                                          .categoryList
+                                                          .firstWhere((element) =>
+                                                              element["id"] ==
+                                                              addProductCubit
+                                                                  .categoryId);
+                                                      addProductCubit
+                                                              .productCategory =
+                                                          category["name"];
+                                                      categoryReadCubit
+                                                          .updateChips();
+                                                    },
+                                                  ),
                                                 ),
                                                 SizedBox(
                                                   width: 10,

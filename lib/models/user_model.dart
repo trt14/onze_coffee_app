@@ -12,6 +12,7 @@ class UserModel {
     required this.phone,
     required this.role,
   });
+  UserModel.empty();
 
   Map<String, dynamic> toJson() {
     return {

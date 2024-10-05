@@ -19,15 +19,44 @@ class CartCubit extends Cubit<CartState> {
       required int qnty,
       required VariantsModel productVarient}) {
     if (!isClosed) emit(LoadingCartState());
-    userDataLayer.myCart.add(CartProductModel(
-        productName: product.productName,
-        tempreture: product.tempreture,
-        productPrice: productVarient.price,
-        quantity: qnty,
-        productID: product.productId));
-    updateIncreamentAmount(price: productVarient.price, qnt: 1);
-    // print(totalAmount);
-    emit(SuccessCartState(msg: "Done :)"));
+    if (userDataLayer.myCart.isNotEmpty) {
+      CartProductModel x = userDataLayer.myCart.firstWhere(
+          (CartProductModel c) => c.productID == product.productId,
+          orElse: () => (CartProductModel(
+              productName: "",
+              tempreture: "",
+              productPrice: -1,
+              quantity: -1,
+              productID: -1)));
+      if (x.productID != -1) {
+        int index = userDataLayer.myCart.indexOf(x);
+        updateIncreamentAmount(
+            price: productVarient.price,
+            qnt: userDataLayer.myCart[index].quantity++);
+        emit(SuccessCartState(msg: "Done :)"));
+        return true;
+      } else {
+        userDataLayer.myCart.add(CartProductModel(
+            productName: product.productName,
+            tempreture: product.tempreture,
+            productPrice: productVarient.price,
+            quantity: qnty,
+            productID: product.productId));
+        updateIncreamentAmount(price: productVarient.price, qnt: 1);
+        // print(totalAmount);
+        emit(SuccessCartState(msg: "Done :)"));
+      }
+    } else {
+      userDataLayer.myCart.add(CartProductModel(
+          productName: product.productName,
+          tempreture: product.tempreture,
+          productPrice: productVarient.price,
+          quantity: qnty,
+          productID: product.productId));
+      updateIncreamentAmount(price: productVarient.price, qnt: 1);
+      // print(totalAmount);
+      emit(SuccessCartState(msg: "Done :)"));
+    }
   }
 
   updateIncreamentAmount({required num price, required int qnt}) {

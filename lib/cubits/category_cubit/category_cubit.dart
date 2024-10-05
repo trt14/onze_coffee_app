@@ -34,6 +34,7 @@ class CategoryCubit extends Cubit<CategoryState> {
     try {
       final response = CategoryRepository().deleteCategory(id: categoryID);
       print(response);
+      fetchCategoriesEvent();
       if (!isClosed) emit(SuccessCategoryState(msg: "Delete it Done:)"));
     } catch (e) {
       if (!isClosed) emit(ErrorCategoryState(msg: e.toString()));

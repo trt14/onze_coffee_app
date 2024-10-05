@@ -56,19 +56,19 @@ class OtpScreen extends StatelessWidget {
                       // OTP verification success, navigate to next screen
 
                       if (GetIt.I.get<UserLayer>().user.role == "user") {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const UserNav(),
-                          ),
-                        );
+                        Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const UserNav(),
+                            ),
+                            (Route<dynamic> route) => false);
                       } else {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const AdminNav(),
-                          ),
-                        );
+                        Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const AdminNav(),
+                            ),
+                            (Route<dynamic> route) => false);
                       }
                     } else if (state is AuthFailure) {
                       // Show error message
