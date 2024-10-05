@@ -5,7 +5,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:onze_coffee_app/screen/auth/otp_screen.dart';
 import 'package:onze_coffee_app/screen/auth/register_screen.dart';
 import 'package:onze_coffee_app/screen/employee/admin_nav.dart';
-import 'package:onze_coffee_app/screen/shared/auth_check_screen.dart';
+import 'package:onze_coffee_app/screen/auth/auth_check_screen.dart';
 import 'package:onze_coffee_app/screen/user/nav_bar/user_nav.dart';
 import 'package:onze_coffee_app/screen/user/user_home_screen.dart';
 

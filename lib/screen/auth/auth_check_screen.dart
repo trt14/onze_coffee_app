@@ -24,29 +24,26 @@ class AuthCheckScreen extends StatelessWidget {
             }
             if (state is AuthSuccessToken) {
               Navigator.pop(context);
-              print(authCubit.userLayer.user.role);
-              if (authCubit.userLayer.user.role == "user") {
-                Navigator.pushAndRemoveUntil(
+              
+   if (authCubit.userLayer.user.role == "user") {
+                Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
                       builder: (context) => const UserNav(),
-                    ),
-                    (Route route) => false);
-              }
-             else if (authCubit.userLayer.user.role == "employee") {
-                Navigator.pushAndRemoveUntil(
+                    ));
+              } else if (authCubit.userLayer.user.role == "employee") {
+                Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
                       builder: (context) => const AdminNav(),
-                    ),
-                    (Route route) => false);
-              } else {
-                Navigator.pushAndRemoveUntil(
+                    ));
+              }
+              if(state is LoginState) {
+                Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
                       builder: (context) => const LoginScreen(),
-                    ),
-                    (Route route) => false);
+                    ));
               }
             }
           },

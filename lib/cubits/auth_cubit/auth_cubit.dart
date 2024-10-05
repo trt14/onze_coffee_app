@@ -22,9 +22,16 @@ class AuthCubit extends Cubit<AuthState> {
     emit(AuthLoading());
 
     try {
-      String email =  AuthRepository().getCurrentUser();
-      if (email != "") await AuthRepository().loginToken(email: email);
-      emit(AuthSuccessToken());
+      userLayer.email = AuthRepository().getCurrentUser();
+      if (userLayer.email != "") {
+        await AuthRepository().loginToken(email: userLayer.email);
+
+        if (userLayer.user.email != "") {
+          emit(AuthSuccessToken());
+        } 
+      }else {
+          emit(LoginState());
+        }
     } catch (error) {
       emit(AuthFailure(error.toString()));
     }

@@ -5,4 +5,5 @@ class UserLayer {
   List<CartProductModel> myCart = [];
   late double totalAmount = 0;
   late UserModel user;
+  String email = "";
 }
