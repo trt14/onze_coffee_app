@@ -36,7 +36,7 @@ class UserNav extends StatelessWidget {
                 appBar: AppBar(
                   actions: [
                     IconButton(
-                      icon: Icon(Icons.logout),
+                      icon: const Icon(Icons.logout),
                       onPressed: () async {
                         await navCubit.logout();
                       },

@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:onze_coffee_app/cubits/cart_cubit/cart_cubit.dart';
 import 'package:onze_coffee_app/cubits/order_cubit/order_cubit.dart';
 import 'package:onze_coffee_app/helper/custom_colors.dart';
 import 'package:onze_coffee_app/helper/screen.dart';
-import 'package:onze_coffee_app/models/cart_product_model.dart';
 import 'package:onze_coffee_app/screen/user/user_payment_screen.dart';
 
 import 'package:onze_coffee_app/widget/bill.dart';
@@ -36,10 +34,8 @@ class UserCartScreen extends StatelessWidget {
                       onPressed: () async {
                         if (cartReadCubit.userDataLayer.myCart.isNotEmpty) {
                           orderID = await orderReadCubit.addNewOrder();
-                          print(orderID);
                           amount = orderReadCubit.getAllAmountItems(
                               cart: cartReadCubit.userDataLayer.myCart);
-                          print(amount);
                           Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -47,7 +43,6 @@ class UserCartScreen extends StatelessWidget {
                                     amount: amount, orderID: orderID)),
                           );
                         } else {
-                          print("empty");
                         }
                       },
                     )

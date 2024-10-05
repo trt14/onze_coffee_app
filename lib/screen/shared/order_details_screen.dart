@@ -37,7 +37,7 @@ class OrderDetailsScreen extends StatelessWidget {
                       children: [
                         Center(
                           child: Text("Order #${orderCubit.bill?.billId}",
-                              style: TextStyle(
+                              style: const TextStyle(
                                   color: AppColor.secondary,
                                   fontSize: 18,
                                   fontWeight: FontWeight.w600)),
@@ -61,9 +61,6 @@ class OrderDetailsScreen extends StatelessWidget {
                             builder: (context, snapshot) {
                               if (snapshot.hasData) {
                                 final data = snapshot.data!;
-                                print(data[0]["id"]);
-                                print(orderCubit.bill?.createdAt);
-                                print("here data");
                                 return Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceAround,
@@ -177,7 +174,7 @@ class OrderDetailsScreen extends StatelessWidget {
                                   ],
                                 );
                               }
-                              return CircularProgressIndicator(
+                              return const CircularProgressIndicator(
                                 color: AppColor.forth,
                               );
                             }),
@@ -187,7 +184,7 @@ class OrderDetailsScreen extends StatelessWidget {
                             children: List.generate(
                                 orderCubit.bill!.products.length, (int index) {
                               return Padding(
-                                padding: EdgeInsets.all(8.0),
+                                padding: const EdgeInsets.all(8.0),
                                 child: ProductCard(
                                   qty: orderCubit.bill!.products[index].qty
                                       .toString(),

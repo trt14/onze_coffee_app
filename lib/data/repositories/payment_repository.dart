@@ -15,7 +15,7 @@ class PaymentRepository {
       required String transactionID,
       required double amount}) async {
     try {
-      final response = await supabase.client.from("payments").insert({
+      await supabase.client.from("payments").insert({
         "order_id": orderID,
         "created_by": userID,
         "amount": amount,
@@ -23,9 +23,6 @@ class PaymentRepository {
         "payment_method": paymentMethod,
         "transaction_id": transactionID,
       }).select();
-      print(response);
-    } catch (e) {
-      print(e.toString());
-    }
+    } catch (e) {}
   }
 }

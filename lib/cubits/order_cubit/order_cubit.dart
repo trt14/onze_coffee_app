@@ -27,7 +27,6 @@ class OrderCubit extends Cubit<OrderState> {
         amount: getAllAmountItems(cart: userLayer.myCart));
 
     if (responseCreateOrder != null) {
-      print(responseCreateOrder);
 
       for (var element in GetIt.I.get<UserLayer>().myCart) {
         final productV = await OrderRepository()
@@ -40,7 +39,6 @@ class OrderCubit extends Cubit<OrderState> {
             quantity: element.quantity,
             productID: productV);
       }
-      print("Order Items were created");
       emit(const SuccessOrderState(msg: "Create order Items"));
       return responseCreateOrder;
     }
@@ -94,7 +92,6 @@ class OrderCubit extends Cubit<OrderState> {
       bills = bills.reversed.toList();
       if (!isClosed) emit(SuccessState());
     } catch (e) {
-      print(e);
       emit(FailedState());
     }
   }

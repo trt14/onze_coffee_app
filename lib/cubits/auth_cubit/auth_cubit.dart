@@ -22,9 +22,7 @@ class AuthCubit extends Cubit<AuthState> {
     emit(AuthLoading());
 
     try {
-      print("iam at loginCurrentUser");
       userLayer.email = AuthRepository().getCurrentUser();
-      print(userLayer.email);
       if (userLayer.email != "") {
         await AuthRepository().loginToken(email: userLayer.email);
 
@@ -32,7 +30,6 @@ class AuthCubit extends Cubit<AuthState> {
           emit(AuthSuccessToken());
         }
       } else {
-        print("iam will emit login state");
         emit(LoginState());
       }
     } catch (error) {
@@ -78,7 +75,6 @@ class AuthCubit extends Cubit<AuthState> {
   * */
 
   Future eventLogin() async {
-    print("login");
     await Future.delayed(Duration.zero);
     emit(AuthLoading());
     try {
@@ -95,7 +91,6 @@ class AuthCubit extends Cubit<AuthState> {
     await Future.delayed(Duration.zero);
     emit(AuthLoading());
 
-    print("iam at cubit signUp");
     emit(AuthLoading());
     try {
       // Call the repository function to send the OTP to the email

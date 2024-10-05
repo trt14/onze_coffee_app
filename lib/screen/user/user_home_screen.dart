@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:onze_coffee_app/cubits/category_cubit/category_cubit.dart';
 import 'package:onze_coffee_app/cubits/user_home/user_home_cubit.dart';
 import 'package:onze_coffee_app/helper/custom_colors.dart';
 import 'package:onze_coffee_app/helper/screen.dart';
@@ -23,12 +22,10 @@ class UserHomeScreen extends StatelessWidget {
         return BlocListener<UserHomeCubit, UserHomeState>(
           listener: (context, state) {
             if (state is GetProductSuccessState) {
-              print("iam at GetProductSuccessState");
               Navigator.pop(context);
             }
 
             if (state is ProductLoadingState) {
-              print("iam at loading state");
               customLoading(context: context);
             }
           },

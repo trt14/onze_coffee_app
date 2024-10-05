@@ -18,7 +18,6 @@ class EmpHomeCubit extends Cubit<EmpHomeState> {
 
   getOrderByStatus(int index) async {
     await Future.delayed(Duration.zero);
-    print("cubit iam at getOrderByStatus");
     if (!isClosed) emit(LoadingState());
 
     try {
@@ -38,21 +37,18 @@ class EmpHomeCubit extends Cubit<EmpHomeState> {
       }
       if (!isClosed) emit(SuccessState());
     } catch (e) {
-      print(e);
     }
   }
 
   updateOrder({required int billId, required String status}) async {
     await Future.delayed(Duration.zero);
 
-    print("Cubit acceptedOrder");
     if (!isClosed) emit(LoadingState());
     try {
       await OrderRepository().updateOrderStatus(id: billId, status: status);
       await getOrderByStatus(orderDataLayer.index);
       if (!isClosed) emit(SuccessState());
     } catch (e) {
-      print(e);
     }
   }
 

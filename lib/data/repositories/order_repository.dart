@@ -1,7 +1,6 @@
 import 'package:get_it/get_it.dart';
 import 'package:onze_coffee_app/data_layer/order_layer.dart';
 import 'package:onze_coffee_app/models/bill_model.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../integrations/supabase/supabase_client.dart';
 
@@ -22,11 +21,8 @@ class OrderRepository {
         "total_price": amount,
         "status": "not-complete"
       }).select();
-      print(response);
       return response.first["id"];
-    } catch (e) {
-      print(e.toString());
-    }
+    } catch (e) {}
   }
 
   /*
@@ -41,7 +37,7 @@ class OrderRepository {
       required String status,
       required int orderID}) async {
     try {
-      final response = await supabase.client
+      await supabase.client
           .from("orders")
           .update({
             "user_id": userID,
@@ -51,10 +47,7 @@ class OrderRepository {
           })
           .eq("id", orderID)
           .select();
-      print(response);
-    } catch (e) {
-      print(e.toString());
-    }
+    } catch (e) {}
   }
 
   /*
@@ -71,17 +64,14 @@ class OrderRepository {
       required int quantity,
       required int productID}) async {
     try {
-      final response = await supabase.client.from("order_items").insert({
+      await supabase.client.from("order_items").insert({
         "quantity": quantity,
         "price": price,
         "product_id": productID,
         "created_by": userID,
         "order_id": orderID
       }).select();
-      print(response);
-    } catch (e) {
-      print(e.toString());
-    }
+    } catch (e) {}
   }
 
   getProductVarient({required int productID}) async {
@@ -91,11 +81,8 @@ class OrderRepository {
           .select("id")
           .eq("product_id", productID)
           .select();
-      print(response.first);
       return response.first["id"];
-    } catch (e) {
-      print(e);
-    }
+    } catch (e) {}
   }
 
   /*
@@ -112,84 +99,66 @@ class OrderRepository {
   *
   * */
   getEmployeeBill() async {
-    print("Iam at getEmployeeOrder");
     try {
       final List<Map<String, dynamic>> data =
           await supabase.client.rpc("get_order_details_v1");
       return data.map((element) => BillModel.fromJson(element)).toList();
-    } catch (e) {
-      print(e);
-    }
+    } catch (e) {}
   }
-    getUserBill({required String id}) async {
-    print("Iam at getEmployeeOrder");
+
+  getUserBill({required String id}) async {
     try {
-      final List<Map<String, dynamic>> data =
-          await supabase.client.rpc("get_order_details_by_user_id",params: {"user_uuid":id});
+      final List<Map<String, dynamic>> data = await supabase.client
+          .rpc("get_order_details_by_user_id", params: {"user_uuid": id});
       return data.map((element) => BillModel.fromJson(element)).toList();
-    } catch (e) {
-      print(e);
-    }
+    } catch (e) {}
   }
 
   getBill(int id) async {
-    print("Iam at getEmployeeOrder");
     try {
       final List<Map<String, dynamic>> data = await supabase.client
           .rpc("get_order_details_by_id", params: {"user_order": id});
 
       return BillModel.fromJson(data.first);
-    } catch (e) {
-      print(e);
-    }
+    } catch (e) {}
   }
 
   Stream<List<Map<String, dynamic>>>? getNewStatus(int id) {
-    print("i'm in getNew state");
     try {
       final response = supabase.client
           .from("orders")
           .stream(primaryKey: ["id"]).eq("id", id);
       return response;
     } catch (e) {
-      throw e;
+      rethrow;
     }
   }
 
   getOrderByStatus(String status) async {
-    print("Iam at getOrderByStatus");
     try {
       List<Map<String, dynamic>> data = await supabase.client
           .rpc("get_order_details_by_status", params: {"order_status": status});
       data = data.reversed.toList();
       GetIt.I.get<OrderLayer>().orders =
           data.map((element) => BillModel.fromJson(element)).toList();
-    } catch (e) {
-      print(e);
-    }
+    } catch (e) {}
   }
 
   updateOrderStatus({required int id, required String status}) async {
-    print("Order repository acceptedState");
     try {
       await supabase.client
           .from("orders")
           .update({"status": status}).eq("id", id);
-    } catch (e) {
-      print(e);
-    }
+    } catch (e) {}
   }
 
   Future getOrderById(int id) async {
-    print("iam at getOrderById");
     await Future.delayed(Duration.zero);
 
     try {
       final data = await supabase.client
           .rpc("get_order_details_by_id", params: {"user_order": id});
       return BillModel.fromJson(data.first);
-    } catch (e) {
-      print(e);
-    }
+    } catch (e) {}
   }
 }

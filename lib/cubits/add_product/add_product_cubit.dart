@@ -1,9 +1,7 @@
 import 'dart:io';
 
 import 'package:bloc/bloc.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
-import 'package:meta/meta.dart';
 import 'package:onze_coffee_app/data/repositories/product_repository.dart';
 import 'package:onze_coffee_app/models/product_model.dart';
 import 'package:onze_coffee_app/models/variants_model.dart';
@@ -29,9 +27,7 @@ class AddProductCubit extends Cubit<AddProductState> {
   AddProductCubit() : super(AddProductInitial());
   addProduct() async {
     if (!isClosed) emit(LoadingAddState());
-    print("iam at addProduct");
     try {
-      print(productCategory);
       //?-- product variant
       VariantsModel variant = VariantsModel(
           size: "small",

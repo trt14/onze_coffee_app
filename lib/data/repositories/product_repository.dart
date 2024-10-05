@@ -18,18 +18,14 @@ class ProductRepository {
       {required ProductModel product,
       required int categoryId,
       List<File>? images}) async {
-    print("createProduct");
     try {
-      print("insert new product");
       //?-- upload product with category
       final data = await supabase.client
           .from("products")
           .upsert(product.toJson(categoryId: categoryId))
           .select();
-      print(data);
       //?-- get product id to link image and variant
       final id = data.first["id"];
-      print("product ID :$id");
       for (VariantsModel element in product.variants) {
         await supabase.client
             .from("product_variants")
@@ -37,14 +33,11 @@ class ProductRepository {
       }
       if (images != null || images!.isNotEmpty) {
         for (File element in images) {
-          print("call upload image");
           await ImageRepository().uploadImage(productId: id, image: element);
         }
       }
       return true;
     } catch (e) {
-      print("iam at create product catch");
-      print(e);
       return false;
     }
   }

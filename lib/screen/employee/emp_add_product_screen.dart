@@ -5,7 +5,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onze_coffee_app/cubits/add_product/add_product_cubit.dart';
 import 'package:onze_coffee_app/cubits/category_cubit/category_cubit.dart';
-import 'package:onze_coffee_app/data/repositories/category_repository.dart';
 import 'package:onze_coffee_app/helper/custom_colors.dart';
 import 'package:onze_coffee_app/helper/screen.dart';
 import 'package:onze_coffee_app/widget/comment/custom_loading.dart';
@@ -64,15 +63,8 @@ class EmpAddProductScreen extends StatelessWidget {
                                 addProductCubit.files = result.paths
                                     .map((path) => File(path!))
                                     .toList();
-
-                                for (var element in addProductCubit.files) {
-                                  print("the path of file");
-                                  print(element);
-                                }
                               } else {}
-                            } catch (e) {
-                              print(e);
-                            }
+                            } catch (e) {}
                           },
                         ),
                         CustomTextField(
@@ -135,8 +127,6 @@ class EmpAddProductScreen extends StatelessWidget {
                                         onSelected: (value) {
                                           addProductCubit.index = 0;
                                           addProductCubit.updateTempreture();
-                                          print(addProductCubit.tempretures[
-                                              addProductCubit.index]);
                                         },
                                       ),
                                       const SizedBox(
@@ -148,8 +138,6 @@ class EmpAddProductScreen extends StatelessWidget {
                                         onSelected: (value) {
                                           addProductCubit.index = 1;
                                           addProductCubit.updateTempreture();
-                                          print(addProductCubit.tempretures[
-                                              addProductCubit.index]);
                                         },
                                       )
                                     ],
@@ -279,7 +267,6 @@ class EmpAddProductScreen extends StatelessWidget {
                                                                     .categoryLayer
                                                                     .categoryList[
                                                                 index]["id"]);
-                                                    print("delete");
                                                   },
                                                   child: CustomChoiceChip(
                                                     title: categoryReadCubit
@@ -304,8 +291,6 @@ class EmpAddProductScreen extends StatelessWidget {
                                                               .categoryId =
                                                           categoryReadCubit
                                                               .productCategory;
-                                                      print(
-                                                          "value through addProductCubit ID: ${addProductCubit.categoryId}");
                                                       final category = categoryReadCubit
                                                           .categoryLayer
                                                           .categoryList
@@ -321,7 +306,7 @@ class EmpAddProductScreen extends StatelessWidget {
                                                     },
                                                   ),
                                                 ),
-                                                SizedBox(
+                                                const SizedBox(
                                                   width: 10,
                                                 ),
                                               ],

@@ -49,7 +49,7 @@ class CustomButtonBottomSheet extends StatelessWidget {
                       alignment: Alignment.center,
                       child: isEmployee == false
                           ? CustomMainButton(title: title, onPressed: onPressed)
-                          : SizedBox())
+                          : const SizedBox())
                 ],
               )
             : Row(

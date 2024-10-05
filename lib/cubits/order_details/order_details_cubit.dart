@@ -9,24 +9,19 @@ class OrderDetailsCubit extends Cubit<OrderDetailsState> {
   OrderDetailsCubit() : super(OrderDetailsInitial());
   BillModel? bill;
   getOrderDetails(int id) async {
-    print("iam at get order details");
     try {
       bill = await OrderRepository().getBill(id);
-      print(bill?.totalPrice.toString());
      if (!isClosed)  emit(SuccessState());
     } catch (e) {
-      print(e);
     }
   }
 
   Stream<List<Map<String, dynamic>>>? getStatus(int id) {
-    print("getStatus");
     try {
       final res = OrderRepository().getNewStatus(id);
 
       return res;
     } catch (e) {
-      print(e);
     }
     return null;
   }

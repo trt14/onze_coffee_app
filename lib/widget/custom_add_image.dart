@@ -14,7 +14,7 @@ class CustomAddImage extends StatelessWidget {
         constraints: const BoxConstraints(maxWidth: 400),
         decoration: const BoxDecoration(color: AppColor.fivth),
         child: IconButton(
-          icon: Icon(Icons.add),
+          icon: const Icon(Icons.add),
           onPressed: onPressed,
         ),
       ),

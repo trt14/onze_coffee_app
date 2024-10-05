@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get_it/get_it.dart';
-import 'package:onze_coffee_app/data_layer/user_layer.dart';
 import 'package:onze_coffee_app/helper/custom_colors.dart';
 import 'package:onze_coffee_app/helper/screen.dart';
 import 'package:onze_coffee_app/screen/auth/register_screen.dart';
-import 'package:onze_coffee_app/screen/employee/admin_nav.dart';
-import 'package:onze_coffee_app/screen/user/nav_bar/user_nav.dart';
 import 'package:onze_coffee_app/widget/custom_main_button.dart';
 import 'package:onze_coffee_app/widget/custom_text_field.dart';
 

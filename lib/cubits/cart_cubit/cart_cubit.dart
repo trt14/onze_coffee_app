@@ -43,7 +43,6 @@ class CartCubit extends Cubit<CartState> {
             quantity: qnty,
             productID: product.productId));
         updateIncreamentAmount(price: productVarient.price, qnt: 1);
-        // print(totalAmount);
         emit(SuccessCartState(msg: "Done :)"));
       }
     } else {
@@ -54,16 +53,13 @@ class CartCubit extends Cubit<CartState> {
           quantity: qnty,
           productID: product.productId));
       updateIncreamentAmount(price: productVarient.price, qnt: 1);
-      // print(totalAmount);
       emit(SuccessCartState(msg: "Done :)"));
     }
   }
 
   updateIncreamentAmount({required num price, required int qnt}) {
     // totalAmount += (price * qnt);
-    print("totalAmount 1: $totalAmount");
     totalAmount = (price * qnt).toDouble();
-    print("totalAmount 2: $totalAmount");
     emit(SuccessCartState(msg: "Done:)"));
   }
 

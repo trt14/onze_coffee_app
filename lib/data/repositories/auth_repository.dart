@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:get_it/get_it.dart';
 import 'package:onze_coffee_app/data_layer/user_layer.dart';
 import 'package:onze_coffee_app/models/user_model.dart';
@@ -23,28 +21,17 @@ class AuthRepository {
     try {
       await Future.delayed(Duration.zero);
       // Return the auth response if OTP verification is successful
-      print("loginToken");
-      print("get user data");
       // supabase.client.accessToken;
 
       final data =
           await supabase.client.from("users").select("*").eq("email", email);
-      print("print user data after login");
-      print(data);
       GetIt.I.get<UserLayer>().user = UserModel.fromJson(data.first);
-      print("user in singalton after login");
-      print(GetIt.I.get<UserLayer>().user.id);
-      print("return true");
       return true;
-    } on PostgrestException catch (e) {
-      print('Error inserting user data: ${e.message}');
+    } on PostgrestException {
       throw Exception('Error inserting user data');
-    } on AuthException catch (e) {
-      print('AuthException during OTP verification: ${e.message}');
-      print(e.toString());
+    } on AuthException {
       throw Exception('Error during OTP verification');
     } catch (e) {
-      print('Error during OTP verification: $e');
       throw Exception('Error during OTP verification: $e');
     }
   }
@@ -54,16 +41,13 @@ class AuthRepository {
       required String fName,
       required String lName,
       required String phoneNumber}) async {
-    print("iam at sign up supabase function");
     try {
       // Sign up with email to send an email verification OTP
       final response = await supabase.client.auth
           .signUp(email: email, password: "dsfdsafdaf432412");
 
       final user = response.user;
-      print("create user in auth table");
       if (user != null) {
-        print("create user in public user");
         await supabase.client.from('users').insert({
           'id': user.id,
           'email': user.email,
@@ -73,37 +57,26 @@ class AuthRepository {
           'created_at': DateTime.now().toIso8601String(),
         });
       }
-      print("done");
-      print('User signed up with email verification OTP');
-    } on AuthException catch (e) {
+    } on AuthException {
       // Handle Supabase Auth-related exceptions
-      print('AuthException error during sign up: ${e.message}');
       throw Exception('error during sign up email does not exit');
-    } on PostgrestException catch (e) {
+    } on PostgrestException {
       // Handle Supabase PostgREST API-related exceptions
-      print(e);
       throw Exception('can not connect to server');
     } catch (e) {
       // Handle any other exceptions
-      print('Error during sign up: $e');
       // throw Exception('Error during sign up: $e');
     }
   }
 
   Future login({required String email}) async {
-    print("iam at login supabase");
     try {
       await supabase.client.auth.signInWithOtp(email: email);
 
       return true;
-    } on AuthException catch (e) {
-      print('AuthException during OTP verification: ${e.message}');
-      print(e.toString());
-      throw Exception('Error during OTP verification');
-    } catch (e) {
-      print(e.toString());
+    } on AuthException {
+      return false;
     }
-    return false;
   }
 
   /*
@@ -118,7 +91,6 @@ class AuthRepository {
     try {
       await Future.delayed(Duration.zero);
       // Return the auth response if OTP verification is successful
-      print("iam at verifyOtp");
       if (type == 0) {
         await supabase.client.auth
             .verifyOTP(type: OtpType.email, email: email, token: otp);
@@ -126,26 +98,15 @@ class AuthRepository {
         await supabase.client.auth
             .verifyOTP(type: OtpType.signup, email: email, token: otp);
       }
-      print("get user data");
       final data =
           await supabase.client.from("users").select("*").eq("email", email);
-      print("print user data after login");
-      print(data);
       GetIt.I.get<UserLayer>().user = UserModel.fromJson(data.first);
-      print("user in singalton after login");
-      print(GetIt.I.get<UserLayer>().user.id);
-      print("return true");
       return true;
-    } on PostgrestException catch (e) {
-      print('Error inserting user data: ${e.message}');
+    } on PostgrestException {
       throw Exception('Error inserting user data');
-    } on AuthException catch (e) {
-      print('AuthException during OTP verification: ${e.message}');
-      print('email : $email, otp : $otp');
-      print(e.toString());
+    } on AuthException {
       throw Exception('Error during OTP verification');
     } catch (e) {
-      print('Error during OTP verification: $e');
       throw Exception('Error during OTP verification: $e');
     }
   }

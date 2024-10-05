@@ -1,7 +1,6 @@
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:meta/meta.dart';
 import 'package:onze_coffee_app/data/repositories/order_repository.dart';
 import 'package:onze_coffee_app/helper/notificationController.dart';
 import 'package:onze_coffee_app/integrations/supabase/supabase_client.dart';
@@ -55,8 +54,6 @@ class AdminNavCubit extends Cubit<AdminNavState> {
             schema: 'public',
             table: 'orders',
             callback: (value) async {
-              print("look here");
-              print(value.newRecord);
 
               if (value.newRecord["status"] == "holding") {
                 BillModel order =

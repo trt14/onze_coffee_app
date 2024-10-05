@@ -1,5 +1,4 @@
 import 'package:onze_coffee_app/models/cart_product_model.dart';
-import 'package:onze_coffee_app/models/product_model.dart';
 
 class CartModel {
   final List<CartProductModel> products;

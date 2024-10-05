@@ -87,7 +87,7 @@ class ProductView extends StatelessWidget {
                               ),
                             ),
                           )
-                        : SizedBox()
+                        : const SizedBox()
                   ],
                 ),
               )

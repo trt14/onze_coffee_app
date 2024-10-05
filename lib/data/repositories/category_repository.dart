@@ -18,15 +18,10 @@ class CategoryRepository {
           .match({"name": name}).select();
 
       if (dataFound.isNotEmpty) {
-        print("there is data");
       } else {
-        final response =
-            await supabase.client.from("categories").upsert({"name": name});
-        print(response);
+        await supabase.client.from("categories").upsert({"name": name});
       }
-    } catch (e) {
-      print(e.toString());
-    }
+    } catch (e) {}
   }
 
   /*
@@ -43,16 +38,12 @@ class CategoryRepository {
           .select("*")
           .match({"name": name}).select();
       if (dataFound.isNotEmpty) {
-        print("there is data");
       } else {
-        final response = await supabase.client
+        await supabase.client
             .from("categories")
             .update({"name": name}).eq("id", id);
-        print(response);
       }
-    } catch (e) {
-      print(e.toString());
-    }
+    } catch (e) {}
   }
 
   /*
@@ -71,18 +62,10 @@ class CategoryRepository {
           .select();
 
       if (dataFound.isNotEmpty) {
-        print("there is data");
       } else {
-        final response = await supabase.client
-            .from("categories")
-            .delete()
-            .eq("id", id)
-            .select();
-        print(response);
+        await supabase.client.from("categories").delete().eq("id", id).select();
       }
-    } catch (e) {
-      print(e.toString());
-    }
+    } catch (e) {}
   }
 
   /*
@@ -92,13 +75,10 @@ class CategoryRepository {
   *
   * */
   Future<List<Map<String, dynamic>>> getAllCategories() async {
-    print("iam at getAllCategories");
     try {
       final response = await supabase.client.from("categories").select("*");
       return response;
     } catch (e) {
-      print(e.toString());
-
       return [];
     }
   }
@@ -108,8 +88,6 @@ class CategoryRepository {
       List<Map<String, dynamic>> response =
           await supabase.client.rpc("get_distinct_category_names");
       return response;
-    } catch (e) {
-      print(e);
-    }
+    } catch (e) {}
   }
 }

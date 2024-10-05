@@ -91,7 +91,7 @@ class EmpHomeScreen extends StatelessWidget {
                                                       const SingleChildScrollView(
                                                     child: Text(
                                                       "YOUR GOING TO REJECT THIS ORDER",
-                                                      style: const TextStyle(
+                                                      style: TextStyle(
                                                           color:
                                                               AppColor.white),
                                                     ),
@@ -99,7 +99,7 @@ class EmpHomeScreen extends StatelessWidget {
                                                   actions: <Widget>[
                                                     Center(
                                                       child: TextButton(
-                                                        style: ButtonStyle(
+                                                        style: const ButtonStyle(
                                                             backgroundColor:
                                                                 WidgetStatePropertyAll(
                                                                     AppColor

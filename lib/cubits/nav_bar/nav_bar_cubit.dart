@@ -2,7 +2,6 @@ import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:meta/meta.dart';
 import 'package:onze_coffee_app/data/repositories/auth_repository.dart';
 import 'package:onze_coffee_app/data/repositories/order_repository.dart';
 import 'package:onze_coffee_app/data_layer/user_layer.dart';
@@ -42,11 +41,7 @@ class NavBarCubit extends Cubit<NavBarState> {
             schema: 'public',
             table: 'orders',
             callback: (value) async {
-              print("look here");
-              print(value.newRecord);
-              print(userLayer.user.id);
               if (value.newRecord["user_id"] == userLayer.user.id) {
-                print("show notification");
                 BillModel order =
                     await OrderRepository().getOrderById(value.newRecord["id"]);
 
@@ -73,10 +68,8 @@ class NavBarCubit extends Cubit<NavBarState> {
       userLayer.myCart.clear();
       userLayer.totalAmount = 0;
       userLayer.user = UserModel.empty();
-      print(userLayer.user);
       emit(SuccessLogoutState());
     } catch (e) {
-      print(e);
     }
   }
 }

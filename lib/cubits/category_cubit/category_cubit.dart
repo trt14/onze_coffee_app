@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get_it/get_it.dart';
-import 'package:meta/meta.dart';
 import 'package:onze_coffee_app/data/repositories/category_repository.dart';
 import 'package:onze_coffee_app/data_layer/category_layer.dart';
 
@@ -19,9 +18,7 @@ class CategoryCubit extends Cubit<CategoryState> {
   addNewCategoryEvent() async {
     if (!isClosed) emit(LoadingCategoryState());
     try {
-      final response = await CategoryRepository()
-          .addNewCategory(name: txtEditController.text);
-      print(response);
+      await CategoryRepository().addNewCategory(name: txtEditController.text);
       if (!isClosed) emit(SuccessCategoryState(msg: "Done:)"));
       await fetchCategoriesEvent();
     } catch (e) {
@@ -29,11 +26,10 @@ class CategoryCubit extends Cubit<CategoryState> {
     }
   }
 
-  deleteCategoryEvent({required int categoryID}) {
+  deleteCategoryEvent({required int categoryID}) async {
     if (!isClosed) emit(LoadingCategoryState());
     try {
-      final response = CategoryRepository().deleteCategory(id: categoryID);
-      print(response);
+      await CategoryRepository().deleteCategory(id: categoryID);
       fetchCategoriesEvent();
       if (!isClosed) emit(SuccessCategoryState(msg: "Delete it Done:)"));
     } catch (e) {
@@ -41,12 +37,10 @@ class CategoryCubit extends Cubit<CategoryState> {
     }
   }
 
-  updateCategoryEvent({required int categoryID, required String name}) {
+  updateCategoryEvent({required int categoryID, required String name}) async {
     if (!isClosed) emit(LoadingCategoryState());
     try {
-      final response =
-          CategoryRepository().updateCategory(id: categoryID, name: name);
-      print(response);
+      await CategoryRepository().updateCategory(id: categoryID, name: name);
       if (!isClosed) emit(SuccessCategoryState(msg: "Update it Done:)"));
     } catch (e) {
       if (!isClosed) emit(ErrorCategoryState(msg: e.toString()));
@@ -55,7 +49,6 @@ class CategoryCubit extends Cubit<CategoryState> {
 
   fetchCategoriesEvent() async {
     Future.delayed(Duration.zero);
-    print("fetchCategoriesEvent");
     if (!isClosed) emit(LoadingCategoryState());
     try {
       categoryLayer.userCategories =
@@ -67,7 +60,6 @@ class CategoryCubit extends Cubit<CategoryState> {
           categoryLayer.userCategories.reversed.toList();
       if (!isClosed) emit(SuccessCategoryState(msg: "msg"));
     } catch (e) {
-      print(e);
       if (!isClosed) emit(ErrorCategoryState(msg: e.toString()));
     }
   }

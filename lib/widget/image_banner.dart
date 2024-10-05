@@ -26,7 +26,7 @@ class ImageBanner extends StatelessWidget {
           ],
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
-          stops: [0.5, 0.5],
+          stops: const [0.5, 0.5],
         ),
       ),
       child: Image.asset(imageSrc),

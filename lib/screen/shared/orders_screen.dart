@@ -25,7 +25,6 @@ class OrdersScreen extends StatelessWidget {
               }
 
               if (state is LoadingOrderState) {
-                print("iam at loading state");
                 customLoading(context: context);
               }
             },
@@ -34,7 +33,7 @@ class OrdersScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     height: 30,
                   ),
                   const Text(
@@ -92,7 +91,7 @@ class OrdersScreen extends StatelessWidget {
                                   ),
                                 );
                               })
-                          : Center(
+                          : const Center(
                               child: Text("No orders!"),
                             );
                     },

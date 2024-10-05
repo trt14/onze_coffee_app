@@ -10,7 +10,7 @@ showAlertSnackBar(
     content: Center(
       child: Text(
         title,
-        style: TextStyle(color: AppColor.white),
+        style: const TextStyle(color: AppColor.white),
       ),
     ),
     backgroundColor: colorStatus,
