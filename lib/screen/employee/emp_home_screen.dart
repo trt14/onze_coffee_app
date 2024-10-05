@@ -74,35 +74,60 @@ class EmpHomeScreen extends StatelessWidget {
                                             showDialog<void>(
                                               context: context,
                                               barrierDismissible:
-                                                  false, // user must tap button!
+                                                  true, // user must tap button!
                                               builder: (BuildContext context) {
                                                 return AlertDialog(
-                                                  title: const Text('ALERT'),
+                                                  backgroundColor:
+                                                      AppColor.secondary,
+                                                  title: Center(
+                                                    child: Text(
+                                                      'ALERT #${empHomeCubit.orderDataLayer.orders[index].billId}',
+                                                      style: const TextStyle(
+                                                          color:
+                                                              AppColor.white),
+                                                    ),
+                                                  ),
                                                   content:
                                                       const SingleChildScrollView(
                                                     child: Text(
-                                                        "YOUR GOING TO REJECT THIS ORDER"),
+                                                      "YOUR GOING TO REJECT THIS ORDER",
+                                                      style: const TextStyle(
+                                                          color:
+                                                              AppColor.white),
+                                                    ),
                                                   ),
                                                   actions: <Widget>[
-                                                    TextButton(
-                                                      child: const Text(
-                                                        'Reject',
-                                                        style: TextStyle(
-                                                            color: AppColor
-                                                                .secondary),
+                                                    Center(
+                                                      child: TextButton(
+                                                        style: ButtonStyle(
+                                                            backgroundColor:
+                                                                WidgetStatePropertyAll(
+                                                                    AppColor
+                                                                        .fivth)),
+                                                        child: const Text(
+                                                          'Reject',
+                                                          style: TextStyle(
+                                                              color: AppColor
+                                                                  .secondary,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold),
+                                                        ),
+                                                        onPressed: () async {
+                                                          await empHomeCubit.updateOrder(
+                                                              status:
+                                                                  "rejected",
+                                                              billId: empHomeCubit
+                                                                  .orderDataLayer
+                                                                  .orders[index]
+                                                                  .billId);
+                                                          if (context.mounted) {
+                                                            Navigator.of(
+                                                                    context)
+                                                                .pop();
+                                                          }
+                                                        },
                                                       ),
-                                                      onPressed: () async {
-                                                        await empHomeCubit.updateOrder(
-                                                            status: "rejected",
-                                                            billId: empHomeCubit
-                                                                .orderDataLayer
-                                                                .orders[index]
-                                                                .billId);
-                                                        if (context.mounted) {
-                                                          Navigator.of(context)
-                                                              .pop();
-                                                        }
-                                                      },
                                                     ),
                                                   ],
                                                 );

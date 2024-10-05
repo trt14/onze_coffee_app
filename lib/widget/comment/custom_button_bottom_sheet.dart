@@ -5,55 +5,61 @@ import 'package:onze_coffee_app/widget/custom_main_button.dart';
 
 class CustomButtonBottomSheet extends StatelessWidget {
   const CustomButtonBottomSheet(
-      {super.key, this.price = "", this.onPressed, required this.title});
+      {super.key,
+      this.price = "",
+      this.onPressed,
+      required this.title,
+      this.isEmployee = false});
   final String? price;
   final void Function()? onPressed;
   final String title;
+  final bool isEmployee;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: context.getHeight(value: .15),
-      decoration: const BoxDecoration(
-        color: Color(0xfffff8ff),
-      ),
-      child: price != ""
-          ? Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                SizedBox(
-                  height: context.getHeight(value: 1),
-                  width: context.getWidth(value: .3),
-                  child: ListTile(
-                    titleTextStyle: const TextStyle(
-                        color: AppColor.black,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20),
-                    title: const Padding(
-                      padding: EdgeInsets.only(bottom: 15.0),
-                      child: Text("Price"),
+        height: context.getHeight(value: .15),
+        decoration: const BoxDecoration(
+          color: Color(0xfffff8ff),
+        ),
+        child: price != ""
+            ? Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  SizedBox(
+                    height: context.getHeight(value: 1),
+                    width: context.getWidth(value: .3),
+                    child: ListTile(
+                      titleTextStyle: const TextStyle(
+                          color: AppColor.black,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20),
+                      title: const Padding(
+                        padding: EdgeInsets.only(bottom: 15.0),
+                        child: Text("Price"),
+                      ),
+                      subtitleTextStyle: const TextStyle(
+                          color: AppColor.secondary,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20),
+                      subtitle: Text("$price SAR"),
                     ),
-                    subtitleTextStyle: const TextStyle(
-                        color: AppColor.secondary,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20),
-                    subtitle: Text("$price SAR"),
                   ),
-                ),
-                Align(
-                    alignment: Alignment.center,
-                    child: CustomMainButton(title: title, onPressed: onPressed))
-              ],
-            )
-          : Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                CustomMainButton(
-                  title: title,
-                  onPressed: onPressed,
-                ),
-              ],
-            ),
-    );
+                  Align(
+                      alignment: Alignment.center,
+                      child: isEmployee == false
+                          ? CustomMainButton(title: title, onPressed: onPressed)
+                          : SizedBox())
+                ],
+              )
+            : Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CustomMainButton(
+                    title: title,
+                    onPressed: onPressed,
+                  ),
+                ],
+              ));
   }
 }
