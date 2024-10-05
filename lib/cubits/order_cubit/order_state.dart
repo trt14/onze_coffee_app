@@ -32,3 +32,4 @@ final class SuccessOrderState extends OrderState {
 }
 
 final class SuccessState extends OrderState {}
+final class FailedState extends OrderState{}

@@ -15,6 +15,40 @@ class AuthRepository {
   *
   * TODO replace logs after successful sign up with
   * */
+  String getCurrentUser() {
+    return supabase.client.auth.currentUser?.email ?? "";
+  }
+
+  Future loginToken({required String email}) async {
+    try {
+      await Future.delayed(Duration.zero);
+      // Return the auth response if OTP verification is successful
+      print("loginToken");
+      print("get user data");
+      // supabase.client.accessToken;
+
+      final data =
+          await supabase.client.from("users").select("*").eq("email", email);
+      print("print user data after login");
+      print(data);
+      GetIt.I.get<UserLayer>().user = UserModel.fromJson(data.first);
+      print("user in singalton after login");
+      print(GetIt.I.get<UserLayer>().user.id);
+      print("return true");
+      return true;
+    } on PostgrestException catch (e) {
+      print('Error inserting user data: ${e.message}');
+      throw Exception('Error inserting user data');
+    } on AuthException catch (e) {
+      print('AuthException during OTP verification: ${e.message}');
+      print(e.toString());
+      throw Exception('Error during OTP verification');
+    } catch (e) {
+      print('Error during OTP verification: $e');
+      throw Exception('Error during OTP verification: $e');
+    }
+  }
+
   Future<void> signUp(
       {required String email,
       required String fName,

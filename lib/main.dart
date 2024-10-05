@@ -5,6 +5,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:onze_coffee_app/screen/auth/otp_screen.dart';
 import 'package:onze_coffee_app/screen/auth/register_screen.dart';
 import 'package:onze_coffee_app/screen/employee/admin_nav.dart';
+import 'package:onze_coffee_app/screen/shared/auth_check_screen.dart';
 import 'package:onze_coffee_app/screen/user/nav_bar/user_nav.dart';
 import 'package:onze_coffee_app/screen/user/user_home_screen.dart';
 
@@ -24,8 +25,8 @@ void main() async {
     url: dotenv.env['SUPABASE_URL'] ?? '',
     anonKey: dotenv.env['SUPABASE_ANON_KEY'] ?? '',
   );
-  setup();
 
+  setup();
   runApp(DevicePreview(
     enabled: !kReleaseMode,
     builder: (context) => const MainApp(), // Wrap your app
@@ -37,6 +38,7 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(debugShowCheckedModeBanner: false, home: LoginScreen());
+    return const MaterialApp(
+        debugShowCheckedModeBanner: false, home: AuthCheckScreen());
   }
 }

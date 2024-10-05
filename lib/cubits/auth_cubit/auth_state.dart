@@ -14,6 +14,7 @@ class AuthLoading extends AuthState {}
 
 // Success state when authentication or OTP verification succeeds
 class AuthSuccess extends AuthState {}
+class AuthSuccessToken extends AuthState {}
 
 // Failure state with an error message
 class AuthFailure extends AuthState {

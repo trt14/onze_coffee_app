@@ -1,6 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+import 'package:onze_coffee_app/data_layer/user_layer.dart';
 
 import '../../data/repositories/auth_repository.dart';
 
@@ -14,6 +16,19 @@ class AuthCubit extends Cubit<AuthState> {
   final TextEditingController lastNameController = TextEditingController();
 
   AuthCubit() : super(AuthInitial());
+  final userLayer = GetIt.I.get<UserLayer>();
+  void loginCurrentUser() async {
+    await Future.delayed(Duration.zero);
+    emit(AuthLoading());
+
+    try {
+      String email =  AuthRepository().getCurrentUser();
+      if (email != "") await AuthRepository().loginToken(email: email);
+      emit(AuthSuccessToken());
+    } catch (error) {
+      emit(AuthFailure(error.toString()));
+    }
+  }
 
   /*
   *
@@ -56,8 +71,9 @@ class AuthCubit extends Cubit<AuthState> {
     emit(AuthLoading());
     try {
       // Call the repository function to send the OTP to the email
-     bool status = await AuthRepository().login(email: emailController.text.trim());
-     if(status) emit(AuthSuccess());
+      bool status =
+          await AuthRepository().login(email: emailController.text.trim());
+      if (status) emit(AuthSuccess());
     } catch (error) {
       emit(AuthFailure('Failed to send OTP. Please try again.'));
     }

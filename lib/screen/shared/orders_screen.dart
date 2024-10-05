@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onze_coffee_app/cubits/order_cubit/order_cubit.dart';
 import 'package:onze_coffee_app/helper/custom_colors.dart';
+import 'package:onze_coffee_app/helper/order_status.dart';
 import 'package:onze_coffee_app/screen/shared/order_details_screen.dart';
 import 'package:onze_coffee_app/widget/comment/custom_loading.dart';
 import 'package:onze_coffee_app/widget/custom_container_order.dart';
@@ -19,14 +20,14 @@ class OrdersScreen extends StatelessWidget {
           padding: const EdgeInsets.all(16.0),
           child: BlocListener<OrderCubit, OrderState>(
             listener: (context, state) {
-                 if (state is SuccessState) {
-              Navigator.pop(context);
-            }
+              if (state is SuccessState) {
+                Navigator.pop(context);
+              }
 
-            if (state is LoadingOrderState) {
-              print("iam at loading state");
-              customLoading(context: context);
-            }
+              if (state is LoadingOrderState) {
+                print("iam at loading state");
+                customLoading(context: context);
+              }
             },
             child: SingleChildScrollView(
               child: Column(
@@ -43,14 +44,15 @@ class OrdersScreen extends StatelessWidget {
                   ),
                   BlocBuilder<OrderCubit, OrderState>(
                     builder: (context, state) {
-                      return Column(children: [
-                        ...List.generate(orderCubit.bills.length, (int index) {
-                          return Column(
-                            children: [
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              InkWell(
+                      return ListView.builder(
+                          cacheExtent: 10,
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: orderCubit.bills.length,
+                          itemBuilder: (context, index) {
+                            return Container(
+                              margin: const EdgeInsets.only(top: 10),
+                              child: InkWell(
                                 onTap: () {
                                   Navigator.push(
                                     context,
@@ -80,10 +82,8 @@ class OrdersScreen extends StatelessWidget {
                                             "${element.name} x${element.qty}")
                                         .toString()),
                               ),
-                            ],
-                          );
-                        }),
-                      ]);
+                            );
+                          });
                     },
                   ),
                 ],
@@ -94,11 +94,4 @@ class OrdersScreen extends StatelessWidget {
       }),
     );
   }
-}
-
-statusColor(String status) {
-  if (status == "holding") return AppColor.forth;
-  if (status == "processing") return AppColor.forth;
-  if (status == "rejected") return AppColor.secondary;
-  return AppColor.primary;
 }

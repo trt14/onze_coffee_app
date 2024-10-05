@@ -13,9 +13,12 @@ class OrderCubit extends Cubit<OrderState> {
   final userLayer = GetIt.I.get<UserLayer>();
   List<BillModel> bills = [];
   OrderCubit() : super(OrderInitial()) {
-    getBills();
+    if (userLayer.user.role == "employee") {
+      getBills();
+    } else {
+      getUserBills();
+    }
   }
-  // userID: "e1552d62-c042-4130-9d9c-7f6dceb3d966",
 
   Future<int> addNewOrder() async {
     if (!isClosed) emit(LoadingOrderState());
@@ -92,6 +95,18 @@ class OrderCubit extends Cubit<OrderState> {
       if (!isClosed) emit(SuccessState());
     } catch (e) {
       print(e);
+      emit(FailedState());
+    }
+  }
+
+  getUserBills() async {
+    await Future.delayed(Duration.zero);
+    if (!isClosed) emit(LoadingOrderState());
+    try {
+      bills = await OrderRepository().getUserBill(id: userLayer.user.id);
+      if (!isClosed) emit(SuccessState());
+    } catch (e) {
+      emit(FailedState());
     }
   }
 
