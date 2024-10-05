@@ -23,35 +23,56 @@ class CustomButtonBottomSheet extends StatelessWidget {
           color: Color(0xfffff8ff),
         ),
         child: price != ""
-            ? Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  SizedBox(
-                    height: context.getHeight(value: 1),
-                    width: context.getWidth(value: .3),
-                    child: ListTile(
-                      titleTextStyle: const TextStyle(
-                          color: AppColor.black,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20),
-                      title: const Padding(
-                        padding: EdgeInsets.only(bottom: 15.0),
-                        child: Text("Price"),
+            ? isEmployee == false
+                ? Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      SizedBox(
+                        height: context.getHeight(value: 1),
+                        width: context.getWidth(value: .3),
+                        child: ListTile(
+                          titleTextStyle: const TextStyle(
+                              color: AppColor.black,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20),
+                          title: const Padding(
+                            padding: EdgeInsets.only(bottom: 15.0),
+                            child: Text("Price"),
+                          ),
+                          subtitleTextStyle: const TextStyle(
+                              color: AppColor.secondary,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20),
+                          subtitle: Text("$price SAR"),
+                        ),
                       ),
-                      subtitleTextStyle: const TextStyle(
-                          color: AppColor.secondary,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20),
-                      subtitle: Text("$price SAR"),
-                    ),
-                  ),
-                  Align(
-                      alignment: Alignment.center,
-                      child: isEmployee == false
-                          ? CustomMainButton(title: title, onPressed: onPressed)
-                          : const SizedBox())
-                ],
-              )
+                      Align(
+                          alignment: Alignment.center,
+                          child: isEmployee == false
+                              ? CustomMainButton(
+                                  title: title, onPressed: onPressed)
+                              : const SizedBox())
+                    ],
+                  )
+                : Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Price ",
+                        style: const TextStyle(
+                            color: AppColor.black,
+                            fontWeight: FontWeight.w500,
+                            fontSize: 20),
+                      ),
+                      Text(
+                        "$price SAR",
+                        style: const TextStyle(
+                            color: AppColor.secondary,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20),
+                      )
+                    ],
+                  )
             : Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

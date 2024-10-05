@@ -38,8 +38,10 @@ class ProductView extends StatelessWidget {
                         height: 100,
                         child: CachedNetworkImage(
                           imageUrl: imageSrc,
-                          placeholder: (context, url) =>
-                              const Center(child: CircularProgressIndicator()),
+                          placeholder: (context, url) => const Center(
+                              child: CircularProgressIndicator(
+                            color: AppColor.secondary,
+                          )),
                           errorWidget: (context, url, error) => Image.asset(
                               "assets/logo/onze_logo.png",
                               height: 100),

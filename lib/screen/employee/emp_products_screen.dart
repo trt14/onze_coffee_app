@@ -18,6 +18,8 @@ class EmpProductsScreen extends StatelessWidget {
         builder: (context) {
           final homeCubit = context.read<UserHomeCubit>();
           return RefreshIndicator(
+            color: AppColor.white,
+            backgroundColor: AppColor.secondary,
             onRefresh: () async {
               homeCubit.userProductCategory = -1;
               await homeCubit.getProducts();
