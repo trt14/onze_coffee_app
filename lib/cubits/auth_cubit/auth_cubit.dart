@@ -46,13 +46,15 @@ class AuthCubit extends Cubit<AuthState> {
   *
   * */
   Future<void> verifyEmailOtp(
-      {required String email, required String otp}) async {
+      {required String email, required String otp,required int type}) async {
     await Future.delayed(Duration.zero);
 
     emit(AuthLoading());
     try {
+
       // Call the repository function to verify OTP
       final result = await AuthRepository().verifyOtp(
+        type: type,
         email: email,
         otp: otp,
       );

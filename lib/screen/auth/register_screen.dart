@@ -64,7 +64,7 @@ class RegisterScreen extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => OtpScreen(
+                            builder: (context) => OtpScreen( type: 1,
                               email: authCubit.emailController.text,
                             ),
                           ),
@@ -86,15 +86,7 @@ class RegisterScreen extends StatelessWidget {
                               color: AppColor.secondary,
                               onPressed: () async {
                                 await authCubit.signUp();
-                                if (context.mounted) {
-                                  Navigator.pushReplacement(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => OtpScreen(
-                                              email: authCubit
-                                                  .emailController.text
-                                                  .trim())));
-                                }
+                       
                               },
                             );
                     },

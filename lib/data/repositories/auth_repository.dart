@@ -75,7 +75,6 @@ class AuthRepository {
       }
       print("done");
       print('User signed up with email verification OTP');
-      login(email: email);
     } on AuthException catch (e) {
       // Handle Supabase Auth-related exceptions
       print('AuthException error during sign up: ${e.message}');
@@ -114,16 +113,19 @@ class AuthRepository {
   * TODO replace logs after successful with throw Exception statements
 
   * */
-  Future verifyOtp({
-    required String email,
-    required String otp,
-  }) async {
+  Future verifyOtp(
+      {required String email, required String otp, required int type}) async {
     try {
       await Future.delayed(Duration.zero);
       // Return the auth response if OTP verification is successful
       print("iam at verifyOtp");
-      await supabase.client.auth
-          .verifyOTP(type: OtpType.email, email: email, token: otp);
+      if (type == 0) {
+        await supabase.client.auth
+            .verifyOTP(type: OtpType.email, email: email, token: otp);
+      } else {
+        await supabase.client.auth
+            .verifyOTP(type: OtpType.signup, email: email, token: otp);
+      }
       print("get user data");
       final data =
           await supabase.client.from("users").select("*").eq("email", email);

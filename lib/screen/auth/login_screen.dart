@@ -53,7 +53,7 @@ class LoginScreen extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => OtpScreen(
+                            builder: (context) => OtpScreen(type: 0,
                               email: authCubit.emailController.text.trim(),
                             ),
                           ),
@@ -75,9 +75,7 @@ class LoginScreen extends StatelessWidget {
                               color: AppColor.secondary,
                               onPressed: () async {
                                 await authCubit.eventLogin();
-                                if (context.mounted) {
-                                  Navigator.pop(context);
-                                }
+                             
                               },
                             );
                     },

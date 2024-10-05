@@ -11,9 +11,9 @@ import 'package:onze_coffee_app/widget/custom_pinput.dart';
 import '../../cubits/auth_cubit/auth_cubit.dart';
 
 class OtpScreen extends StatelessWidget {
-  const OtpScreen({super.key, required this.email});
+  const OtpScreen({super.key, required this.email, required this.type});
   final String email;
-
+  final int type;
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -27,24 +27,19 @@ class OtpScreen extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text('Please enter the OTP sent to ',
-                        style: TextStyle(
-                          color: AppColor.white,
-                        )),
-                    Text('\n$email',
-                        softWrap: true,
-                        style: const TextStyle(
-                            color: AppColor.forth,
-                            fontWeight: FontWeight.bold)),
-                  ],
-                ),
+                const Text('Please enter the OTP sent to ',
+                    style: TextStyle(
+                      color: AppColor.white,
+                    )),
+                Text('\n$email',
+                    softWrap: true,
+                    style: const TextStyle(
+                        color: AppColor.forth, fontWeight: FontWeight.bold)),
                 const SizedBox(height: 20),
                 CustomPinput(
                   onCompleted: (otp) async {
-                    await authCubit.verifyEmailOtp(email: email, otp: otp);
+                      await authCubit.verifyEmailOtp(email: email, otp: otp,type: type);
+                  
                   },
                 ),
                 const SizedBox(height: 20),
