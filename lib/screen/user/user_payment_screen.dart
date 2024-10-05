@@ -37,53 +37,58 @@ class UserPaymentScreen extends StatelessWidget {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    CreditCard(
-                      config: paymentConfig,
-                      onPaymentResult: (PaymentResponse result) async {
-                        if (result.status == PaymentStatus.paid) {
-                          await orderReadcubit.addNewPayment(
-                              paymentMethod: "MADA",
-                              paymentStatus: "paid",
-                              orderID: orderID,
-                              transicitionID: result.id,
-                              amount: amount.toDouble());
+                    Image.asset("assets/logo/onze logo-color.png"),
+                    Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: CreditCard(
+                        config: paymentConfig,
+                        onPaymentResult: (PaymentResponse result) async {
+                          if (result.status == PaymentStatus.paid) {
+                            await orderReadcubit.addNewPayment(
+                                paymentMethod: "MADA",
+                                paymentStatus: "paid",
+                                orderID: orderID,
+                                transicitionID: result.id,
+                                amount: amount.toDouble());
 
-                          if (context.mounted) {
-                            Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => OrderDetailsScreen(
-                                        billId: orderID,
-                                      )),
-                            );
+                            if (context.mounted) {
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => OrderDetailsScreen(
+                                          billId: orderID,
+                                        )),
+                              );
+                            }
+                            if (context.mounted) {
+                              showAlertSnackBar(
+                                  context: context,
+                                  color: AppColor.primary,
+                                  title:
+                                      "Your order was created successfully :)",
+                                  colorStatus: AppColor.primary);
+                            }
                           }
-                          if (context.mounted) {
-                            showAlertSnackBar(
-                                context: context,
-                                color: AppColor.primary,
-                                title: "Your order was created successfully :)",
-                                colorStatus: AppColor.primary);
-                          }
-                        }
 
-                        if (result.status == PaymentStatus.failed) {
-                          await orderReadcubit.addNewPayment(
-                              paymentMethod: "MADA",
-                              paymentStatus: "failed",
-                              orderID: orderID,
-                              transicitionID: result.id,
-                              amount: amount.toDouble());
-                          if (context.mounted) Navigator.pop(context);
-                          if (context.mounted) {
-                            showAlertSnackBar(
-                                context: context,
-                                color: AppColor.secondary,
-                                title:
-                                    "Sorry :(! payment was failed , try again!",
-                                colorStatus: AppColor.secondary);
+                          if (result.status == PaymentStatus.failed) {
+                            await orderReadcubit.addNewPayment(
+                                paymentMethod: "MADA",
+                                paymentStatus: "failed",
+                                orderID: orderID,
+                                transicitionID: result.id,
+                                amount: amount.toDouble());
+                            if (context.mounted) Navigator.pop(context);
+                            if (context.mounted) {
+                              showAlertSnackBar(
+                                  context: context,
+                                  color: AppColor.secondary,
+                                  title:
+                                      "Sorry :(! payment was failed , try again!",
+                                  colorStatus: AppColor.secondary);
+                            }
                           }
-                        }
-                      },
+                        },
+                      ),
                     )
                   ],
                 ),

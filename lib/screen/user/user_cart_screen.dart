@@ -51,7 +51,7 @@ class UserCartScreen extends StatelessWidget {
                         }
                       },
                     )
-                  : SizedBox();
+                  : const SizedBox();
             }),
           ),
           appBar: AppBar(
@@ -74,8 +74,8 @@ class UserCartScreen extends StatelessWidget {
                   builder: (context, state) {
                     if (state is EmptyCartState ||
                         cartReadCubit.userDataLayer.myCart.isEmpty) {
-                      return Center(
-                        child: const Text("Empty Cart",
+                      return const Center(
+                        child: Text("Empty Cart",
                             style: TextStyle(
                                 color: AppColor.secondary, fontSize: 20)),
                       );
@@ -136,7 +136,7 @@ class UserCartScreen extends StatelessWidget {
                                     cart: cartReadCubit.userDataLayer.myCart)
                                 .toString(),
                           )
-                        : SizedBox();
+                        : const SizedBox();
                   },
                 )
               ],
