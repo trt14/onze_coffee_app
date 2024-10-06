@@ -51,7 +51,18 @@ This system aims to develop a coffee shop management application that allows cus
 ### Screenshot
 Here is a screenshot of the current database structure used in the application:
 
-![Database Screenshot](path/to/screenshot)
+![Database Screenshot](sample/Screenshot27.png)
+![Database Screenshot](sample/image1.png)
+![Database Screenshot](sample/image2.png)
+![Database Screenshot](sample/image3.png)
+![Database Screenshot](sample/image4.png)
+![Database Screenshot](sample/image5.png)
+![Database Screenshot](sample/image6.png)
+![Database Screenshot](sample/image7.png)
+![Database Screenshot](sample/image8.png)
+![Database Screenshot](sample/image9.png)
+![Database Screenshot](sample/image10.png)
+
 
 ---
 

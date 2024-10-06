@@ -57,7 +57,7 @@ class ProductView extends StatelessWidget {
               ListTile(
                 title: Text(
                   name,
-                  style: TextStyle(fontSize: 14),
+                  style: const TextStyle(fontSize: 12),
                 ),
                 subtitle: Text(type),
               ),

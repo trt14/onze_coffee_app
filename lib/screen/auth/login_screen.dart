@@ -81,7 +81,7 @@ class LoginScreen extends StatelessWidget {
                   const SizedBox(height: 20),
                   TextButton(
                     onPressed: () {
-                      Navigator.pushReplacement(
+                      Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (context) => const RegisterScreen(),
