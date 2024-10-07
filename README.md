@@ -119,5 +119,12 @@ To run the Coffee Shop Management System app from GitHub, follow these steps:
 
 Make sure your device (emulator or physical device) is connected and recognized by Flutter.
 
+### ENV
+  ```
+SUPABASE_URL = "https://lzyhgpuojefedqzcupzv.supabase.co"
+SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx6eWhncHVvamVmZWRxemN1cHp2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjczOTAxOTIsImV4cCI6MjA0Mjk2NjE5Mn0.-Pm9ifmLAgiNY4GffzLHQsUbvIXCaeXv956x3DviJGo"
+MOYASAR_PK = "pk_test_C9TSi5aQwrKhoC1SN8jbs49sXW9NK37t1UZH25ne"
+   ```
+
 ---
 
